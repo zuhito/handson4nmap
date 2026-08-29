@@ -35,6 +35,13 @@ OPC UA サーバのエンドポイントと認証方式を取得します。
 nmap -p 4840 --script ./opcua.nse 127.0.0.1
 ```
 
+OpenVPN サーバのセッション情報を取得します。
+
+```bash
+nmap -p 1194 --script ./openvpn.nse <host>
+nmap -sU -p 1194 --script ./openvpn.nse <host>
+```
+
 まとめて実行します。
 
 ```bash
@@ -49,6 +56,7 @@ bash test.sh
 | `opcua_server.py` | opcua によるOPC UAサーバ |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
+| `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
 | `install.sh` | nmap / pymodbus / Node-RED の導入 |
 | `start.sh` | 各サーバの起動 |
 | `test.sh` | 起動とスキャン結果の検証 |
