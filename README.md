@@ -51,5 +51,5 @@ bash test.sh
 ポートが60秒以内に開かない場合や、スキャン結果が期待と異なる場合は異常終了します。
 
 GitHub Actions は Codespaces と同じ `universal:2-linux` イメージを、
-Codespaces と同じ非rootユーザ `codespace` で実行します。
-root で実行すると特権ポートの問題が表面化せず、回帰を見逃すためです。
+Codespaces と同じ root ユーザで実行します。
+実行条件を揃えることで、片方だけで動くという状態を防ぎます。
