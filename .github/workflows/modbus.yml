@@ -23,7 +23,7 @@ jobs:
 
       - name: Start Modbus server
         run: |
-          sudo -E "$(which python3)" modbus_test_server.py > server.log 2>&1 &
+          sudo -E "$(which python3)" modbus_server.py > server.log 2>&1 &
           for i in $(seq 1 15); do
             nc -z 127.0.0.1 502 && exit 0
             sleep 1
