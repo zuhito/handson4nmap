@@ -1,5 +1,5 @@
 {
-  "postCreateCommand": "bash setup.sh",
+  "postCreateCommand": "bash install.sh",
   "postStartCommand": "bash start.sh",
   "postAttachCommand": "bash start.sh"
 }

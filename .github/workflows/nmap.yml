@@ -8,5 +8,5 @@ jobs:
     container: mcr.microsoft.com/devcontainers/universal:2-linux
     steps:
       - uses: actions/checkout@v4
-      - run: bash setup.sh
+      - run: bash install.sh
       - run: bash test.sh
