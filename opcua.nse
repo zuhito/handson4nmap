@@ -10,7 +10,8 @@ GetEndpoints without opening a session.
 
 Reports the endpoint URL that clients must use, the security mode and policy
 of each endpoint, the user identity tokens the server accepts and the
-server time taken from the response header.
+server time taken from the response header. The server time is compared with
+the scanning host clock and the difference is reported as the clock skew.
 ]]
 
 ---
@@ -22,6 +23,7 @@ server time taken from the response header.
 -- 4840/tcp open  opcua
 -- | opcua:
 -- |   Server time: 2026-08-29 15:42:43Z
+-- |   Clock skew: +0s
 -- |   Application URI: urn:freeopcua:python:server
 -- |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 -- |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
@@ -47,8 +49,12 @@ local function dec_str(buf, pos)
   return string.sub(buf, p, p + len - 1), p + len
 end
 
+local function to_ticks(epoch)
+  return (epoch + 11644473600) * 10000000
+end
+
 local function request_header()
-  return "\x00\x00" .. string.pack("<i8", 0) .. string.pack("<I4", 1)
+  return "\x00\x00" .. string.pack("<i8", to_ticks(os.time())) .. string.pack("<I4", 1)
     .. string.pack("<I4", 0) .. enc_str(nil) .. string.pack("<I4", 10000)
     .. "\x00\x00\x00"
 end
@@ -74,9 +80,26 @@ local function recv_message(read)
   return string.sub(header, 1, 4), read(size - 8)
 end
 
-local function to_time(ticks)
-  local epoch = ticks // 10000000 - 11644473600
-  return os.date("!%Y-%m-%d %H:%M:%SZ", epoch)
+local function to_epoch(ticks)
+  return ticks // 10000000 - 11644473600
+end
+
+local function format_skew(seconds)
+  local sign = "+"
+  if seconds < 0 then
+    sign = "-"
+    seconds = -seconds
+  end
+  if seconds < 60 then
+    return string.format("%s%ds", sign, seconds)
+  end
+  if seconds < 3600 then
+    return string.format("%s%dm%ds", sign, seconds // 60, seconds % 60)
+  end
+  if seconds < 86400 then
+    return string.format("%s%dh%dm", sign, seconds // 3600, (seconds % 3600) // 60)
+  end
+  return string.format("%s%dd%dh", sign, seconds // 86400, (seconds % 86400) // 3600)
 end
 
 local function skip_response_header(buf, pos)
@@ -140,8 +163,12 @@ action = function(host, port)
   local ticks
   ticks, pos = skip_response_header(body, pos)
 
+  local server_epoch = to_epoch(ticks)
+  local skew = server_epoch - os.time()
+
   local out = stdnse.output_table()
-  out["Server time"] = to_time(ticks)
+  out["Server time"] = os.date("!%Y-%m-%d %H:%M:%SZ", server_epoch)
+  out["Clock skew"] = format_skew(skew)
 
   local count
   count, pos = string.unpack("<i4", body, pos)

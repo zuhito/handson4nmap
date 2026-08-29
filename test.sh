@@ -16,3 +16,4 @@ grep -q "4840/tcp open  opcua" /tmp/opcua.txt
 grep -q "Endpoint URL: opc.tcp://" /tmp/opcua.txt
 grep -q "Authentication:" /tmp/opcua.txt
 grep -q "Server time:" /tmp/opcua.txt
+grep -q "Clock skew:" /tmp/opcua.txt
