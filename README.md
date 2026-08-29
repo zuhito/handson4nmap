@@ -29,7 +29,13 @@ httpAdminRoot を変更している場合は root を指定します。
 nmap -p 1880 --script ./node-red.nse --script-args='node-red.root=/admin' 127.0.0.1
 ```
 
-両方をまとめて実行します。
+OPC UA サーバのエンドポイントと認証方式を取得します。
+
+```bash
+nmap -p 4840 --script ./opcua.nse 127.0.0.1
+```
+
+まとめて実行します。
 
 ```bash
 bash test.sh
@@ -40,9 +46,11 @@ bash test.sh
 | ファイル | 内容 |
 | --- | --- |
 | `modbus_server.py` | pymodbus によるModbus/TCPサーバ |
+| `opcua_server.py` | opcua によるOPC UAサーバ |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
+| `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
 | `install.sh` | nmap / pymodbus / Node-RED の導入 |
-| `start.sh` | Modbusサーバと Node-RED の起動 |
+| `start.sh` | 各サーバの起動 |
 | `test.sh` | 起動とスキャン結果の検証 |
 
 ## テスト
