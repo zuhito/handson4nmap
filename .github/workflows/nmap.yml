@@ -5,9 +5,8 @@ on: [push, workflow_dispatch]
 jobs:
   scan:
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/devcontainers/universal:2-linux
     steps:
       - uses: actions/checkout@v4
-      - uses: devcontainers/ci@v0.3
-        with:
-          push: never
-          runCmd: bash setup.sh && bash test.sh
+      - run: bash setup.sh
+      - run: bash test.sh
