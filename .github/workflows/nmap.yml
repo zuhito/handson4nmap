@@ -5,8 +5,14 @@ on: [push, workflow_dispatch]
 jobs:
   scan:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/devcontainers/universal:2-linux
+    container:
+      image: mcr.microsoft.com/devcontainers/universal:2-linux
+      options: --user root
     steps:
       - uses: actions/checkout@v4
-      - run: bash install.sh
-      - run: bash test.sh
+
+      - name: Run as the non-root Codespaces user
+        run: |
+          chown -R codespace:codespace .
+          su codespace -c "cd $GITHUB_WORKSPACE && bash install.sh"
+          su codespace -c "cd $GITHUB_WORKSPACE && bash test.sh"

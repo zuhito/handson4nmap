@@ -43,4 +43,13 @@ bash test.sh
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `install.sh` | nmap / pymodbus / Node-RED の導入 |
 | `start.sh` | Modbusサーバと Node-RED の起動 |
-| `test.sh` | 起動とスキャンの実行 |
+| `test.sh` | 起動とスキャン結果の検証 |
+
+## テスト
+
+`test.sh` はサーバを起動し、nmap の出力に期待する文字列が含まれるかを検証します。
+ポートが60秒以内に開かない場合や、スキャン結果が期待と異なる場合は異常終了します。
+
+GitHub Actions は Codespaces と同じ `universal:2-linux` イメージを、
+Codespaces と同じ非rootユーザ `codespace` で実行します。
+root で実行すると特権ポートの問題が表面化せず、回帰を見逃すためです。
