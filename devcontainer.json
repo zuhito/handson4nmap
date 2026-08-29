@@ -1,0 +1,5 @@
+{
+  "name": "modbus-nmap-test",
+  "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  "postCreateCommand": "bash setup.sh"
+}
