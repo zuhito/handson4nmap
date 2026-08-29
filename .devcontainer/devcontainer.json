@@ -1,4 +1,6 @@
 {
+  "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  "remoteUser": "root",
   "postCreateCommand": "bash setup.sh",
-  "postStartCommand": "nohup sudo -E \"$(which python3)\" modbus_test.py >/dev/null 2>&1 &"
+  "postStartCommand": "nohup python3 modbus_test.py > /tmp/modbus.log 2>&1 &"
 }
