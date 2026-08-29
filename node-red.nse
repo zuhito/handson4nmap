@@ -1,4 +1,5 @@
 local http = require "http"
+local nmap = require "nmap"
 local json = require "json"
 local shortport = require "shortport"
 local stdnse = require "stdnse"
@@ -24,7 +25,7 @@ Node.js version and details about the host operating system.
 --
 -- @output
 -- PORT     STATE SERVICE
--- 1880/tcp open  vsat-control
+-- 1880/tcp open  node-red
 -- | node-red:
 -- |   Node-RED: 3.0.2
 -- |   Node.js: v16.16.0 (linux/x64)
@@ -92,6 +93,12 @@ action = function(host, port)
   end
 
   if #out > 0 then
+    port.version.name = "node-red"
+    port.version.product = "Node-RED"
+    if type(doc.runtime) == "table" then
+      port.version.version = doc.runtime.version
+    end
+    nmap.set_port_version(host, port)
     return out
   end
 end
