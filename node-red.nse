@@ -17,15 +17,15 @@ Node.js version and details about the host operating system.
 
 ---
 -- @usage
--- nmap -p 1880 --script node-red-diagnostics <host>
+-- nmap -p 1880 --script ./node-red.nse <host>
 --
--- @args node-red-diagnostics.root the httpAdminRoot value of the target.
+-- @args node-red.root the httpAdminRoot value of the target.
 --       Default: /
 --
 -- @output
 -- PORT     STATE SERVICE
 -- 1880/tcp open  vsat-control
--- | node-red-diagnostics:
+-- | node-red:
 -- |   Node-RED: 3.0.2
 -- |   Node.js: v16.16.0 (linux/x64)
 -- |_  OS: Linux 5.15.85-1-MANJARO (x64)
