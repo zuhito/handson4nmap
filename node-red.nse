@@ -31,7 +31,7 @@ Node.js version and details about the host operating system.
 -- |   Node.js: v16.16.0 (linux/x64)
 -- |_  OS: Linux 5.15.85-1-MANJARO (x64)
 
-author = "Claude"
+author = "kazuhitoyokoi"
 license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
 categories = {"discovery", "safe"}
 
