@@ -42,4 +42,5 @@ bash test.sh
 | `modbus_server.py` | pymodbus によるModbus/TCPサーバ |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `setup.sh` | nmap / pymodbus / Node-RED の導入 |
-| `test.sh` | サーバ起動とスキャンの実行 |
+| `start.sh` | Modbusサーバと Node-RED の起動 |
+| `test.sh` | 起動とスキャンの実行 |
