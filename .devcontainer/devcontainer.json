@@ -2,5 +2,5 @@
   "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
   "remoteUser": "root",
   "postCreateCommand": "bash setup.sh",
-  "postStartCommand": "nohup python3 modbus_test.py > /tmp/modbus.log 2>&1 & nohup python3 nodered_test.py > /tmp/nodered.log 2>&1 &"
+  "postStartCommand": "nohup python3 modbus_server.py > /tmp/modbus.log 2>&1 & nohup node-red > /tmp/nodered.log 2>&1 &"
 }
