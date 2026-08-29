@@ -1,6 +1,6 @@
 {
   "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
-  "remoteUser": "root",
   "postCreateCommand": "bash setup.sh",
-  "postStartCommand": "bash start.sh"
+  "postStartCommand": "bash start.sh",
+  "postAttachCommand": "bash start.sh"
 }
