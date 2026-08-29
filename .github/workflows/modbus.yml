@@ -1,0 +1,44 @@
+name: modbus-discover
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nmap
+          pip install pymodbus
+
+      - name: Start Modbus server
+        run: |
+          sudo -E "$(which python3)" modbus_test_server.py > server.log 2>&1 &
+          for i in $(seq 1 15); do
+            nc -z 127.0.0.1 502 && exit 0
+            sleep 1
+          done
+          echo "server did not start"
+          exit 1
+
+      - name: Run modbus-discover
+        run: nmap -p 502 --script modbus-discover 127.0.0.1 | tee result.txt
+
+      - name: Verify output
+        run: |
+          grep -q "Device identification: Example Automation Co. MB-TEST-1 1.0.0" result.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nmap-result
+          path: result.txt
