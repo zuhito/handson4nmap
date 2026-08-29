@@ -1,4 +1,4 @@
 {
   "postCreateCommand": "bash setup.sh",
-  "postStartCommand": "sudo -E \"$(which python3)\" modbus_test.py >/dev/null 2>&1 &"
+  "postStartCommand": "nohup sudo -E \"$(which python3)\" modbus_test.py >/dev/null 2>&1 &"
 }
