@@ -51,6 +51,13 @@ nmap -p 1883 --script mqtt.nse 127.0.0.1
 nmap -p 1884 --script mqtt.nse 127.0.0.1
 ```
 
+ブローカが保持しているトピックと最新のペイロードを購読して表示します。
+テスト用のパブリッシャが retain 付きで3つのトピックを配信しています。
+
+```bash
+nmap -p 1883 --script mqtt-subscribe 127.0.0.1
+```
+
 HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
 
 ```bash
@@ -87,6 +94,7 @@ xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 | --- | --- |
 | `mock_servers/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
 | `mock_servers/opcua_server.py` | opcua によるOPC UAサーバ |
+| `mock_servers/mqtt_publisher.py` | MQTT に retain 付きでトピックを配信する |
 | `mock_servers/http_clockskew_server.py` | 時刻をずらした Date を返す HTTP サーバ |
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(raw socket 実装) |
 | `mock_servers/profinet-server2.py` | 同上を scapy で実装したもの |
@@ -104,6 +112,7 @@ xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
 | `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |
 | `scripts/start.sh` | 各サーバの起動 |
+| `tests/mqtt-subscribe.sh` | mqtt-subscribe の出力を検証する |
 | `tests/report.sh` | HTML レポートを生成して内容を検証する |
 | `tests/test.sh` | 起動とスキャン結果の検証 |
 
