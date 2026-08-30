@@ -25,6 +25,11 @@ nmap -p 80 scanme.nmap.org
 nmap -p 80 --script http-title scanme.nmap.org
 ```
 
+Webサーバーが返してくる「Server: Apache/2.4.41 (Ubuntu)」のようなヘッダー情報をシンプルに取得します。
+```bash
+nmap -p 80 --script http-server-header scanme.nmap.org
+```
+
 Date ヘッダから時刻ずれを確認します。
 
 ```bash
