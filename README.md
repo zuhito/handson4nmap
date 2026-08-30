@@ -3,12 +3,82 @@
 nmap の NSE スクリプトを試すためのハンズオン環境です。
 Codespaces を開くと Modbus/TCP サーバ (502) と Node-RED (1880) が自動起動します。
 
+## 外部ホストへの実行
+
+`scanme.nmap.org` は nmap プロジェクトがスキャンを許可している検証用ホストです。
+
+ページのタイトルを取得します。
+
+```bash
+nmap -p 80 --script http-title scanme.nmap.org
+```
+
+Date ヘッダから時刻ずれを確認します。
+
+```bash
+nmap -p 80 --script http-date scanme.nmap.org
+```
+
 ## nmap コマンド
+
+DHCP サーバの提供内容を確認します。
+
+```bash
+nmap --script broadcast-dhcp-discover
+```
+
+NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
+
+```bash
+nmap -sU -p 123 --script ntp-info 127.0.0.1
+```
+
+SNMP エージェントのシステム情報を取得し、コミュニティ名を総当たりします。
+
+```bash
+nmap -sU -p 161 --script snmp-info 127.0.0.1
+```
 
 Modbus のスレーブIDとデバイス情報を列挙します。
 
 ```bash
 nmap -p 502 --script modbus-discover 127.0.0.1
+```
+
+HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
+
+```bash
+nmap -p 8000 --script http-date 127.0.0.1
+```
+
+PROFINET 機器を DCP のマルチキャストで探索します。
+
+```bash
+nmap --script multicast-profinet-discovery
+```
+
+Siemens S7 PLC の装置情報を取得します。
+
+```bash
+nmap -p 102 --script s7-info 127.0.0.1
+```
+
+```bash
+nmap -p 1883 --script mqtt-subscribe 127.0.0.1
+```
+
+## Custom NSE
+
+MQTT ブローカの情報を取得します。
+
+```bash
+nmap -p 1883 --script mqtt.nse 127.0.0.1
+```
+
+認証を要求するブローカでは結果が変わります。
+
+```bash
+nmap -p 1884 --script mqtt.nse 127.0.0.1
 ```
 
 Node-RED の診断エンドポイントからバージョン情報を取得します。
@@ -33,85 +103,10 @@ nmap -p 1194 --script openvpn.nse 127.0.0.1
 nmap -sU -p 1194 --script openvpn.nse 127.0.0.1
 ```
 
-PROFINET 機器を DCP のマルチキャストで探索します。root 権限が必要です。
-
-```bash
-nmap --script multicast-profinet-discovery
-```
-
-このスクリプトはコンテナイメージの nmap には同梱されていないため、`scripts/install.sh` が
-`scripts/nmap-build.sh` 経由で最新の nmap をソースから導入します。
-
-MQTT ブローカの情報を取得します。
-
-```bash
-nmap -p 1883 --script mqtt.nse 127.0.0.1
-```
-
-認証を要求するブローカでは結果が変わります。
-
-```bash
-nmap -p 1884 --script mqtt.nse 127.0.0.1
-```
-
-ブローカが保持しているトピックと最新のペイロードを購読して表示します。
-テスト用のパブリッシャが retain 付きで3つのトピックを配信しています。
-
-```bash
-nmap -p 1883 --script mqtt-subscribe 127.0.0.1
-```
-
-SNMP エージェントのシステム情報を取得し、コミュニティ名を総当たりします。
-
-```bash
-nmap -sU -p 161 --script snmp-info 127.0.0.1
-```
-
 CoDeSys V2 ランタイムの OS と製品種別を取得します。
 
 ```bash
 nmap -p 2455 --script ./external/codesys-v2-discover.nse 127.0.0.1
-```
-
-NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
-
-```bash
-nmap -sU -p 123 --script ntp-info 127.0.0.1
-```
-
-HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
-
-```bash
-nmap -p 8000 --script http-date 127.0.0.1
-```
-
-DHCP サーバの提供内容を確認します。
-
-```bash
-nmap --script broadcast-dhcp-discover
-```
-
-Siemens S7 PLC の装置情報を取得します。
-
-```bash
-nmap -p 102 --script s7-info 127.0.0.1
-```
-
-## 外部ホストへの実行
-
-`scanme.nmap.org` は nmap プロジェクトがスキャンを許可している検証用ホストです。
-これ以外のホストを許可なくスキャンしないでください。
-
-ページのタイトルを取得します。
-
-```bash
-nmap -p 80 --script http-title scanme.nmap.org
-```
-
-Date ヘッダから時刻ずれを確認します。
-
-```bash
-nmap -p 80 --script http-date scanme.nmap.org
 ```
 
 ## HTML レポートの出力
