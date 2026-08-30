@@ -607,7 +607,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 
 ```bash
 nmap -p 80,502,1880,1883,4840 \
-  --script modbus-discover,./node-red.nse,./mqtt.nse,./opcua.nse,http-date \
+  --script node-red.nse,opcua.nse,http-date \
   -oX scan.xml 127.0.0.1
 xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 ```
