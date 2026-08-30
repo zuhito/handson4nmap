@@ -17,8 +17,6 @@ jobs:
         run: bash scripts/profinet-check.sh
       - name: MQTT subscribe
         run: bash tests/mqtt-subscribe.sh
-      - name: OpenVPN
-        run: bash tests/openvpn.sh
       - name: CoDeSys
         run: bash tests/codesys.sh
       - name: SNMP
@@ -27,6 +25,8 @@ jobs:
         run: bash tests/ntp.sh
       - name: HTML report
         run: bash tests/report.sh
+      - name: OpenVPN
+        run: bash tests/openvpn.sh
 
   dhcp:
     # Network namespaces cannot be created inside the container used above,
