@@ -9,7 +9,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/install.sh
-      - run: bash tests/test.sh
+      - name: Core scans
+        run: bash tests/core.sh
+      - name: PROFINET (p-net)
+        run: bash scripts/pnet-check.sh
+      - name: PROFINET (scapy)
+        run: bash scripts/profinet-check.sh
+      - name: MQTT subscribe
+        run: bash tests/mqtt-subscribe.sh
+      - name: OpenVPN
+        run: bash tests/openvpn.sh
+      - name: CoDeSys
+        run: bash tests/codesys.sh
+      - name: SNMP
+        run: bash tests/snmp.sh
+      - name: NTP
+        run: bash tests/ntp.sh
+      - name: HTML report
+        run: bash tests/report.sh
 
   dhcp:
     # Network namespaces cannot be created inside the container used above,
