@@ -85,12 +85,10 @@ HTTP の Date ヘッダから時刻ずれを検出します。テスト用サー
 nmap -p 8000 --script http-date 127.0.0.1
 ```
 
-DHCP サーバの提供内容を確認します。テスト用サーバは veth の先の
-ネットワーク名前空間で動いています。
+DHCP サーバの提供内容を確認します。
 
 ```bash
-nmap -sU -p 67 --script dhcp-discover 192.168.50.1
-nmap --script broadcast-dhcp-discover -e veth-host
+nmap --script broadcast-dhcp-discover
 ```
 
 Siemens S7 PLC の装置情報を取得します。
@@ -116,8 +114,6 @@ Date ヘッダから時刻ずれを確認します。
 nmap -p 80 --script http-date scanme.nmap.org
 ```
 
-https://raw.githubusercontent.com/nmap/nmap/master/scripts/
-
 ## HTML レポートの出力
 
 `-oX` で XML を出力し、nmap 同梱のスタイルシートで HTML に変換します。
@@ -128,9 +124,6 @@ nmap -p 502,1880,1883,4840,8000 \
   -oX scan.xml 127.0.0.1
 xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 ```
-
-`xsltproc` は `scripts/install.sh` が導入します。
-`scan.html` をブラウザで開くと、ポートごとにスクリプトの出力がまとまった形で確認できます。
 
 ## ファイル
 
