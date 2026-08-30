@@ -42,5 +42,12 @@
     "8000": {
       "label": "HTTP (clock skew)"
     }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "chat.disableAIFeatures": true
+      }
+    }
   }
 }
