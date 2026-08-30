@@ -48,7 +48,7 @@ nmap -p 80 --script http-date scanme.nmap.org
 | 161 | udp | SNMP | |
 | 199 | tcp | SMUX | snmpd が開くがハンズオンでは使わない |
 | 502 | tcp | Modbus/TCP | |
-| 1194 | tcp / udp | OpenVPN | |
+| 1194 | udp | OpenVPN | |
 | 1880 | tcp | Node-RED | |
 | 1883 | tcp | MQTT | 匿名接続を許可 |
 | 1884 | tcp | MQTT | 3.1.1 のみ、認証が必要 |
@@ -180,6 +180,11 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 </details>
 
 # UDP Scan (-sU)
+
+OpenVPNサーバへUDPで接続
+```bash
+nmap -sU -p 1194 127.0.0.1
+```
 
 NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
 
@@ -355,58 +360,6 @@ PORT     STATE SERVICE
 |_  Authentication: Anonymous, Certificate, UserName
 
 Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
-```
-
-</details>
-
-OpenVPN サーバのセッション情報を取得します。
-
-```bash
-nmap -p 1195 --script openvpn.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000024s latency).
-
-PORT     STATE SERVICE
-1195/tcp open  openvpn
-| openvpn: 
-|   Packet: P_CONTROL_HARD_RESET_SERVER_V2 (opcode 8)
-|   Server session ID: 26165f827f1c8163
-|   Key ID: 0
-|_  Client session acknowledged: yes
-
-Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
-```
-
-</details>
-
-```bash
-nmap -sU -p 1194 --script openvpn.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000089s latency).
-
-PORT     STATE SERVICE
-1194/udp open  openvpn
-| openvpn: 
-|   Packet: P_CONTROL_HARD_RESET_SERVER_V2 (opcode 8)
-|   Server session ID: 690520bfc305701a
-|   Key ID: 0
-|_  Client session acknowledged: yes
-
-Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
 ```
 
 </details>
