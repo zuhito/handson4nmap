@@ -11,18 +11,19 @@ jobs:
       - run: bash scripts/install.sh
       - name: Core scans
         run: bash tests/core.sh
-      - name: Network namespace support
-        run: |
-          ip netns add citest
-          ip netns list
-          ip link add veth-a type veth peer name veth-b
-          ip link del veth-a
-          ip netns del citest
-      - name: DHCP
-        run: bash scripts/dhcp-check.sh
       - name: PROFINET (p-net)
         run: bash scripts/pnet-check.sh
       - name: PROFINET (raw socket)
         run: bash scripts/profinet-check.sh mock_servers/profinet-server.py
       - name: PROFINET (scapy)
         run: bash scripts/profinet-check.sh mock_servers/profinet-server2.py
+
+  dhcp:
+    # Network namespaces cannot be created inside the container used above,
+    # so the DHCP checks run directly on the runner.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y nmap dnsmasq-base
+      - name: DHCP
+        run: sudo bash scripts/dhcp-check.sh
