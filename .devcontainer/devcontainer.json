@@ -46,9 +46,7 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "chat.disableAIFeatures": true,
-        "workbench.sidebar.visibility": "hidden",
-        "workbench.panel.openedMaximized": "always"
+        "chat.disableAIFeatures": true
       }
     }
   }
