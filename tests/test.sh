@@ -7,4 +7,5 @@ bash scripts/pnet-check.sh
 bash scripts/profinet-check.sh mock_servers/profinet-server.py
 bash scripts/profinet-check.sh mock_servers/profinet-server2.py
 bash tests/mqtt-subscribe.sh
+bash tests/codesys.sh
 bash tests/report.sh

@@ -7,6 +7,7 @@ apt-get install -y openvpn mosquitto xsltproc dnsmasq iproute2 libssl-dev libpca
 pip install -r scripts/requirements.txt
 npm install -g --unsafe-perm node-red
 bash scripts/nmap-build.sh
+bash scripts/codesys-nse.sh
 bash scripts/pnet-build.sh
 
 mkdir -p vpn
