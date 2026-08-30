@@ -59,6 +59,20 @@ nmap -p 8000 --script http-date 127.0.0.1
 
 https://raw.githubusercontent.com/nmap/nmap/master/scripts/
 
+## HTML レポートの出力
+
+`-oX` で XML を出力し、nmap 同梱のスタイルシートで HTML に変換します。
+
+```bash
+nmap -p 502,1880,1883,4840,8000 \
+  --script modbus-discover,./node-red.nse,./mqtt.nse,./opcua.nse,http-date \
+  -oX scan.xml 127.0.0.1
+xsltproc scan.xml -o scan.html
+```
+
+`xsltproc` は `apt-get install -y xsltproc` で導入します。
+`scan.html` をブラウザで開くと、ポートごとにスクリプトの出力がまとまった形で確認できます。
+
 ## ファイル
 
 | ファイル | 内容 |
