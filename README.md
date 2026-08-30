@@ -360,27 +360,27 @@ nmap -p 1883 --script mqtt-subscribe 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:39 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:52 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000045s latency).
+Host is up (0.000047s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     aichi/plc01/temperature: 25.4
-|     aichi/plc01/pressure: 101.3
-|     aichi/plc01/status: running
-|     site/line1/state: idle
-|_    site/line1/counter: 1042
+|     site/building1/room101/temperature: 25.4
+|     aichi/line1/plc01/status: running
+|     aichi/line1/tank01/pressure: 101.3
+|     aichi/line1/motor01/current: 12.7
+|_    site/building1/meter01/energy: 1042
 
-Nmap done: 1 IP address (1 host up) scanned in 7.11 seconds
+Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 ```
 
 </details>
 
 `mqtt-subscribe.topic` を指定すると購読するトピックを絞れます。
-`aichi/#` を指定した場合、`site/line1/` 配下は出力されません。
+`aichi/#` を指定した場合、`site/building1/` 配下は出力されません。
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/#' 127.0.0.1
@@ -392,19 +392,19 @@ nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/#
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:39 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:53 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000041s latency).
+Host is up (0.000051s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     aichi/plc01/pressure: 101.3
-|     aichi/plc01/status: running
-|_    aichi/plc01/temperature: 25.4
+|     aichi/line1/motor01/current: 12.7
+|     aichi/line1/tank01/pressure: 101.3
+|_    aichi/line1/plc01/status: running
 
-Nmap done: 1 IP address (1 host up) scanned in 7.11 seconds
+Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 ```
 
 </details>
