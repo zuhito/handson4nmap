@@ -8,4 +8,5 @@ bash scripts/profinet-check.sh mock_servers/profinet-server.py
 bash scripts/profinet-check.sh mock_servers/profinet-server2.py
 bash tests/mqtt-subscribe.sh
 bash tests/codesys.sh
+bash tests/snmp.sh
 bash tests/report.sh
