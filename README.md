@@ -7,6 +7,10 @@ Codespaces を開くと Modbus/TCP サーバ (502) と Node-RED (1880) が自動
 
 `scanme.nmap.org` は nmap プロジェクトがスキャンを許可している検証用ホストです。
 
+```bash
+nmap scanme.nmap.org
+```
+
 ページのタイトルを取得します。
 
 ```bash
