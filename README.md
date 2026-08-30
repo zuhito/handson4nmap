@@ -121,7 +121,7 @@ nmap -p 2455 --script ./external/codesys-v2-discover.nse 127.0.0.1
 nmap -p 502,1880,1883,4840,8000 \
   --script modbus-discover,./node-red.nse,./mqtt.nse,./opcua.nse,http-date \
   -oX scan.xml 127.0.0.1
-xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
+xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 ```
 
 ## ファイル

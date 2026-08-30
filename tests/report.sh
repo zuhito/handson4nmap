@@ -5,7 +5,8 @@ cd "$(dirname "$0")/.."
 nmap -p 502,1880,1883,4840,8000 \
   --script modbus-discover,./node-red.nse,./mqtt.nse,./opcua.nse,http-date \
   -oX /tmp/scan.xml 127.0.0.1
-xsltproc -o /tmp/scan.html /usr/share/nmap/nmap.xsl /tmp/scan.xml
+xsl="$(dirname "$(command -v nmap)")/../share/nmap/nmap.xsl"
+xsltproc -o /tmp/scan.html "$xsl" /tmp/scan.xml
 
 grep -q "Aichi Company AIC-PLC-01" /tmp/scan.html
 grep -q "Node-RED:" /tmp/scan.html
