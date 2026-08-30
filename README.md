@@ -69,9 +69,11 @@ bash scripts/test.sh
 | --- | --- |
 | `mock_servers/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
 | `mock_servers/opcua_server.py` | opcua によるOPC UAサーバ |
-| `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ |
+| `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(raw socket 実装) |
+| `mock_servers/profinet-server2.py` | 同上を scapy で実装したもの |
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
 | `scripts/openvpn-udp.conf` / `scripts/openvpn-tcp.conf` | テスト用 OpenVPN サーバの設定 |
+| `scripts/profinet-check.sh` | PROFINET の両実装を順に検証する |
 | `scripts/profinet-nse.sh` | 上流の multicast-profinet-discovery を取得する |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |

@@ -24,8 +24,6 @@ grep -q "1883/tcp open  mqtt" /tmp/mqtt.txt
 grep -q "Protocol: MQTT 5.0" /tmp/mqtt.txt
 grep -q "Anonymous access: allowed" /tmp/mqtt.txt
 grep -q "Session present:" /tmp/mqtt.txt
-nmap --script ./external/multicast-profinet-discovery.nse | tee /tmp/profinet.txt
-grep -q "vendorValue: Aichi Company AIC-PLC-01" /tmp/profinet.txt
-grep -q "nameOfStation: aic-plc-01" /tmp/profinet.txt
-grep -q "deviceRole: 0x02 (IO-Controller)" /tmp/profinet.txt
+bash scripts/profinet-check.sh mock_servers/profinet-server.py
+bash scripts/profinet-check.sh mock_servers/profinet-server2.py
 
