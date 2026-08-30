@@ -91,120 +91,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 
 </details>
 
-HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
-
-```bash
-nmap -p 8000 --script http-date 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000032s latency).
-
-PORT     STATE SERVICE
-8000/tcp open  http-alt
-|_http-date: Sun, 30 Aug 2026 07:56:01 GMT; +4m51s from local time.
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
-`clock-skew` はホストスクリプトで、`http-date` などが取得した時刻をまとめて
-そのホストの時計のずれとして表示します。
-
-```bash
-nmap -p 8000 --script http-date,clock-skew 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000037s latency).
-
-PORT     STATE SERVICE
-8000/tcp open  http-alt
-|_http-date: Sun, 30 Aug 2026 07:56:01 GMT; +4m51s from local time.
-
-Host script results:
-|_clock-skew: 4m50s
-
-Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
-```
-
-</details>
-
-OPC UA サーバが返す時刻も `clock-skew` に集計されます。
-ずれが 0 秒の場合は `-vv` を付けないと表示されません。
-
-```bash
-nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
-NSE: Loaded 2 scripts for scanning.
-NSE: Script Pre-scanning.
-NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
-NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 07:51
-Completed Parallel DNS resolution of 1 host. at 07:51, 0.00s elapsed
-Initiating SYN Stealth Scan at 07:51
-Scanning localhost (127.0.0.1) [1 port]
-Discovered open port 4840/tcp on 127.0.0.1
-Completed SYN Stealth Scan at 07:51, 0.00s elapsed (1 total ports)
-NSE: Script scanning 127.0.0.1.
-NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
-NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
-Nmap scan report for localhost (127.0.0.1)
-Host is up, received localhost-response (0.000036s latency).
-Scanned at 2026-08-30 07:51:10 UTC for 0s
-
-PORT     STATE SERVICE REASON
-4840/tcp open  opcua   syn-ack ttl 64
-| opcua: 
-|   Server time: 2026-08-30 07:51:10Z
-|   Clock skew: +0s
-|   Application URI: urn:freeopcua:python:server
-|   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
-|   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
-|_  Authentication: Anonymous, Certificate, UserName
-
-Host script results:
-|_clock-skew: 0s
-
-NSE: Script Post-scanning.
-NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
-NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
-Read data files from: /usr/local/bin/../share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
-           Raw packets sent: 1 (44B) | Rcvd: 2 (88B)
-```
-
-</details>
-
 Siemens S7 PLC の装置情報を取得します。
 
 ```bash
@@ -603,6 +489,121 @@ PORT     STATE SERVICE
 |_  Product Type: AIC-PLC-01
 
 Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+```
+
+</details>
+
+# clock skew
+HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
+
+```bash
+nmap -p 8000 --script http-date 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000032s latency).
+
+PORT     STATE SERVICE
+8000/tcp open  http-alt
+|_http-date: Sun, 30 Aug 2026 07:56:01 GMT; +4m51s from local time.
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+`clock-skew` はホストスクリプトで、`http-date` などが取得した時刻をまとめて
+そのホストの時計のずれとして表示します。
+
+```bash
+nmap -p 8000 --script http-date,clock-skew 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000037s latency).
+
+PORT     STATE SERVICE
+8000/tcp open  http-alt
+|_http-date: Sun, 30 Aug 2026 07:56:01 GMT; +4m51s from local time.
+
+Host script results:
+|_clock-skew: 4m50s
+
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+```
+
+</details>
+
+OPC UA サーバが返す時刻も `clock-skew` に集計されます。
+ずれが 0 秒の場合は `-vv` を付けないと表示されません。
+
+```bash
+nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+NSE: Loaded 2 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 07:51
+Completed Parallel DNS resolution of 1 host. at 07:51, 0.00s elapsed
+Initiating SYN Stealth Scan at 07:51
+Scanning localhost (127.0.0.1) [1 port]
+Discovered open port 4840/tcp on 127.0.0.1
+Completed SYN Stealth Scan at 07:51, 0.00s elapsed (1 total ports)
+NSE: Script scanning 127.0.0.1.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+Nmap scan report for localhost (127.0.0.1)
+Host is up, received localhost-response (0.000036s latency).
+Scanned at 2026-08-30 07:51:10 UTC for 0s
+
+PORT     STATE SERVICE REASON
+4840/tcp open  opcua   syn-ack ttl 64
+| opcua: 
+|   Server time: 2026-08-30 07:51:10Z
+|   Clock skew: +0s
+|   Application URI: urn:freeopcua:python:server
+|   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
+|   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
+|_  Authentication: Anonymous, Certificate, UserName
+
+Host script results:
+|_clock-skew: 0s
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+Read data files from: /usr/local/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+           Raw packets sent: 1 (44B) | Rcvd: 2 (88B)
 ```
 
 </details>
