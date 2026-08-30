@@ -9,4 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/install.sh
-      - run: bash tests/test.sh
+      - name: Core scans
+        run: bash tests/core.sh
+      - name: DHCP
+        run: bash scripts/dhcp-check.sh
+      - name: PROFINET (p-net)
+        run: bash scripts/pnet-check.sh
+      - name: PROFINET (raw socket)
+        run: bash scripts/profinet-check.sh mock_servers/profinet-server.py
+      - name: PROFINET (scapy)
+        run: bash scripts/profinet-check.sh mock_servers/profinet-server2.py
