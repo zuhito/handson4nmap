@@ -27,5 +27,6 @@ grep -q "Anonymous access: allowed" /tmp/mqtt.txt
 grep -q "Session present:" /tmp/mqtt.txt
 nmap -p 8000 --script http-date 127.0.0.1 | tee /tmp/httpdate.txt
 grep -q "+4m51s from local time" /tmp/httpdate.txt
+bash scripts/pnet-check.sh
 bash scripts/profinet-check.sh mock_servers/profinet-server.py
 bash scripts/profinet-check.sh mock_servers/profinet-server2.py

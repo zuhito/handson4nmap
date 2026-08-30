@@ -7,6 +7,7 @@ apt-get install -y nmap openvpn mosquitto
 pip install -r scripts/requirements.txt
 npm install -g --unsafe-perm node-red
 bash scripts/profinet-nse.sh
+bash scripts/pnet-build.sh
 
 mkdir -p vpn
 openssl req -x509 -newkey rsa:2048 -keyout vpn/ca.key -out vpn/ca.crt -days 3650 -nodes -subj "/CN=TestCA"

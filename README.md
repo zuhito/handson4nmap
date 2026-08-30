@@ -69,6 +69,8 @@ bash tests/test.sh
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
 | `scripts/openvpn-udp.conf` / `scripts/openvpn-tcp.conf` | テスト用 OpenVPN サーバの設定 |
 | `scripts/profinet-check.sh` | PROFINET の両実装を順に検証する |
+| `scripts/pnet-build.sh` | p-net (v0.2.0) を取得してビルドする |
+| `scripts/pnet-start.sh` | p-net のサンプルアプリを起動する |
 | `scripts/profinet-nse.sh` | 上流の multicast-profinet-discovery を取得する |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
