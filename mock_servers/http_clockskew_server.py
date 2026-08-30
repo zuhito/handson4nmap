@@ -9,11 +9,12 @@ class Handler(http.server.BaseHTTPRequestHandler):
         return super().date_time_string(time.time() + 4 * 60 + 51)
 
     def do_GET(self):
+        body = b"clock skew test server\n"
         self.send_response(200)
         self.send_header("Content-Type", "text/plain")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(b"clock skew test server\n")
+        self.wfile.write(body)
 
     def do_HEAD(self):
         self.send_response(200)
