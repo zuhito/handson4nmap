@@ -14,4 +14,5 @@ bash tests/influxdb.sh
 bash tests/vnc.sh
 bash tests/imap.sh
 bash tests/pop3.sh
+bash tests/dns.sh
 bash tests/report.sh

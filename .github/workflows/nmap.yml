@@ -46,6 +46,8 @@ jobs:
         run: bash tests/imap.sh
       - name: POP3
         run: bash tests/pop3.sh
+      - name: DNS
+        run: bash tests/dns.sh
       - name: HTML report
         run: bash tests/report.sh
 

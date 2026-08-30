@@ -27,6 +27,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
 | 80 | tcp | HTTP | Date を 4分51秒 進める |
 | なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
+| 53 | udp | DNS (dnsmasq) | `aichi.example` の名前を解決する |
 | 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
 
 # TCP Scan
@@ -438,6 +439,32 @@ Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
 
 </details>
 
+DNS サーバのバージョンと再帰問い合わせの可否を取得します。
+
+```bash
+nmap -sU -p 53 --script dns.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:28 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00012s latency).
+
+PORT   STATE SERVICE
+53/udp open  domain
+| dns: 
+|   Version: dnsmasq-2.90
+|   Response code: NOERROR
+|_  Recursion: offered
+
+Nmap done: 1 IP address (1 host up) scanned in 0.16 seconds
+```
+
+</details>
+
 POP3 サーバが認証前に開示する情報を取得します。
 
 ```bash
@@ -785,6 +812,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `mock_servers/http_clockskew_server.py` | 時刻をずらした Date を返す HTTP サーバ |
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(scapy 実装) |
 | `scripts/mosquitto-auth.conf` | 認証必須の MQTT ブローカの設定 |
+| `scripts/dnsmasq-dns.conf` | テスト用 DNS サーバの設定 |
 | `scripts/dnsmasq.conf` | テスト用 DHCP サーバの設定 |
 | `scripts/dhcp-start.sh` | veth と名前空間を用意して dnsmasq を起動する |
 | `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
@@ -809,6 +837,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `mock_servers/pop3_server.py` | 認証前の情報を返す POP3 サーバ |
 | `mock_servers/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
 | `mock_servers/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
+| `tests/dns.sh` | dns.nse の出力を検証する |
 | `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |

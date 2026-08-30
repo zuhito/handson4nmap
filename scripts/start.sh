@@ -20,6 +20,7 @@ pgrep -x influxd > /dev/null || setsid nohup influxd -config scripts/influxdb.co
 pgrep -f vnc_server.py > /dev/null || setsid nohup python3 mock_servers/vnc_server.py < /dev/null > /tmp/vnc.log 2>&1 &
 pgrep -f imap_server.py > /dev/null || setsid nohup python3 mock_servers/imap_server.py < /dev/null > /tmp/imap.log 2>&1 &
 pgrep -f pop3_server.py > /dev/null || setsid nohup python3 mock_servers/pop3_server.py < /dev/null > /tmp/pop3.log 2>&1 &
+pgrep -f dnsmasq-dns.conf > /dev/null || setsid nohup dnsmasq -C scripts/dnsmasq-dns.conf --no-daemon < /dev/null > /tmp/dnsmasq-dns.log 2>&1 &
 pgrep -x node-red > /dev/null || setsid nohup node-red < /dev/null > /tmp/nodered.log 2>&1 &
 bash scripts/dhcp-start.sh
 
