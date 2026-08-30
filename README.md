@@ -56,8 +56,7 @@ nmap -p 80 --script http-date scanme.nmap.org
 | 3306 | tcp | MariaDB | |
 | 4840 | tcp | OPC UA | |
 | 80 | tcp | HTTP | Date を 4分51秒 進める |
-| なし | ethernet | PROFINET DCP (scapy 実装) | EtherType 0x8892 の生フレームで通信する |
-| なし | ethernet | PROFINET DCP (p-net) | 同上 |
+| なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
 | 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
 
 # TCP Scan
@@ -608,10 +607,8 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
 | `scripts/openvpn.conf` | テスト用 OpenVPN サーバの設定 |
-| `scripts/profinet-check.sh` | PROFINET の両実装を順に検証する |
+| `scripts/profinet-check.sh` | PROFINET DCP の応答を検証する |
 | `scripts/nmap-build.sh` | 最新の nmap をソースから導入する |
-| `scripts/pnet-build.sh` | p-net (v0.2.0) を取得してビルドする |
-| `scripts/pnet-start.sh` | p-net のサンプルアプリを起動する |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |

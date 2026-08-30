@@ -11,8 +11,6 @@ jobs:
       - run: bash scripts/install.sh
       - name: Core scans
         run: bash tests/core.sh
-      - name: PROFINET (p-net)
-        run: bash scripts/pnet-check.sh
       - name: PROFINET (scapy)
         run: bash scripts/profinet-check.sh
       - name: MQTT subscribe

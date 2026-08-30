@@ -8,7 +8,6 @@ pip install -r scripts/requirements.txt
 npm install -g --unsafe-perm node-red
 bash scripts/nmap-build.sh
 bash scripts/codesys-nse.sh
-bash scripts/pnet-build.sh
 bash scripts/busybox-build.sh
 
 mkdir -p vpn
