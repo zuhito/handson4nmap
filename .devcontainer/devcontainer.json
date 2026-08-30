@@ -49,5 +49,8 @@
         "chat.disableAIFeatures": true
       }
     }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
   }
 }
