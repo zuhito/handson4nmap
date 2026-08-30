@@ -25,7 +25,7 @@ def block(option, suboption, payload):
     return data + b"\x00" * (len(payload) % 2)
 
 
-def build_blocks(ip, mask, gateway, mac):
+def build_blocks(ip, mask, gateway):
     blocks = block(0x01, 0x02, struct.pack(">H", 1) + ip + mask + gateway)
     blocks += block(0x02, 0x01, struct.pack(">H", 0) + VENDOR_VALUE)
     blocks += block(0x02, 0x02, struct.pack(">H", 0) + NAME_OF_STATION)
@@ -43,7 +43,7 @@ def main():
     ip = ioctl_addr(sock, 0x8915)
     mask = ioctl_addr(sock, 0x891B)
     gateway = ip[:3] + b"\x01"
-    blocks = build_blocks(ip, mask, gateway, mac)
+    blocks = build_blocks(ip, mask, gateway)
 
     print("PROFINET DCP responder on %s (%s)" % (IFACE, socket.inet_ntoa(ip)), flush=True)
 

@@ -42,6 +42,12 @@ nmap -p 1194 --script ./openvpn.nse <host>
 nmap -sU -p 1194 --script ./openvpn.nse <host>
 ```
 
+PROFINET 機器を DCP のマルチキャストで探索します。root 権限が必要です。
+
+```bash
+nmap --script multicast-profinet-discovery -e eth0
+```
+
 まとめて実行します。
 
 ```bash
@@ -54,6 +60,7 @@ bash test.sh
 | --- | --- |
 | `modbus_server.py` | pymodbus によるModbus/TCPサーバ |
 | `opcua_server.py` | opcua によるOPC UAサーバ |
+| `profinet-server.py` | PROFINET DCP に応答するサーバ |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
