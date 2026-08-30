@@ -76,6 +76,15 @@ nmap -p 8000 --script http-date 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%208000%20--script%20http-date%20127.0.0.1%5Cn%22%7D)
 
+`clock-skew` はホストスクリプトで、`http-date` などが取得した時刻をまとめて
+そのホストの時計のずれとして表示します。
+
+```bash
+nmap -p 8000 --script http-date,clock-skew 127.0.0.1
+```
+
+[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%208000%20--script%20http-date%2Cclock-skew%20127.0.0.1%5Cn%22%7D)
+
 PROFINET 機器を DCP のマルチキャストで探索します。
 
 ```bash
