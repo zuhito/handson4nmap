@@ -345,6 +345,43 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 
 </details>
 
+ブローカが保持しているトピックと最新のペイロードを購読して表示します。
+既定では `#` と `$SYS/#` を購読するため、ブローカの全トピックが対象になります。
+テスト用のブローカは `sys_interval 0` で統計の配信を止めてあるので、
+`mosquitto_pub -r` で retain 付き配信した5件だけが表示されます。
+
+```bash
+nmap -p 1883 --script mqtt-subscribe 127.0.0.1
+```
+
+[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201883%20--script%20mqtt-subscribe%20127.0.0.1%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:39 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000045s latency).
+
+PORT     STATE SERVICE
+1883/tcp open  mqtt
+| mqtt-subscribe: 
+|   Topics and their most recent payloads: 
+|     aichi/plc01/temperature: 25.4
+|     aichi/plc01/pressure: 101.3
+|     aichi/plc01/status: running
+|     site/line1/state: idle
+|_    site/line1/counter: 1042
+
+Nmap done: 1 IP address (1 host up) scanned in 7.11 seconds
+```
+
+</details>
+
+`mqtt-subscribe.topic` を指定すると購読するトピックを絞れます。
+`aichi/#` を指定した場合、`site/line1/` 配下は出力されません。
+
 ```bash
 nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/#' 127.0.0.1
 ```
@@ -355,19 +392,19 @@ nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/#
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:39 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000045s latency).
+Host is up (0.000041s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     aichi/plc01/temperature: 25.4
 |     aichi/plc01/pressure: 101.3
-|_    aichi/plc01/status: running
+|     aichi/plc01/status: running
+|_    aichi/plc01/temperature: 25.4
 
-Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
+Nmap done: 1 IP address (1 host up) scanned in 7.11 seconds
 ```
 
 </details>
