@@ -3,46 +3,6 @@
   "postCreateCommand": "bash scripts/install.sh",
   "postStartCommand": "bash scripts/start.sh",
   "postAttachCommand": "bash scripts/start.sh",
-  "forwardPorts": [
-    102,
-    502,
-    1194,
-    1880,
-    1883,
-    1884,
-    2455,
-    4840,
-    8000
-  ],
-  "portsAttributes": {
-    "102": {
-      "label": "S7comm (ISO-TSAP)"
-    },
-    "502": {
-      "label": "Modbus/TCP"
-    },
-    "1194": {
-      "label": "OpenVPN (TCP)"
-    },
-    "1880": {
-      "label": "Node-RED"
-    },
-    "1883": {
-      "label": "MQTT"
-    },
-    "1884": {
-      "label": "MQTT (authenticated)"
-    },
-    "2455": {
-      "label": "CoDeSys V2"
-    },
-    "4840": {
-      "label": "OPC UA"
-    },
-    "8000": {
-      "label": "HTTP (clock skew)"
-    }
-  },
   "customizations": {
     "vscode": {
       "settings": {
