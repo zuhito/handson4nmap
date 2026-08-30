@@ -405,7 +405,8 @@ Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
 
 </details>
 
-認証を要求するブローカでは結果が変わります。
+認証を要求する MQTT 3.1.1 のブローカでは結果が変わります。
+こちらは MQTT 5.0 の接続を拒否するため、スクリプトが 3.1.1 で再接続します。
 
 ```bash
 nmap -p 1884 --script mqtt.nse 127.0.0.1
@@ -417,19 +418,19 @@ nmap -p 1884 --script mqtt.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:23 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000029s latency).
+Host is up (0.000039s latency).
 
 PORT     STATE SERVICE
 1884/tcp open  mqtt
 | mqtt: 
-|   Protocol: MQTT 5.0
-|   Connection: Not authorized (0x87)
+|   Protocol: MQTT 3.1.1
+|   Connection: Not authorized (0x05)
 |   Anonymous access: denied
 |_  Session present: no
 
-Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 ```
 
 </details>

@@ -29,7 +29,8 @@ grep -q "Anonymous access: allowed" /tmp/mqtt.txt
 grep -q "Session present:" /tmp/mqtt.txt
 nmap -p 1884 --script ./mqtt.nse 127.0.0.1 | tee /tmp/mqtt-auth.txt
 grep -q "1884/tcp open  mqtt" /tmp/mqtt-auth.txt
-grep -q "Connection: Not authorized (0x87)" /tmp/mqtt-auth.txt
+grep -q "Protocol: MQTT 3.1.1" /tmp/mqtt-auth.txt
+grep -q "Connection: Not authorized (0x05)" /tmp/mqtt-auth.txt
 grep -q "Anonymous access: denied" /tmp/mqtt-auth.txt
 nmap -p 8000 --script http-date,clock-skew 127.0.0.1 | tee /tmp/httpdate.txt
 grep -q "+4m51s from local time" /tmp/httpdate.txt
