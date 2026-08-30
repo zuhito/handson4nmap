@@ -1,17 +1,76 @@
 import socketserver
-import struct
+
+from scapy.fields import ByteField, ShortField, StrFixedLenField, XByteField, XShortField
+from scapy.packet import Packet, bind_layers
+from scapy.compat import raw
+
+PORT = 102
 
 MODULE = b"6ES7 315-2AG10-0AB0"
 BASIC_HARDWARE = b"6ES7 315-2AG10-0AB0"
-VERSION = (2, 6, 9)
+VERSION = bytes((2, 6, 9))
 SYSTEM_NAME = b"SIMATIC 300(Aichi)"
 MODULE_TYPE = b"CPU 315-2 DP"
 PLANT_ID = b"Aichi Company Plant 1"
 COPYRIGHT = b"Original Siemens Equipment"
 SERIAL_NUMBER = b"S C-AIC421302009"
 
-# Offsets are 1 based, matching the string.unpack calls in s7-info.nse.
-SZL_0011_FIELDS = {44: MODULE, 72: BASIC_HARDWARE}
+
+class TPKT(Packet):
+    name = "TPKT"
+    fields_desc = [
+        ByteField("version", 3),
+        ByteField("reserved", 0),
+        ShortField("length", None),
+    ]
+
+    def post_build(self, pkt, pay):
+        if self.length is None:
+            total = len(pkt) + len(pay)
+            pkt = pkt[:2] + total.to_bytes(2, "big")
+        return pkt + pay
+
+
+class COTPConnect(Packet):
+    name = "COTP Connection Confirm"
+    fields_desc = [
+        ByteField("length", 17),
+        XByteField("pdu_type", 0xD0),
+        XShortField("dst_ref", 0x0001),
+        XShortField("src_ref", 0x0014),
+        ByteField("class_option", 0),
+        StrFixedLenField("parameters", b"\xc1\x02\x01\x00\xc2\x02\x01\x02\xc0\x01\x0a", 11),
+    ]
+
+
+class COTPData(Packet):
+    name = "COTP Data"
+    fields_desc = [
+        ByteField("length", 2),
+        XByteField("pdu_type", 0xF0),
+        XByteField("tpdu_number", 0x80),
+    ]
+
+
+class S7SetupAck(Packet):
+    name = "S7 Setup Communication Ack"
+    fields_desc = [
+        XByteField("protocol_id", 0x32),
+        ByteField("rosctr", 3),
+        XShortField("reserved", 0),
+        XShortField("pdu_reference", 1),
+        XShortField("parameter_length", 8),
+        XShortField("data_length", 0),
+        XShortField("error_class", 0),
+        StrFixedLenField("parameters", b"\xf0\x00\x00\x01\x00\x01\x01\xe0", 8),
+    ]
+
+
+bind_layers(TPKT, COTPConnect)
+bind_layers(COTPData, S7SetupAck)
+
+# Offsets are 1 based and count from the start of the TPKT frame.
+SZL_0011_FIELDS = {44: MODULE, 72: BASIC_HARDWARE, 123: VERSION}
 SZL_001C_FIELDS = {
     40: SYSTEM_NAME,
     74: MODULE_TYPE,
@@ -21,39 +80,24 @@ SZL_001C_FIELDS = {
 }
 
 
-def tpkt(payload):
-    return b"\x03\x00" + struct.pack(">H", len(payload) + 4) + payload
-
-
-def place(buf, offset, value):
-    buf[offset - 1:offset - 1 + len(value)] = value
-
-
-def szl_response(szl_id):
+def szl_block(szl_id):
     size = 133 if szl_id == 0x11 else 221
-    buf = bytearray(size)
-    buf[0:2] = b"\x03\x00"
-    struct.pack_into(">H", buf, 2, size)
-    buf[4:8] = b"\x02\xf0\x80"[0:3] + b"\x32"
-    buf[8 - 1] = 0x32
-    buf[31 - 1] = szl_id
+    prefix = raw(TPKT() / COTPData() / S7SetupAck())[:8]
+
+    block = bytearray(size)
+    block[0:len(prefix)] = prefix
+    block[2:4] = size.to_bytes(2, "big")
+    block[31 - 1] = szl_id
 
     fields = SZL_0011_FIELDS if szl_id == 0x11 else SZL_001C_FIELDS
     for offset, value in fields.items():
-        place(buf, offset, value)
+        block[offset - 1:offset - 1 + len(value)] = value
 
-    if szl_id == 0x11:
-        buf[123 - 1], buf[124 - 1], buf[125 - 1] = VERSION
-
-    return bytes(buf)
+    return bytes(block)
 
 
-CONNECT_CONFIRM = tpkt(
-    b"\x11\xd0\x00\x01\x00\x14\x00\xc1\x02\x01\x00\xc2\x02\x01\x02\xc0\x01\x0a"
-)
-SETUP_ACK = tpkt(
-    b"\x02\xf0\x802\x03\x00\x00\x00\x01\x00\x08\x00\x00\x00\xf0\x00\x00\x01\x00\x01\x01\xe0"
-)
+CONNECT_CONFIRM = raw(TPKT() / COTPConnect())
+SETUP_ACK = raw(TPKT() / COTPData() / S7SetupAck())
 
 
 class Handler(socketserver.BaseRequestHandler):
@@ -62,7 +106,7 @@ class Handler(socketserver.BaseRequestHandler):
             header = self.recv_exact(4)
             if not header:
                 return
-            length = struct.unpack(">H", header[2:4])[0]
+            length = TPKT(header).length
             body = self.recv_exact(length - 4)
             if body is None:
                 return
@@ -82,7 +126,7 @@ class Handler(socketserver.BaseRequestHandler):
             return CONNECT_CONFIRM
         if packet[7] == 0x32 and packet[8] == 0x01:
             return SETUP_ACK
-        return szl_response(packet[-3])
+        return szl_block(packet[-3])
 
 
 class Server(socketserver.ThreadingTCPServer):
@@ -90,4 +134,4 @@ class Server(socketserver.ThreadingTCPServer):
     daemon_threads = True
 
 
-Server(("0.0.0.0", 102), Handler).serve_forever()
+Server(("0.0.0.0", PORT), Handler).serve_forever()
