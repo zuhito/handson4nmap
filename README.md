@@ -97,6 +97,8 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
+# UDP scan (-sU)
+
 NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
 
 ```bash
