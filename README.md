@@ -87,7 +87,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 
 </details>
 
-Siemens S7 PLC の装置情報を取得します。
+S7comm に対応した PLC の装置情報を取得します。
 
 ```bash
 nmap -p 102 --script s7-info 127.0.0.1
@@ -97,21 +97,21 @@ nmap -p 102 --script s7-info 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:54 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000051s latency).
+Host is up (0.000043s latency).
 
 PORT    STATE SERVICE
 102/tcp open  iso-tsap
 | s7-info: 
-|   Module: 6ES7 315-2AG10-0AB0
-|   Basic Hardware: 6ES7 315-2AG10-0AB0
+|   Module: AIC-CPU-3150
+|   Basic Hardware: AIC-CPU-3150
 |   Version: 2.6.9
-|   System Name: SIMATIC 300(Aichi)
-|   Module Type: CPU 315-2 DP
-|   Serial Number: S C-AIC421302009
+|   System Name: Aichi Line1 Controller
+|   Module Type: AIC CPU 3150
+|   Serial Number: AIC-0001-0042
 |   Plant Identification: Aichi Company Plant 1
-|_  Copyright: Original Siemens Equipment
+|_  Copyright: Original Aichi Company Equipment
 Service Info: Device: specialized
 
 Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds

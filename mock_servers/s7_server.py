@@ -6,14 +6,14 @@ from scapy.compat import raw
 
 PORT = 102
 
-MODULE = b"6ES7 315-2AG10-0AB0"
-BASIC_HARDWARE = b"6ES7 315-2AG10-0AB0"
+MODULE = b"AIC-CPU-3150"
+BASIC_HARDWARE = b"AIC-CPU-3150"
 VERSION = bytes((2, 6, 9))
-SYSTEM_NAME = b"SIMATIC 300(Aichi)"
-MODULE_TYPE = b"CPU 315-2 DP"
+SYSTEM_NAME = b"Aichi Line1 Controller"
+MODULE_TYPE = b"AIC CPU 3150"
 PLANT_ID = b"Aichi Company Plant 1"
-COPYRIGHT = b"Original Siemens Equipment"
-SERIAL_NUMBER = b"S C-AIC421302009"
+COPYRIGHT = b"Original Aichi Company Equipment"
+SERIAL_NUMBER = b"AIC-0001-0042"
 
 
 class TPKT(Packet):

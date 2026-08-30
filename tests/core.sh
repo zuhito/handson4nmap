@@ -38,10 +38,10 @@ grep -q "clock-skew: 4m5" /tmp/httpdate.txt
 nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1 | tee /tmp/opcua-skew.txt
 grep -q "clock-skew:" /tmp/opcua-skew.txt
 nmap -p 102 --script s7-info 127.0.0.1 | tee /tmp/s7.txt
-grep -q "Module: 6ES7 315-2AG10-0AB0" /tmp/s7.txt
-grep -q "Basic Hardware: 6ES7 315-2AG10-0AB0" /tmp/s7.txt
+grep -q "Module: AIC-CPU-3150" /tmp/s7.txt
+grep -q "Basic Hardware: AIC-CPU-3150" /tmp/s7.txt
 grep -q "Version: 2.6.9" /tmp/s7.txt
-grep -q "System Name: SIMATIC 300(Aichi)" /tmp/s7.txt
-grep -q "Module Type: CPU 315-2 DP" /tmp/s7.txt
-grep -q "Serial Number: S C-AIC421302009" /tmp/s7.txt
-grep -q "Copyright: Original Siemens Equipment" /tmp/s7.txt
+grep -q "System Name: Aichi Line1 Controller" /tmp/s7.txt
+grep -q "Module Type: AIC CPU 3150" /tmp/s7.txt
+grep -q "Serial Number: AIC-0001-0042" /tmp/s7.txt
+grep -q "Copyright: Original Aichi Company Equipment" /tmp/s7.txt
