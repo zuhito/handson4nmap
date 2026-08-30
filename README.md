@@ -50,7 +50,7 @@ nmap -p 80 --script http-date scanme.nmap.org
 | 502 | tcp | Modbus/TCP | |
 | 1194 | udp | OpenVPN | |
 | 1880 | tcp | Node-RED | |
-| 1883 | tcp | MQTT | 匿名接続を許可 |
+| 1883 | tcp | MQTT | 匿名接続を許可、ACL で `aichi/#` のみ公開 |
 | 1884 | tcp | MQTT | 3.1.1 のみ、認証が必要 |
 | 2455 | tcp | CoDeSys V2 | |
 | 3306 | tcp | MariaDB | |
@@ -132,21 +132,54 @@ nmap -p 1883 --script mqtt-subscribe 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 09:42 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:29 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.00043s latency).
+Host is up (0.000042s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     aichi/line1/status: running
 |     aichi/line1/current: 12.7
+|     aichi/line1/status: running
 |     aichi/line2/pressure: 0.0
-|     aichi/line1/pressure: 101.3
-|_    aichi/line2/status: stopped
+|     aichi/line2/status: stopped
+|_    aichi/line1/pressure: 101.3
 
-Nmap done: 1 IP address (1 host up) scanned in 7.54 seconds
+Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
+```
+
+</details>
+
+ACL で匿名クライアントは `aichi/#` しか読めません。`mqtt-subscribe.username` と
+`mqtt-subscribe.password` を渡すと保守用アカウントとして接続し、
+レシピの `recipe/#` も取得できます。
+
+```bash
+nmap -p 1883 --script mqtt-subscribe --script-args "mqtt-subscribe.username=aichi,mqtt-subscribe.password=aichi-secret" 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:29 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000036s latency).
+
+PORT     STATE SERVICE
+1883/tcp open  mqtt
+| mqtt-subscribe: 
+|   Topics and their most recent payloads: 
+|     aichi/line1/pressure: 101.3
+|     aichi/line2/pressure: 0.0
+|     aichi/line1/status: running
+|     recipe/line1/name: mix-a
+|     aichi/line1/current: 12.7
+|     aichi/line2/status: stopped
+|_    recipe/line1/temperature: 180
+
+Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 ```
 
 </details>

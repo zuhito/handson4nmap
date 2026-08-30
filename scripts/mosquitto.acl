@@ -1,0 +1,6 @@
+# Anonymous clients only see the production lines.
+topic readwrite aichi/#
+
+# The maintenance user additionally sees the recipe topics.
+user aichi
+topic readwrite #

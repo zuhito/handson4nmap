@@ -17,3 +17,13 @@ nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/l
 grep -q "aichi/line1/pressure: 101.3" /tmp/mqtt-filtered.txt
 grep -q "aichi/line1/status: running" /tmp/mqtt-filtered.txt
 ! grep -q "aichi/line2/" /tmp/mqtt-filtered.txt
+
+# Anonymous clients must not see the topics reserved for the maintenance user.
+! grep -q "recipe/line1/" /tmp/mqtt-subscribe.txt
+
+# With credentials the recipe topics become visible.
+nmap -p 1883 --script mqtt-subscribe --script-args "mqtt-subscribe.username=aichi,mqtt-subscribe.password=aichi-secret" 127.0.0.1 | tee /tmp/mqtt-auth.txt
+grep -q "recipe/line1/name: mix-a" /tmp/mqtt-auth.txt
+grep -q "recipe/line1/temperature: 180" /tmp/mqtt-auth.txt
+grep -q "aichi/line1/status: running" /tmp/mqtt-auth.txt
+
