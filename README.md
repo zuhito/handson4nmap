@@ -72,6 +72,12 @@ nmap -sU -p 67 --script dhcp-discover 192.168.50.1
 nmap --script broadcast-dhcp-discover -e veth-host
 ```
 
+Siemens S7 PLC の装置情報を取得します。
+
+```bash
+nmap -p 102 --script s7-info 127.0.0.1
+```
+
 https://raw.githubusercontent.com/nmap/nmap/master/scripts/
 
 ## HTML レポートの出力
@@ -95,6 +101,7 @@ xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 | `mock_servers/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
 | `mock_servers/opcua_server.py` | opcua によるOPC UAサーバ |
 | `mock_servers/mqtt_publisher.py` | MQTT に retain 付きでトピックを配信する |
+| `mock_servers/s7_server.py` | s7-info に応答する S7comm サーバ |
 | `mock_servers/http_clockskew_server.py` | 時刻をずらした Date を返す HTTP サーバ |
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(raw socket 実装) |
 | `mock_servers/profinet-server2.py` | 同上を scapy で実装したもの |

@@ -9,6 +9,7 @@ timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/4840; do sleep 1; done' 2>/dev
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1883; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1884; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/8000; do sleep 1; done' 2>/dev/null
+timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/102; do sleep 1; done' 2>/dev/null
 nmap -p 502 --script modbus-discover 127.0.0.1 | tee /tmp/modbus.txt
 grep -q "502/tcp open  modbus" /tmp/modbus.txt
 grep -q "Device identification: Aichi Company AIC-PLC-01" /tmp/modbus.txt
@@ -32,3 +33,11 @@ grep -q "Connection: Not authorized (0x87)" /tmp/mqtt-auth.txt
 grep -q "Anonymous access: denied" /tmp/mqtt-auth.txt
 nmap -p 8000 --script http-date 127.0.0.1 | tee /tmp/httpdate.txt
 grep -q "+4m51s from local time" /tmp/httpdate.txt
+nmap -p 102 --script s7-info 127.0.0.1 | tee /tmp/s7.txt
+grep -q "Module: 6ES7 315-2AG10-0AB0" /tmp/s7.txt
+grep -q "Basic Hardware: 6ES7 315-2AG10-0AB0" /tmp/s7.txt
+grep -q "Version: 2.6.9" /tmp/s7.txt
+grep -q "System Name: SIMATIC 300(Aichi)" /tmp/s7.txt
+grep -q "Module Type: CPU 315-2 DP" /tmp/s7.txt
+grep -q "Serial Number: S C-AIC421302009" /tmp/s7.txt
+grep -q "Copyright: Original Siemens Equipment" /tmp/s7.txt
