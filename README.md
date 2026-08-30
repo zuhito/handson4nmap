@@ -11,8 +11,6 @@ Codespaces を開くと Modbus/TCP サーバ (502) と Node-RED (1880) が自動
 nmap scanme.nmap.org
 ```
 
-[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20scanme.nmap.org%5Cn%22%7D)
-
 ```bash
 nmap -p 22 scanme.nmap.org
 ```
