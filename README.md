@@ -20,6 +20,8 @@ Codespacesを開くとモックサーバが自動起動します。
 | 3000 | tcp | Grafana | 匿名アクセスは無効 |
 | 3306 | tcp | MariaDB | |
 | 4840 | tcp | OPC UA | |
+| 5900 | tcp | VNC (認証なし) | デスクトップ名とサイズを公開 |
+| 5901 | tcp | VNC (VncAuth) | パスワード `vncpass` |
 | 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
 | 80 | tcp | HTTP | Date を 4分51秒 進める |
 | なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
@@ -434,6 +436,62 @@ Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
 
 </details>
 
+VNC サーバの RFB ハンドシェイクを読み取ります。認証不要の場合はデスクトップ名と
+画面サイズまで取得できます。
+
+```bash
+nmap -p 5900 --script vnc.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 21:31 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00020s latency).
+
+PORT     STATE SERVICE
+5900/tcp open  vnc
+| vnc: 
+|   Protocol version: 3.8
+|   Security types: None (1)
+|   Authentication: not required
+|   Desktop name: Aichi Line1 HMI
+|   Framebuffer: 1024x768
+|_  Pixel format: 32 bits per pixel, depth 24
+
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+```
+
+</details>
+
+認証が必要なサーバでは、提示されるセキュリティタイプまでしか分かりません。
+
+```bash
+nmap -p 5901 --script vnc.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 21:31 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000052s latency).
+
+PORT     STATE SERVICE
+5901/tcp open  vnc
+| vnc: 
+|   Protocol version: 3.8
+|   Security types: VNC Authentication (2)
+|_  Authentication: required
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
 InfluxDB のバージョンと、認証なしで参照できるデータベースを取得します。
 
 ```bash
@@ -688,6 +746,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
 | `tests/ntp.sh` | ntp-info の出力を検証する |
 | `tests/influxdb.sh` | influxdb.nse の出力を検証する |
+| `tests/vnc.sh` | vnc.nse の出力を検証する |
 | `tests/report.sh` | HTML レポートを生成して内容を検証する |
 | `tests/test.sh` | 起動とスキャン結果の検証 |
 

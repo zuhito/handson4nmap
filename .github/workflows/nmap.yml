@@ -29,6 +29,8 @@ jobs:
         run: bash tests/influxdb.sh
       - name: OpenCart
         run: bash tests/opencart.sh
+      - name: VNC
+        run: bash tests/vnc.sh
       - name: HTML report
         run: bash tests/report.sh
 
