@@ -8,7 +8,18 @@ jobs:
     container: mcr.microsoft.com/devcontainers/universal:2-linux
     steps:
       - uses: actions/checkout@v4
-      - run: bash scripts/install.sh
+      - name: Install packages
+        run: bash scripts/install.sh
+      - name: Build nmap
+        run: bash scripts/nmap-build.sh
+      - name: Fetch codesys NSE
+        run: bash scripts/codesys-nse.sh
+      - name: Build busybox
+        run: bash scripts/busybox-build.sh
+      - name: Install Grafana
+        run: bash scripts/grafana-install.sh
+      - name: Install OpenCart
+        run: bash scripts/opencart-install.sh
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Core scans

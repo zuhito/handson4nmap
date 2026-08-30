@@ -1,6 +1,6 @@
 {
   "remoteUser": "root",
-  "postCreateCommand": "bash scripts/install.sh",
+  "postCreateCommand": "bash scripts/setup.sh",
   "postStartCommand": "bash scripts/start.sh",
   "postAttachCommand": "bash scripts/start.sh",
   "customizations": {

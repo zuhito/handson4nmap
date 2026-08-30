@@ -6,11 +6,6 @@ apt-get update
 apt-get install -y influxdb openvpn mosquitto mosquitto-clients xsltproc dnsmasq iproute2 libssl-dev libpcap-dev snmpd php-cli php-mysql php-gd php-curl php-zip php-mbstring php-xml unzip
 pip install -r scripts/requirements.txt
 npm install -g --unsafe-perm node-red
-bash scripts/nmap-build.sh
-bash scripts/codesys-nse.sh
-bash scripts/busybox-build.sh
-bash scripts/grafana-install.sh
-bash scripts/opencart-install.sh
 
 mkdir -p vpn
 openssl req -x509 -newkey rsa:2048 -keyout vpn/ca.key -out vpn/ca.crt -days 3650 -nodes -subj "/CN=TestCA"
