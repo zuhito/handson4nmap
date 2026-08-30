@@ -27,6 +27,9 @@ OpenVPN サーバのセッション情報を取得します。
 
 ```bash
 nmap -p 1194 --script openvpn.nse 127.0.0.1
+```
+
+```bash
 nmap -sU -p 1194 --script openvpn.nse 127.0.0.1
 ```
 
@@ -62,7 +65,6 @@ SNMP エージェントのシステム情報を取得し、コミュニティ名
 
 ```bash
 nmap -sU -p 161 --script snmp-info 127.0.0.1
-nmap -sU -p 161 --script snmp-brute 127.0.0.1
 ```
 
 CoDeSys V2 ランタイムの OS と製品種別を取得します。
