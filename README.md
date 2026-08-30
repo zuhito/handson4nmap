@@ -27,6 +27,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
 | 80 | tcp | HTTP | Date を 4分51秒 進める |
 | なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
+| 25 | tcp | SMTP | STARTTLS 対応、VRFY は無効 |
 | 53 | udp | DNS (dnsmasq) | `aichi.example` の名前を解決する |
 | 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
 
@@ -465,6 +466,35 @@ Nmap done: 1 IP address (1 host up) scanned in 0.16 seconds
 
 </details>
 
+SMTP サーバが認証前に開示する情報を取得します。
+
+```bash
+nmap -p 25 --script smtp.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:41 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000056s latency).
+
+PORT   STATE SERVICE
+25/tcp open  smtp
+| smtp: 
+|   Banner: mail.aichi.example ESMTP Aichi-Mail 2.1.4 ready
+|   Extensions: PIPELINING, 8BITMIME, ENHANCEDSTATUSCODES, HELP
+|   Authentication: PLAIN, LOGIN
+|   STARTTLS: supported
+|   Maximum message size: 10485760 bytes
+|_  VRFY: refused (252)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
+```
+
+</details>
+
 POP3 サーバが認証前に開示する情報を取得します。
 
 ```bash
@@ -834,10 +864,12 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
 | `tests/ntp.sh` | ntp-info の出力を検証する |
 | `tests/influxdb.sh` | influxdb.nse の出力を検証する |
+| `mock_servers/smtp_server.py` | 認証前の情報を返す SMTP サーバ |
 | `mock_servers/pop3_server.py` | 認証前の情報を返す POP3 サーバ |
 | `mock_servers/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
 | `mock_servers/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
 | `tests/dns.sh` | dns.nse の出力を検証する |
+| `tests/smtp.sh` | smtp.nse の出力を検証する |
 | `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |

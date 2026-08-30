@@ -48,6 +48,8 @@ jobs:
         run: bash tests/pop3.sh
       - name: DNS
         run: bash tests/dns.sh
+      - name: SMTP
+        run: bash tests/smtp.sh
       - name: HTML report
         run: bash tests/report.sh
 
