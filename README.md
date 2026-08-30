@@ -326,7 +326,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 ブローカが保持しているトピックと最新のペイロードを購読して表示します。
 既定では `#` と `$SYS/#` を購読するため、ブローカの全トピックが対象になります。
 テスト用のブローカは `sys_interval 0` で統計の配信を止めてあるので、
-`mosquitto_pub -r` で retain 付き配信した5件だけが表示されます。
+`mosquitto_pub -r` で retain 付き配信した2ライン分の5件だけが表示されます。
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe 127.0.0.1
@@ -336,47 +336,49 @@ nmap -p 1883 --script mqtt-subscribe 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:52 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 09:42 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000047s latency).
+Host is up (0.00043s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     site/building1/room101/temperature: 25.4
-|     aichi/line1/plc01/status: running
-|     aichi/line1/tank01/pressure: 101.3
-|     aichi/line1/motor01/current: 12.7
-|_    site/building1/meter01/energy: 1042
+|     aichi/line1/status: running
+|     aichi/line1/current: 12.7
+|     aichi/line2/pressure: 0.0
+|     aichi/line1/pressure: 101.3
+|_    aichi/line2/status: stopped
 
-Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
+Nmap done: 1 IP address (1 host up) scanned in 7.54 seconds
 ```
 
 </details>
 
 `mqtt-subscribe.topic` を指定すると購読するトピックを絞れます。
-`aichi/#` を指定した場合、`site/building1/` 配下は出力されません。
+`aichi/line1/#` を指定した場合、停止中の line2 は出力されません。
 
 ```bash
-nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/#' 127.0.0.1
+nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/line1/#' 127.0.0.1
 ```
+
+[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201883%20--script%20mqtt-subscribe%20--script-args%20%27mqtt-subscribe.topic%3Daichi%2Fline1%2F%23%27%20127.0.0.1%5Cn%22%7D)
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 08:53 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 09:42 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000051s latency).
+Host is up (0.000048s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     aichi/line1/motor01/current: 12.7
-|     aichi/line1/tank01/pressure: 101.3
-|_    aichi/line1/plc01/status: running
+|     aichi/line1/current: 12.7
+|     aichi/line1/status: running
+|_    aichi/line1/pressure: 101.3
 
 Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 ```
