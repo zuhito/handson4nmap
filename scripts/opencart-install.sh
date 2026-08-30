@@ -16,6 +16,10 @@ cd external/opencart/upload
 cp config-dist.php config.php
 cp admin/config-dist.php admin/config.php
 
+# install.sh runs before start.sh, so the database has to be brought up here.
+pgrep -x mariadbd > /dev/null || setsid nohup mariadbd-safe --user=mysql < /dev/null > /tmp/mariadb.log 2>&1 &
+timeout 120 bash -c 'until mysqladmin ping --silent; do sleep 2; done'
+
 mysql -e "CREATE DATABASE IF NOT EXISTS opencart CHARACTER SET utf8mb4;"
 mysql -e "CREATE USER IF NOT EXISTS 'opencart'@'localhost' IDENTIFIED BY 'opencart-pass';"
 mysql -e "GRANT ALL ON opencart.* TO 'opencart'@'localhost'; FLUSH PRIVILEGES;"
