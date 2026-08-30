@@ -17,6 +17,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | 1883 | tcp | MQTT | 匿名接続を許可、ACL で `aichi/#` のみ公開 |
 | 1884 | tcp | MQTT | 3.1.1 のみ、認証が必要 |
 | 2455 | tcp | CoDeSys V2 | |
+| 3000 | tcp | Grafana | 匿名アクセスは無効 |
 | 3306 | tcp | MariaDB | |
 | 4840 | tcp | OPC UA | |
 | 80 | tcp | HTTP | Date を 4分51秒 進める |
@@ -65,6 +66,33 @@ PORT    STATE SERVICE
 |_    Device identification: Aichi Company AIC-PLC-01 1.0.0
 
 Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+```
+
+</details>
+
+Grafana のバージョンとデータベースの状態を取得します。
+
+```bash
+nmap -p 3000 --script grafana.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 14:36 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000037s latency).
+
+PORT     STATE SERVICE
+3000/tcp open  grafana
+| grafana: 
+|   Version: 13.2.0
+|   Build commit: f681b1359f6a
+|   Database: ok
+|_  Anonymous access: disabled
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -589,11 +617,13 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `scripts/dhcp-start.sh` | veth と名前空間を用意して dnsmasq を起動する |
 | `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
+| `scripts/grafana.ini` | テスト用 Grafana の設定 |
 | `scripts/openvpn.conf` | テスト用 OpenVPN サーバの設定 |
 | `scripts/profinet-check.sh` | PROFINET DCP の応答を検証する |
 | `scripts/nmap-build.sh` | 最新の nmap をソースから導入する |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
+| `grafana.nse` | Grafana の情報を取得するNSEスクリプト |
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
 | `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |
 | `scripts/start.sh` | 各サーバの起動 |

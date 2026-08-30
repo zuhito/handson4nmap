@@ -21,6 +21,8 @@ jobs:
         run: bash tests/snmp.sh
       - name: NTP
         run: bash tests/ntp.sh
+      - name: Grafana
+        run: bash tests/grafana.sh
       - name: HTML report
         run: bash tests/report.sh
 

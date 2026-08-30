@@ -9,6 +9,7 @@ pgrep -a -x mosquitto | grep -q "scripts/mosquitto.conf" || setsid nohup mosquit
 pgrep -f mqtt_v3_server.py > /dev/null || setsid nohup python3 mock_servers/mqtt_v3_server.py < /dev/null > /tmp/mqttv3.log 2>&1 &
 pgrep -f http_clockskew_server.py > /dev/null || setsid nohup python3 mock_servers/http_clockskew_server.py < /dev/null > /tmp/httpskew.log 2>&1 &
 setsid nohup bash scripts/mqtt-publish.sh < /dev/null > /tmp/mqttpub.log 2>&1 &
+pgrep -x grafana > /dev/null || setsid nohup grafana server --homepath /usr/share/grafana --config scripts/grafana.ini < /dev/null > /tmp/grafana.log 2>&1 &
 pgrep -f s7_server.py > /dev/null || setsid nohup python3 mock_servers/s7_server.py < /dev/null > /tmp/s7.log 2>&1 &
 pgrep -f codesys_server.py > /dev/null || setsid nohup python3 mock_servers/codesys_server.py < /dev/null > /tmp/codesys.log 2>&1 &
 pgrep -x snmpd > /dev/null || setsid nohup snmpd -f -C -c scripts/snmpd.conf -Lo < /dev/null > /tmp/snmpd.log 2>&1 &
