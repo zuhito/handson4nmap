@@ -84,6 +84,23 @@ Siemens S7 PLC の装置情報を取得します。
 nmap -p 102 --script s7-info 127.0.0.1
 ```
 
+## 外部ホストへの実行
+
+`scanme.nmap.org` は nmap プロジェクトがスキャンを許可している検証用ホストです。
+これ以外のホストを許可なくスキャンしないでください。
+
+ページのタイトルを取得します。
+
+```bash
+nmap -p 80 --script http-title scanme.nmap.org
+```
+
+Date ヘッダから時刻ずれを確認します。
+
+```bash
+nmap -p 80 --script http-date scanme.nmap.org
+```
+
 https://raw.githubusercontent.com/nmap/nmap/master/scripts/
 
 ## HTML レポートの出力
