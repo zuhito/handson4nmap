@@ -65,92 +65,6 @@ snmpd は 199/tcp も開きますが、これは SMUX 用でハンズオンで�
 
 ## nmap コマンド
 
-DHCP サーバの提供内容を確認します。
-
-```bash
-nmap --script broadcast-dhcp-discover
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:50 +0000
-Pre-scan script results:
-| broadcast-dhcp-discover: 
-|   Response 1 of 1: 
-|     Interface: veth-host
-|     IP Offered: 192.168.50.141
-|     DHCP Message Type: DHCPOFFER
-|     Server Identifier: 192.168.50.1
-|     IP Address Lease Time: 12h00m00s
-|     Renewal Time Value: 6h00m00s
-|     Rebinding Time Value: 10h30m00s
-|     Subnet Mask: 255.255.255.0
-|     Broadcast Address: 192.168.50.255
-|     Domain Name: aichi.example
-|     Domain Name Server: 192.168.50.1
-|_    Router: 192.168.50.1
-Nmap done: 0 IP addresses (0 hosts up) scanned in 10.08 seconds
-WARNING: No targets were specified, so 0 hosts scanned.
-```
-
-</details>
-
-# UDP scan (-sU)
-
-NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
-
-```bash
-nmap -sU -p 123 --script ntp-info 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000068s latency).
-
-PORT    STATE SERVICE
-123/udp open  ntp
-| ntp-info: 
-|_  receive time stamp: 2026-08-30T07:51:05
-
-Nmap done: 1 IP address (1 host up) scanned in 10.13 seconds
-```
-
-</details>
-
-SNMP エージェントのシステム情報を取得し、コミュニティ名を総当たりします。
-
-```bash
-nmap -sU -p 161 --script snmp-info 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.00020s latency).
-
-PORT    STATE SERVICE
-161/udp open  snmp
-| snmp-info: 
-|   enterprise: net-snmp
-|   engineIDFormat: unknown
-|   engineIDData: 0e78d13fead9936a00000000
-|   snmpEngineBoots: 1
-|_  snmpEngineTime: 29m56s
-
-Nmap done: 1 IP address (1 host up) scanned in 0.21 seconds
-```
-
-</details>
-
 Modbus のスレーブIDとデバイス情報を列挙します。
 
 ```bash
@@ -291,38 +205,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 
 </details>
 
-PROFINET 機器を DCP のマルチキャストで探索します。
-
-```bash
-nmap --script multicast-profinet-discovery
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
-Pre-scan script results:
-| multicast-profinet-discovery: 
-|   02:fc:00:00:00:01: 
-|     Interface: eth0
-|     IP: 
-|       ip_addr: 192.0.2.2
-|       ip_info: IP set
-|       subnetmask: 255.255.255.0
-|       gateway: 192.0.2.1
-|     Device: 
-|       vendorId: 0x002a
-|       deviceId: 0x0105
-|       vendorValue: Aichi Company AIC-PLC-01
-|       deviceRole: 0x02 (IO-Controller)
-|_      nameOfStation: aic-plc-01
-Nmap done: 0 IP addresses (0 hosts up) scanned in 2.13 seconds
-WARNING: No targets were specified, so 0 hosts scanned.
-```
-
-</details>
-
 Siemens S7 PLC の装置情報を取得します。
 
 ```bash
@@ -411,6 +293,125 @@ PORT     STATE SERVICE
 |_    aichi/line1/pressure: 101.3
 
 Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
+```
+
+</details>
+
+# UDP scan (-sU)
+
+NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
+
+```bash
+nmap -sU -p 123 --script ntp-info 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000068s latency).
+
+PORT    STATE SERVICE
+123/udp open  ntp
+| ntp-info: 
+|_  receive time stamp: 2026-08-30T07:51:05
+
+Nmap done: 1 IP address (1 host up) scanned in 10.13 seconds
+```
+
+</details>
+
+SNMP エージェントのシステム情報を取得し、コミュニティ名を総当たりします。
+
+```bash
+nmap -sU -p 161 --script snmp-info 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00020s latency).
+
+PORT    STATE SERVICE
+161/udp open  snmp
+| snmp-info: 
+|   enterprise: net-snmp
+|   engineIDFormat: unknown
+|   engineIDData: 0e78d13fead9936a00000000
+|   snmpEngineBoots: 1
+|_  snmpEngineTime: 29m56s
+
+Nmap done: 1 IP address (1 host up) scanned in 0.21 seconds
+```
+
+</details>
+
+# Broadcast / Multicast
+DHCP サーバの提供内容を確認します。
+
+```bash
+nmap --script broadcast-dhcp-discover
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:50 +0000
+Pre-scan script results:
+| broadcast-dhcp-discover: 
+|   Response 1 of 1: 
+|     Interface: veth-host
+|     IP Offered: 192.168.50.141
+|     DHCP Message Type: DHCPOFFER
+|     Server Identifier: 192.168.50.1
+|     IP Address Lease Time: 12h00m00s
+|     Renewal Time Value: 6h00m00s
+|     Rebinding Time Value: 10h30m00s
+|     Subnet Mask: 255.255.255.0
+|     Broadcast Address: 192.168.50.255
+|     Domain Name: aichi.example
+|     Domain Name Server: 192.168.50.1
+|_    Router: 192.168.50.1
+Nmap done: 0 IP addresses (0 hosts up) scanned in 10.08 seconds
+WARNING: No targets were specified, so 0 hosts scanned.
+```
+
+</details>
+
+PROFINET 機器を DCP のマルチキャストで探索します。
+
+```bash
+nmap --script multicast-profinet-discovery
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Pre-scan script results:
+| multicast-profinet-discovery: 
+|   02:fc:00:00:00:01: 
+|     Interface: eth0
+|     IP: 
+|       ip_addr: 192.0.2.2
+|       ip_info: IP set
+|       subnetmask: 255.255.255.0
+|       gateway: 192.0.2.1
+|     Device: 
+|       vendorId: 0x002a
+|       deviceId: 0x0105
+|       vendorValue: Aichi Company AIC-PLC-01
+|       deviceRole: 0x02 (IO-Controller)
+|_      nameOfStation: aic-plc-01
+Nmap done: 0 IP addresses (0 hosts up) scanned in 2.13 seconds
+WARNING: No targets were specified, so 0 hosts scanned.
 ```
 
 </details>
