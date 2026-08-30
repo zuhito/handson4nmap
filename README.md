@@ -20,6 +20,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | 3000 | tcp | Grafana | 匿名アクセスは無効 |
 | 3306 | tcp | MariaDB | |
 | 4840 | tcp | OPC UA | |
+| 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
 | 80 | tcp | HTTP | Date を 4分51秒 進める |
 | なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
 | 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
@@ -407,6 +408,33 @@ Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
 
 </details>
 
+InfluxDB のバージョンと、認証なしで参照できるデータベースを取得します。
+
+```bash
+nmap -p 8086 --script influxdb.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 14:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000043s latency).
+
+PORT     STATE SERVICE
+8086/tcp open  influxdb
+| influxdb: 
+|   Version: 1.6.7~rc0
+|   Build: OSS
+|   Authentication: not required
+|_  Databases: _internal, plant
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
 CoDeSys V2 ランタイムの OS と製品種別を取得します。
 
 ```bash
@@ -632,6 +660,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `tests/codesys.sh` | codesys-v2-discover の出力を検証する |
 | `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
 | `tests/ntp.sh` | ntp-info の出力を検証する |
+| `tests/influxdb.sh` | influxdb.nse の出力を検証する |
 | `tests/report.sh` | HTML レポートを生成して内容を検証する |
 | `tests/test.sh` | 起動とスキャン結果の検証 |
 

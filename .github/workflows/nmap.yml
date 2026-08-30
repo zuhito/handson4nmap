@@ -23,6 +23,8 @@ jobs:
         run: bash tests/ntp.sh
       - name: Grafana
         run: bash tests/grafana.sh
+      - name: InfluxDB
+        run: bash tests/influxdb.sh
       - name: HTML report
         run: bash tests/report.sh
 

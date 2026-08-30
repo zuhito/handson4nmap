@@ -9,4 +9,5 @@ bash tests/codesys.sh
 bash tests/snmp.sh
 bash tests/ntp.sh
 bash tests/grafana.sh
+bash tests/influxdb.sh
 bash tests/report.sh
