@@ -16,4 +16,5 @@ bash tests/imap.sh
 bash tests/pop3.sh
 bash tests/dns.sh
 bash tests/smtp.sh
+bash tests/mysql.sh
 bash tests/report.sh

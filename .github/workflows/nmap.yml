@@ -50,6 +50,8 @@ jobs:
         run: bash tests/dns.sh
       - name: SMTP
         run: bash tests/smtp.sh
+      - name: MySQL
+        run: bash tests/mysql.sh
       - name: HTML report
         run: bash tests/report.sh
 

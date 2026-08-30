@@ -466,6 +466,35 @@ Nmap done: 1 IP address (1 host up) scanned in 0.16 seconds
 
 </details>
 
+MySQL / MariaDB が接続直後に送るグリーティングから構成を取得します。
+
+```bash
+nmap -p 3306 --script mysql.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:54 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000052s latency).
+
+PORT     STATE SERVICE
+3306/tcp open  mysql
+| mysql: 
+|   Version: 5.5.5-10.11.14-MariaDB-0ubuntu0.24.04.1
+|   Protocol: 10
+|   Connection id: 17
+|   Authentication plugin: mysql_native_password
+|   TLS: not offered
+|_  Capabilities: FOUND_ROWS, CONNECT_WITH_DB, COMPRESS, PROTOCOL_41, TRANSACTIONS, SECURE_CONNECTION, MULTI_STATEMENTS, MULTI_RESULTS, PLUGIN_AUTH, CONNECT_ATTRS, SESSION_TRACK
+
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+```
+
+</details>
+
 SMTP サーバが認証前に開示する情報を取得します。
 
 ```bash
@@ -869,6 +898,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `mock_servers/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
 | `mock_servers/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
 | `tests/dns.sh` | dns.nse の出力を検証する |
+| `tests/mysql.sh` | mysql.nse の出力を検証する |
 | `tests/smtp.sh` | smtp.nse の出力を検証する |
 | `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
