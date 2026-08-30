@@ -7,6 +7,7 @@ timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/502; do sleep 1; done' 2>/dev/
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1880; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/4840; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1883; do sleep 1; done' 2>/dev/null
+timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/8000; do sleep 1; done' 2>/dev/null
 nmap -p 502 --script modbus-discover 127.0.0.1 | tee /tmp/modbus.txt
 grep -q "502/tcp open  modbus" /tmp/modbus.txt
 grep -q "Device identification: Aichi Company AIC-PLC-01" /tmp/modbus.txt
@@ -24,6 +25,7 @@ grep -q "1883/tcp open  mqtt" /tmp/mqtt.txt
 grep -q "Protocol: MQTT 5.0" /tmp/mqtt.txt
 grep -q "Anonymous access: allowed" /tmp/mqtt.txt
 grep -q "Session present:" /tmp/mqtt.txt
+nmap -p 8000 --script http-date 127.0.0.1 | tee /tmp/httpdate.txt
+grep -q "+4m51s from local time" /tmp/httpdate.txt
 bash scripts/profinet-check.sh mock_servers/profinet-server.py
 bash scripts/profinet-check.sh mock_servers/profinet-server2.py
-

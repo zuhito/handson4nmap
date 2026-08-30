@@ -45,12 +45,25 @@ MQTT ブローカの情報を取得します。
 nmap -p 1883 --script mqtt.nse 127.0.0.1
 ```
 
+HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
+
+```bash
+nmap -p 8000 --script http-date 127.0.0.1
+```
+
+まとめて実行します。
+
+```bash
+bash tests/test.sh
+```
+
 ## ファイル
 
 | ファイル | 内容 |
 | --- | --- |
 | `mock_servers/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
 | `mock_servers/opcua_server.py` | opcua によるOPC UAサーバ |
+| `mock_servers/http_clockskew_server.py` | 時刻をずらした Date を返す HTTP サーバ |
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(raw socket 実装) |
 | `mock_servers/profinet-server2.py` | 同上を scapy で実装したもの |
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
@@ -62,5 +75,5 @@ nmap -p 1883 --script mqtt.nse 127.0.0.1
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
 | `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |
 | `scripts/start.sh` | 各サーバの起動 |
-| `scripts/test.sh` | 起動とスキャン結果の検証 |
+| `tests/test.sh` | 起動とスキャン結果の検証 |
 
