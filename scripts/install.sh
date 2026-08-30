@@ -9,6 +9,7 @@ npm install -g --unsafe-perm node-red
 bash scripts/nmap-build.sh
 bash scripts/codesys-nse.sh
 bash scripts/pnet-build.sh
+bash scripts/busybox-build.sh
 
 mkdir -p vpn
 openssl req -x509 -newkey rsa:2048 -keyout vpn/ca.key -out vpn/ca.crt -days 3650 -nodes -subj "/CN=TestCA"

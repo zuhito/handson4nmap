@@ -8,4 +8,5 @@ bash scripts/profinet-check.sh
 bash tests/mqtt-subscribe.sh
 bash tests/codesys.sh
 bash tests/snmp.sh
+bash tests/ntp.sh
 bash tests/report.sh

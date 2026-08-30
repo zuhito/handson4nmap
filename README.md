@@ -77,6 +77,12 @@ SNMP のエンジン情報を取得し、コミュニティ名を総当たりし
 nmap -sU -p 161 --script snmp-info,snmp-brute 127.0.0.1
 ```
 
+NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
+
+```bash
+nmap -sU -p 123 --script ntp-info 127.0.0.1
+```
+
 HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
 
 ```bash
@@ -160,6 +166,7 @@ xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 | `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
 | `tests/codesys.sh` | codesys-v2-discover の出力を検証する |
 | `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
+| `tests/ntp.sh` | ntp-info の出力を検証する |
 | `tests/report.sh` | HTML レポートを生成して内容を検証する |
 | `tests/test.sh` | 起動とスキャン結果の検証 |
 
