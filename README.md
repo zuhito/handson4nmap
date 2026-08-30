@@ -45,6 +45,12 @@ MQTT ブローカの情報を取得します。
 nmap -p 1883 --script mqtt.nse 127.0.0.1
 ```
 
+認証を要求するブローカでは結果が変わります。
+
+```bash
+nmap -p 1884 --script mqtt.nse 127.0.0.1
+```
+
 HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
 
 ```bash
@@ -62,6 +68,7 @@ https://raw.githubusercontent.com/nmap/nmap/master/scripts/
 | `mock_servers/http_clockskew_server.py` | 時刻をずらした Date を返す HTTP サーバ |
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(raw socket 実装) |
 | `mock_servers/profinet-server2.py` | 同上を scapy で実装したもの |
+| `scripts/mosquitto-auth.conf` | 認証必須の MQTT ブローカの設定 |
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
 | `scripts/openvpn-udp.conf` / `scripts/openvpn-tcp.conf` | テスト用 OpenVPN サーバの設定 |
 | `scripts/profinet-check.sh` | PROFINET の両実装を順に検証する |

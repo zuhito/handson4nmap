@@ -36,7 +36,7 @@ author = "kazuhitoyokoi"
 license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
 categories = {"discovery", "safe", "version"}
 
-portrule = shortport.port_or_service({1883, 8883}, {"mqtt", "secure-mqtt"}, "tcp")
+portrule = shortport.port_or_service({1883, 1884, 8883}, {"mqtt", "secure-mqtt"}, "tcp")
 
 local V5_REASONS = {
   [0x00] = "Success",
