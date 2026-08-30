@@ -8,7 +8,7 @@ pgrep -f openvpn-tcp.conf > /dev/null || setsid nohup openvpn --config scripts/o
 pgrep -f "scripts/mosquitto.conf" > /dev/null || setsid nohup mosquitto -c scripts/mosquitto.conf < /dev/null > /tmp/mosquitto.log 2>&1 &
 pgrep -f "scripts/mosquitto-auth.conf" > /dev/null || setsid nohup mosquitto -c scripts/mosquitto-auth.conf < /dev/null > /tmp/mosquitto-auth.log 2>&1 &
 pgrep -f http_clockskew_server.py > /dev/null || setsid nohup python3 mock_servers/http_clockskew_server.py < /dev/null > /tmp/httpskew.log 2>&1 &
-pgrep -f mqtt_publisher.py > /dev/null || setsid nohup python3 mock_servers/mqtt_publisher.py < /dev/null > /tmp/mqttpub.log 2>&1 &
+setsid nohup bash scripts/mqtt-publish.sh < /dev/null > /tmp/mqttpub.log 2>&1 &
 pgrep -f s7_server.py > /dev/null || setsid nohup python3 mock_servers/s7_server.py < /dev/null > /tmp/s7.log 2>&1 &
 pgrep -f codesys_server.py > /dev/null || setsid nohup python3 mock_servers/codesys_server.py < /dev/null > /tmp/codesys.log 2>&1 &
 pgrep -x snmpd > /dev/null || setsid nohup snmpd -f -C -c scripts/snmpd.conf -Lo < /dev/null > /tmp/snmpd.log 2>&1 &

@@ -138,7 +138,6 @@ xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 | `mock_servers/opcua_server.py` | opcua によるOPC UAサーバ |
 | `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
 | `mock_servers/codesys_server.py` | CoDeSys V2 の識別要求に応答するサーバ |
-| `mock_servers/mqtt_publisher.py` | MQTT に retain 付きでトピックを配信する |
 | `mock_servers/s7_server.py` | s7-info に応答する S7comm サーバ |
 | `mock_servers/http_clockskew_server.py` | 時刻をずらした Date を返す HTTP サーバ |
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(raw socket 実装) |
