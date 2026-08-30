@@ -41,27 +41,24 @@ nmap -p 80 --script http-date scanme.nmap.org
 `scripts/start.sh` がコンテナ内で起動するサービスです。すべて 127.0.0.1 に対して
 スキャンするため、Codespaces のポート転送は使いません。
 
-| ポート | プロトコル | サービス | 起動元 |
+| ポート | プロトコル | サービス | 備考 |
 | --- | --- | --- | --- |
-| 102 | tcp | S7comm (ISO-TSAP) | `mock_servers/s7_server.py` |
-| 502 | tcp | Modbus/TCP | `mock_servers/modbus_server.py` |
-| 1194 | tcp / udp | OpenVPN | `scripts/openvpn-tcp.conf` / `scripts/openvpn-udp.conf` |
-| 1880 | tcp | Node-RED | `node-red` |
-| 1883 | tcp | MQTT (匿名接続を許可) | `scripts/mosquitto.conf` |
-| 1884 | tcp | MQTT (3.1.1 のみ、認証が必要) | `mock_servers/mqtt_v3_server.py` |
-| 2455 | tcp | CoDeSys V2 | `mock_servers/codesys_server.py` |
-| 3306 | tcp | MariaDB | `mariadbd` |
-| 4840 | tcp | OPC UA | `mock_servers/opcua_server.py` |
-| 8000 | tcp | HTTP (Date を 4分51秒 進める) | `mock_servers/http_clockskew_server.py` |
-| 123 | udp | NTP | `external/busybox/busybox ntpd` |
-| 161 | udp | SNMP | `scripts/snmpd.conf` |
-
-ポートを持たないサービスもあります。PROFINET DCP は EtherType 0x8892 の生イーサネット
-フレームで通信するため、`mock_servers/profinet-server.py` と p-net のサンプルアプリは
-ポートを開きません。DHCP は `veth-ns` という専用のネットワーク名前空間の中で
-dnsmasq が待ち受けるので、コンテナ側からは 67/udp が見えません。
-
-snmpd は 199/tcp も開きますが、これは SMUX 用でハンズオンでは使いません。
+| 102 | tcp | S7comm (ISO-TSAP) | |
+| 123 | udp | NTP | |
+| 161 | udp | SNMP | |
+| 199 | tcp | SMUX | snmpd が開くがハンズオンでは使わない |
+| 502 | tcp | Modbus/TCP | |
+| 1194 | tcp / udp | OpenVPN | |
+| 1880 | tcp | Node-RED | |
+| 1883 | tcp | MQTT | 匿名接続を許可 |
+| 1884 | tcp | MQTT | 3.1.1 のみ、認証が必要 |
+| 2455 | tcp | CoDeSys V2 | |
+| 3306 | tcp | MariaDB | |
+| 4840 | tcp | OPC UA | |
+| 8000 | tcp | HTTP | Date を 4分51秒 進める |
+| なし | ethernet | PROFINET DCP (scapy 実装) | EtherType 0x8892 の生フレームで通信する |
+| なし | ethernet | PROFINET DCP (p-net) | 同上 |
+| 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
 
 # TCP Scan
 Modbus のスレーブIDとデバイス情報を列挙します。
