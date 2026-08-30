@@ -3,7 +3,7 @@ set -e
 cd "$(dirname "$0")/.."
 rm -f /etc/apt/sources.list.d/yarn.list
 apt-get update
-apt-get install -y nmap openvpn mosquitto
+apt-get install -y nmap openvpn mosquitto dnsmasq iproute2
 pip install -r scripts/requirements.txt
 npm install -g --unsafe-perm node-red
 bash scripts/profinet-nse.sh

@@ -32,6 +32,7 @@ grep -q "Connection: Not authorized (0x87)" /tmp/mqtt-auth.txt
 grep -q "Anonymous access: denied" /tmp/mqtt-auth.txt
 nmap -p 8000 --script http-date 127.0.0.1 | tee /tmp/httpdate.txt
 grep -q "+4m51s from local time" /tmp/httpdate.txt
+bash scripts/dhcp-check.sh
 bash scripts/pnet-check.sh
 bash scripts/profinet-check.sh mock_servers/profinet-server.py
 bash scripts/profinet-check.sh mock_servers/profinet-server2.py

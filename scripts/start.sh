@@ -9,4 +9,6 @@ pgrep -f "scripts/mosquitto.conf" > /dev/null || setsid nohup mosquitto -c scrip
 pgrep -f "scripts/mosquitto-auth.conf" > /dev/null || setsid nohup mosquitto -c scripts/mosquitto-auth.conf < /dev/null > /tmp/mosquitto-auth.log 2>&1 &
 pgrep -f http_clockskew_server.py > /dev/null || setsid nohup python3 mock_servers/http_clockskew_server.py < /dev/null > /tmp/httpskew.log 2>&1 &
 pgrep -x node-red > /dev/null || setsid nohup node-red < /dev/null > /tmp/nodered.log 2>&1 &
+bash scripts/dhcp-start.sh
+
 exit 0

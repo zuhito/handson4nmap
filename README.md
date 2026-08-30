@@ -57,6 +57,14 @@ HTTP の Date ヘッダから時刻ずれを検出します。テスト用サー
 nmap -p 8000 --script http-date 127.0.0.1
 ```
 
+DHCP サーバの提供内容を確認します。テスト用サーバは veth の先の
+ネットワーク名前空間で動いています。
+
+```bash
+nmap -sU -p 67 --script dhcp-discover 192.168.50.1
+nmap --script broadcast-dhcp-discover -e veth-host
+```
+
 https://raw.githubusercontent.com/nmap/nmap/master/scripts/
 
 ## HTML レポートの出力
@@ -83,6 +91,8 @@ xsltproc scan.xml -o scan.html
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(raw socket 実装) |
 | `mock_servers/profinet-server2.py` | 同上を scapy で実装したもの |
 | `scripts/mosquitto-auth.conf` | 認証必須の MQTT ブローカの設定 |
+| `scripts/dnsmasq.conf` | テスト用 DHCP サーバの設定 |
+| `scripts/dhcp-start.sh` | veth と名前空間を用意して dnsmasq を起動する |
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
 | `scripts/openvpn-udp.conf` / `scripts/openvpn-tcp.conf` | テスト用 OpenVPN サーバの設定 |
 | `scripts/profinet-check.sh` | PROFINET の両実装を順に検証する |
