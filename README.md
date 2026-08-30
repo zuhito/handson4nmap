@@ -55,7 +55,7 @@ nmap -p 80 --script http-date scanme.nmap.org
 | 2455 | tcp | CoDeSys V2 | |
 | 3306 | tcp | MariaDB | |
 | 4840 | tcp | OPC UA | |
-| 8000 | tcp | HTTP | Date を 4分51秒 進める |
+| 80 | tcp | HTTP | Date を 4分51秒 進める |
 | なし | ethernet | PROFINET DCP (scapy 実装) | EtherType 0x8892 の生フレームで通信する |
 | なし | ethernet | PROFINET DCP (p-net) | 同上 |
 | 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
@@ -426,20 +426,20 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
 
 ```bash
-nmap -p 8000 --script http-date 127.0.0.1
+nmap -p 80 --script http-date 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:43 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000032s latency).
+Host is up (0.000046s latency).
 
-PORT     STATE SERVICE
-8000/tcp open  http-alt
-|_http-date: Sun, 30 Aug 2026 07:56:01 GMT; +4m51s from local time.
+PORT   STATE SERVICE
+80/tcp open  http
+|_http-date: Sun, 30 Aug 2026 13:48:00 GMT; +4m51s from local time.
 
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
@@ -450,25 +450,25 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 そのホストの時計のずれとして表示します。
 
 ```bash
-nmap -p 8000 --script http-date,clock-skew 127.0.0.1
+nmap -p 80 --script http-date,clock-skew 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:43 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000037s latency).
+Host is up (0.000024s latency).
 
-PORT     STATE SERVICE
-8000/tcp open  http-alt
-|_http-date: Sun, 30 Aug 2026 07:56:01 GMT; +4m51s from local time.
+PORT   STATE SERVICE
+80/tcp open  http
+|_http-date: Sun, 30 Aug 2026 13:48:00 GMT; +4m51s from local time.
 
 Host script results:
 |_clock-skew: 4m50s
 
-Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -542,7 +542,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 `-oX` で XML を出力し、nmap 同梱のスタイルシートで HTML に変換します。
 
 ```bash
-nmap -p 502,1880,1883,4840,8000 \
+nmap -p 80,502,1880,1883,4840 \
   --script modbus-discover,./node-red.nse,./mqtt.nse,./opcua.nse,http-date \
   -oX scan.xml 127.0.0.1
 xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
@@ -552,11 +552,13 @@ xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:43 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000015s latency).
+Host is up (0.000028s latency).
 
 PORT     STATE SERVICE
+80/tcp   open  http
+|_http-date: Sun, 30 Aug 2026 13:48:05 GMT; +4m51s from local time.
 502/tcp  open  modbus
 | modbus-discover: 
 |   sid 0x1: 
@@ -577,14 +579,12 @@ PORT     STATE SERVICE
 |_  Receive maximum: 20
 4840/tcp open  opcua
 | opcua: 
-|   Server time: 2026-08-30 07:51:23Z
+|   Server time: 2026-08-30 13:43:14Z
 |   Clock skew: +0s
 |   Application URI: urn:freeopcua:python:server
 |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
 |_  Authentication: Anonymous, Certificate, UserName
-8000/tcp open  http-alt
-|_http-date: Sun, 30 Aug 2026 07:56:14 GMT; +4m51s from local time.
 
 Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 ```
