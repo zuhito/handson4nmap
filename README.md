@@ -343,10 +343,10 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 </details>
 
 ```bash
-nmap -p 1883 --script mqtt-subscribe 127.0.0.1
+nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/#' 127.0.0.1
 ```
 
-[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201883%20--script%20mqtt-subscribe%20127.0.0.1%5Cn%22%7D)
+[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201883%20--script%20mqtt-subscribe%20--script-args%20%27mqtt-subscribe.topic%3Daichi%2F%23%27%20127.0.0.1%5Cn%22%7D)
 
 <details>
 <summary>実行例</summary>
@@ -354,70 +354,17 @@ nmap -p 1883 --script mqtt-subscribe 127.0.0.1
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.00013s latency).
+Host is up (0.000045s latency).
 
 PORT     STATE SERVICE
-1883/tcp open  mosquitto version 2.0.18
+1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     $SYS/broker/messages/stored: 56
-|     $SYS/broker/load/bytes/sent/1min: 2966.74
-|     $SYS/broker/load/connections/5min: 1.24
-|     $SYS/broker/publish/messages/dropped: 0
-|     $SYS/broker/load/messages/received/5min: 2.80
-|     $SYS/broker/clients/maximum: 2
-|     $SYS/broker/clients/connected: 1
-|     $SYS/broker/store/messages/count: 56
-|     $SYS/broker/clients/expired: 0
-|     $SYS/broker/load/sockets/5min: 1.45
-|     $SYS/broker/load/messages/sent/15min: 8.32
-|     $SYS/broker/publish/messages/received: 15
-|     $SYS/broker/load/bytes/received/15min: 28.71
-|     aichi/plc01/status: running
-|     aichi/plc01/pressure: 101.3
-|     $SYS/broker/version: mosquitto version 2.0.18
-|     $SYS/broker/messages/sent: 168
-|     $SYS/broker/load/bytes/sent/15min: 295.66
-|     $SYS/broker/load/messages/sent/5min: 22.57
-|     $SYS/broker/load/bytes/sent/5min: 825.44
-|     $SYS/broker/store/messages/bytes: 223
-|     $SYS/broker/shared_subscriptions/count: 0
-|     $SYS/broker/clients/active: 1
-|     $SYS/broker/retained messages/count: 56
-|     $SYS/broker/heap/maximum: 53688
-|     $SYS/broker/load/publish/received/5min: 0.52
-|     $SYS/broker/load/bytes/received/5min: 49.28
-|     $SYS/broker/bytes/received: 884
-|     $SYS/broker/heap/current: 51808
-|     $SYS/broker/clients/inactive: 1
-|     $SYS/broker/load/publish/sent/5min: 20.97
-|     $SYS/broker/publish/messages/sent: 145
 |     aichi/plc01/temperature: 25.4
-|     $SYS/broker/clients/total: 2
-|     $SYS/broker/load/publish/dropped/5min: 0.00
-|     $SYS/broker/load/messages/received/15min: 1.72
-|     $SYS/broker/load/connections/15min: 0.72
-|     $SYS/broker/load/publish/dropped/15min: 0.00
-|     $SYS/broker/messages/received: 55
-|     $SYS/broker/uptime: 1804 seconds
-|     $SYS/broker/load/messages/received/1min: 4.97
-|     $SYS/broker/publish/bytes/received: 80
-|     $SYS/broker/load/publish/dropped/1min: 0.00
-|     $SYS/broker/load/sockets/1min: 2.59
-|     $SYS/broker/load/sockets/15min: 0.91
-|     $SYS/broker/load/bytes/received/1min: 99.87
-|     $SYS/broker/clients/disconnected: 1
-|     $SYS/broker/bytes/sent: 5926
-|     $SYS/broker/load/publish/received/1min: 0.44
-|     $SYS/broker/load/publish/sent/15min: 7.47
-|     $SYS/broker/load/publish/sent/1min: 75.83
-|     $SYS/broker/load/publish/received/15min: 0.46
-|     $SYS/broker/subscriptions/count: 4
-|     $SYS/broker/load/connections/1min: 2.45
-|     $SYS/broker/publish/bytes/sent: 578
-|_    $SYS/broker/load/messages/sent/1min: 79.56
+|     aichi/plc01/pressure: 101.3
+|_    aichi/plc01/status: running
 
-Nmap done: 1 IP address (1 host up) scanned in 9.97 seconds
+Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 ```
 
 </details>
