@@ -3,12 +3,7 @@
 nmap の NSE スクリプトを試すためのハンズオン環境です。
 Codespaces を開くと Modbus/TCP サーバ (502) と Node-RED (1880) が自動起動します。
 
-各コマンドの下にある「ターミナルで実行」をクリックすると、VS Code のターミナルに
-コマンドが入力されて実行されます。VS Code の Markdown プレビューで開いた場合のみ動作し、
-GitHub 上では通常のリンクとして表示されます。信頼していないワークスペースでは
-確認ダイアログが出ることがあります。
-
-## 外部ホストへの実行
+## Test server
 
 `scanme.nmap.org` は nmap プロジェクトがスキャンを許可している検証用ホストです。
 
@@ -17,6 +12,14 @@ nmap scanme.nmap.org
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20scanme.nmap.org%5Cn%22%7D)
+
+```bash
+nmap -p 22 scanme.nmap.org
+```
+
+```bash
+nmap -p 80 scanme.nmap.org
+```
 
 ページのタイトルを取得します。
 
@@ -549,10 +552,10 @@ Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
 CoDeSys V2 ランタイムの OS と製品種別を取得します。
 
 ```bash
-nmap -p 2455 --script codesys-v2-discover.nse 127.0.0.1
+nmap -p 2455 --script ./external/codesys-v2-discover.nse 127.0.0.1
 ```
 
-[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%202455%20--script%20codesys-v2-discover.nse%20127.0.0.1%5Cn%22%7D)
+[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%202455%20--script%20.%2Fexternal%2Fcodesys-v2-discover.nse%20127.0.0.1%5Cn%22%7D)
 
 <details>
 <summary>実行例</summary>
