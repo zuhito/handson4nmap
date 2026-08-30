@@ -44,6 +44,32 @@ nmap --script broadcast-dhcp-discover
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20--script%20broadcast-dhcp-discover%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:50 +0000
+Pre-scan script results:
+| broadcast-dhcp-discover: 
+|   Response 1 of 1: 
+|     Interface: veth-host
+|     IP Offered: 192.168.50.141
+|     DHCP Message Type: DHCPOFFER
+|     Server Identifier: 192.168.50.1
+|     IP Address Lease Time: 12h00m00s
+|     Renewal Time Value: 6h00m00s
+|     Rebinding Time Value: 10h30m00s
+|     Subnet Mask: 255.255.255.0
+|     Broadcast Address: 192.168.50.255
+|     Domain Name: aichi.example
+|     Domain Name Server: 192.168.50.1
+|_    Router: 192.168.50.1
+Nmap done: 0 IP addresses (0 hosts up) scanned in 10.08 seconds
+WARNING: No targets were specified, so 0 hosts scanned.
+```
+
+</details>
+
 NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
 
 ```bash
@@ -51,6 +77,24 @@ nmap -sU -p 123 --script ntp-info 127.0.0.1
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-sU%20-p%20123%20--script%20ntp-info%20127.0.0.1%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000068s latency).
+
+PORT    STATE SERVICE
+123/udp open  ntp
+| ntp-info: 
+|_  receive time stamp: 2026-08-30T07:51:05
+
+Nmap done: 1 IP address (1 host up) scanned in 10.13 seconds
+```
+
+</details>
 
 SNMP エージェントのシステム情報を取得し、コミュニティ名を総当たりします。
 
@@ -60,6 +104,28 @@ nmap -sU -p 161 --script snmp-info 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-sU%20-p%20161%20--script%20snmp-info%20127.0.0.1%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00020s latency).
+
+PORT    STATE SERVICE
+161/udp open  snmp
+| snmp-info: 
+|   enterprise: net-snmp
+|   engineIDFormat: unknown
+|   engineIDData: 0e78d13fead9936a00000000
+|   snmpEngineBoots: 1
+|_  snmpEngineTime: 29m56s
+
+Nmap done: 1 IP address (1 host up) scanned in 0.21 seconds
+```
+
+</details>
+
 Modbus のスレーブIDとデバイス情報を列挙します。
 
 ```bash
@@ -68,6 +134,26 @@ nmap -p 502 --script modbus-discover 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%20502%20--script%20modbus-discover%20127.0.0.1%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000039s latency).
+
+PORT    STATE SERVICE
+502/tcp open  modbus
+| modbus-discover: 
+|   sid 0x1: 
+|     Slave ID data: Aichi Company-AIC-PLC-01-1.0.0\xFF
+|_    Device identification: Aichi Company AIC-PLC-01 1.0.0
+
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+```
+
+</details>
+
 HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
 
 ```bash
@@ -75,6 +161,23 @@ nmap -p 8000 --script http-date 127.0.0.1
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%208000%20--script%20http-date%20127.0.0.1%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000032s latency).
+
+PORT     STATE SERVICE
+8000/tcp open  http-alt
+|_http-date: Sun, 30 Aug 2026 07:56:01 GMT; +4m51s from local time.
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
 
 `clock-skew` はホストスクリプトで、`http-date` などが取得した時刻をまとめて
 そのホストの時計のずれとして表示します。
@@ -85,6 +188,26 @@ nmap -p 8000 --script http-date,clock-skew 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%208000%20--script%20http-date%2Cclock-skew%20127.0.0.1%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000037s latency).
+
+PORT     STATE SERVICE
+8000/tcp open  http-alt
+|_http-date: Sun, 30 Aug 2026 07:56:01 GMT; +4m51s from local time.
+
+Host script results:
+|_clock-skew: 4m50s
+
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+```
+
+</details>
+
 OPC UA サーバが返す時刻も `clock-skew` に集計されます。
 ずれが 0 秒の場合は `-vv` を付けないと表示されません。
 
@@ -94,6 +217,63 @@ nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-vv%20-p%204840%20--script%20.%2Fopcua.nse%2Cclock-skew%20127.0.0.1%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+NSE: Loaded 2 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 07:51
+Completed Parallel DNS resolution of 1 host. at 07:51, 0.00s elapsed
+Initiating SYN Stealth Scan at 07:51
+Scanning localhost (127.0.0.1) [1 port]
+Discovered open port 4840/tcp on 127.0.0.1
+Completed SYN Stealth Scan at 07:51, 0.00s elapsed (1 total ports)
+NSE: Script scanning 127.0.0.1.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+Nmap scan report for localhost (127.0.0.1)
+Host is up, received localhost-response (0.000036s latency).
+Scanned at 2026-08-30 07:51:10 UTC for 0s
+
+PORT     STATE SERVICE REASON
+4840/tcp open  opcua   syn-ack ttl 64
+| opcua: 
+|   Server time: 2026-08-30 07:51:10Z
+|   Clock skew: +0s
+|   Application URI: urn:freeopcua:python:server
+|   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
+|   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
+|_  Authentication: Anonymous, Certificate, UserName
+
+Host script results:
+|_clock-skew: 0s
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 07:51
+Completed NSE at 07:51, 0.00s elapsed
+Read data files from: /usr/local/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+           Raw packets sent: 1 (44B) | Rcvd: 2 (88B)
+```
+
+</details>
+
 PROFINET 機器を DCP のマルチキャストで探索します。
 
 ```bash
@@ -101,6 +281,32 @@ nmap --script multicast-profinet-discovery
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20--script%20multicast-profinet-discovery%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Pre-scan script results:
+| multicast-profinet-discovery: 
+|   02:fc:00:00:00:01: 
+|     Interface: eth0
+|     IP: 
+|       ip_addr: 192.0.2.2
+|       ip_info: IP set
+|       subnetmask: 255.255.255.0
+|       gateway: 192.0.2.1
+|     Device: 
+|       vendorId: 0x002a
+|       deviceId: 0x0105
+|       vendorValue: Aichi Company AIC-PLC-01
+|       deviceRole: 0x02 (IO-Controller)
+|_      nameOfStation: aic-plc-01
+Nmap done: 0 IP addresses (0 hosts up) scanned in 2.13 seconds
+WARNING: No targets were specified, so 0 hosts scanned.
+```
+
+</details>
 
 Siemens S7 PLC の装置情報を取得します。
 
@@ -110,11 +316,111 @@ nmap -p 102 --script s7-info 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%20102%20--script%20s7-info%20127.0.0.1%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000051s latency).
+
+PORT    STATE SERVICE
+102/tcp open  iso-tsap
+| s7-info: 
+|   Module: 6ES7 315-2AG10-0AB0
+|   Basic Hardware: 6ES7 315-2AG10-0AB0
+|   Version: 2.6.9
+|   System Name: SIMATIC 300(Aichi)
+|   Module Type: CPU 315-2 DP
+|   Serial Number: S C-AIC421302009
+|   Plant Identification: Aichi Company Plant 1
+|_  Copyright: Original Siemens Equipment
+Service Info: Device: specialized
+
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+```
+
+</details>
+
 ```bash
 nmap -p 1883 --script mqtt-subscribe 127.0.0.1
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201883%20--script%20mqtt-subscribe%20127.0.0.1%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00013s latency).
+
+PORT     STATE SERVICE
+1883/tcp open  mosquitto version 2.0.18
+| mqtt-subscribe: 
+|   Topics and their most recent payloads: 
+|     $SYS/broker/messages/stored: 56
+|     $SYS/broker/load/bytes/sent/1min: 2966.74
+|     $SYS/broker/load/connections/5min: 1.24
+|     $SYS/broker/publish/messages/dropped: 0
+|     $SYS/broker/load/messages/received/5min: 2.80
+|     $SYS/broker/clients/maximum: 2
+|     $SYS/broker/clients/connected: 1
+|     $SYS/broker/store/messages/count: 56
+|     $SYS/broker/clients/expired: 0
+|     $SYS/broker/load/sockets/5min: 1.45
+|     $SYS/broker/load/messages/sent/15min: 8.32
+|     $SYS/broker/publish/messages/received: 15
+|     $SYS/broker/load/bytes/received/15min: 28.71
+|     aichi/plc01/status: running
+|     aichi/plc01/pressure: 101.3
+|     $SYS/broker/version: mosquitto version 2.0.18
+|     $SYS/broker/messages/sent: 168
+|     $SYS/broker/load/bytes/sent/15min: 295.66
+|     $SYS/broker/load/messages/sent/5min: 22.57
+|     $SYS/broker/load/bytes/sent/5min: 825.44
+|     $SYS/broker/store/messages/bytes: 223
+|     $SYS/broker/shared_subscriptions/count: 0
+|     $SYS/broker/clients/active: 1
+|     $SYS/broker/retained messages/count: 56
+|     $SYS/broker/heap/maximum: 53688
+|     $SYS/broker/load/publish/received/5min: 0.52
+|     $SYS/broker/load/bytes/received/5min: 49.28
+|     $SYS/broker/bytes/received: 884
+|     $SYS/broker/heap/current: 51808
+|     $SYS/broker/clients/inactive: 1
+|     $SYS/broker/load/publish/sent/5min: 20.97
+|     $SYS/broker/publish/messages/sent: 145
+|     aichi/plc01/temperature: 25.4
+|     $SYS/broker/clients/total: 2
+|     $SYS/broker/load/publish/dropped/5min: 0.00
+|     $SYS/broker/load/messages/received/15min: 1.72
+|     $SYS/broker/load/connections/15min: 0.72
+|     $SYS/broker/load/publish/dropped/15min: 0.00
+|     $SYS/broker/messages/received: 55
+|     $SYS/broker/uptime: 1804 seconds
+|     $SYS/broker/load/messages/received/1min: 4.97
+|     $SYS/broker/publish/bytes/received: 80
+|     $SYS/broker/load/publish/dropped/1min: 0.00
+|     $SYS/broker/load/sockets/1min: 2.59
+|     $SYS/broker/load/sockets/15min: 0.91
+|     $SYS/broker/load/bytes/received/1min: 99.87
+|     $SYS/broker/clients/disconnected: 1
+|     $SYS/broker/bytes/sent: 5926
+|     $SYS/broker/load/publish/received/1min: 0.44
+|     $SYS/broker/load/publish/sent/15min: 7.47
+|     $SYS/broker/load/publish/sent/1min: 75.83
+|     $SYS/broker/load/publish/received/15min: 0.46
+|     $SYS/broker/subscriptions/count: 4
+|     $SYS/broker/load/connections/1min: 2.45
+|     $SYS/broker/publish/bytes/sent: 578
+|_    $SYS/broker/load/messages/sent/1min: 79.56
+
+Nmap done: 1 IP address (1 host up) scanned in 9.97 seconds
+```
+
+</details>
 
 ## Custom NSE
 
@@ -126,6 +432,29 @@ nmap -p 1883 --script mqtt.nse 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201883%20--script%20mqtt.nse%20127.0.0.1%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000037s latency).
+
+PORT     STATE SERVICE
+1883/tcp open  mqtt
+| mqtt: 
+|   Protocol: MQTT 5.0
+|   Connection: Success (0x00)
+|   Anonymous access: allowed
+|   Session present: no
+|   Topic alias maximum: 10
+|_  Receive maximum: 20
+
+Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
+```
+
+</details>
+
 認証を要求するブローカでは結果が変わります。
 
 ```bash
@@ -133,6 +462,27 @@ nmap -p 1884 --script mqtt.nse 127.0.0.1
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201884%20--script%20mqtt.nse%20127.0.0.1%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000029s latency).
+
+PORT     STATE SERVICE
+1884/tcp open  mqtt
+| mqtt: 
+|   Protocol: MQTT 5.0
+|   Connection: Not authorized (0x87)
+|   Anonymous access: denied
+|_  Session present: no
+
+Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
+```
+
+</details>
 
 Node-RED の診断エンドポイントからバージョン情報を取得します。
 
@@ -142,6 +492,26 @@ nmap -p 1880 --script node-red.nse 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201880%20--script%20node-red.nse%20127.0.0.1%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000027s latency).
+
+PORT     STATE SERVICE
+1880/tcp open  node-red
+| node-red: 
+|   Node-RED: 5.0.4
+|   Node.js: v22.22.2 (linux/x64)
+|_  OS: Linux 6.18.44-fc-v22 (x64)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
 OPC UA サーバのエンドポイントと認証方式を取得します。
 
 ```bash
@@ -150,19 +520,84 @@ nmap -p 4840 --script opcua.nse 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%204840%20--script%20opcua.nse%20127.0.0.1%5Cn%22%7D)
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000026s latency).
+
+PORT     STATE SERVICE
+4840/tcp open  opcua
+| opcua: 
+|   Server time: 2026-08-30 07:51:23Z
+|   Clock skew: +0s
+|   Application URI: urn:freeopcua:python:server
+|   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
+|   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
+|_  Authentication: Anonymous, Certificate, UserName
+
+Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
+```
+
+</details>
+
 OpenVPN サーバのセッション情報を取得します。
 
 ```bash
-nmap -p 1194 --script openvpn.nse 127.0.0.1
+nmap -p 1195 --script openvpn.nse 127.0.0.1
 ```
 
-[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201194%20--script%20openvpn.nse%20127.0.0.1%5Cn%22%7D)
+[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201195%20--script%20openvpn.nse%20127.0.0.1%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000024s latency).
+
+PORT     STATE SERVICE
+1195/tcp open  openvpn
+| openvpn: 
+|   Packet: P_CONTROL_HARD_RESET_SERVER_V2 (opcode 8)
+|   Server session ID: 26165f827f1c8163
+|   Key ID: 0
+|_  Client session acknowledged: yes
+
+Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
+```
+
+</details>
 
 ```bash
 nmap -sU -p 1194 --script openvpn.nse 127.0.0.1
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-sU%20-p%201194%20--script%20openvpn.nse%20127.0.0.1%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000089s latency).
+
+PORT     STATE SERVICE
+1194/udp open  openvpn
+| openvpn: 
+|   Packet: P_CONTROL_HARD_RESET_SERVER_V2 (opcode 8)
+|   Server session ID: 690520bfc305701a
+|   Key ID: 0
+|_  Client session acknowledged: yes
+
+Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
+```
+
+</details>
 
 CoDeSys V2 ランタイムの OS と製品種別を取得します。
 
@@ -171,6 +606,25 @@ nmap -p 2455 --script ./external/codesys-v2-discover.nse 127.0.0.1
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%202455%20--script%20.%2Fexternal%2Fcodesys-v2-discover.nse%20127.0.0.1%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000031s latency).
+
+PORT     STATE SERVICE
+2455/tcp open  CoDeSyS
+| codesys-v2-discover: 
+|   OS Name: Linux 3.16.0
+|_  Product Type: AIC-PLC-01
+
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+```
+
+</details>
 
 ## HTML レポートの出力
 
@@ -184,6 +638,49 @@ xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 ```
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%20502%2C1880%2C1883%2C4840%2C8000%20%5C%5C%5Cn%20%20--script%20modbus-discover%2C.%2Fnode-red.nse%2C.%2Fmqtt.nse%2C.%2Fopcua.nse%2Chttp-date%20%5C%5C%5Cn%20%20-oX%20scan.xml%20127.0.0.1%5Cnxsltproc%20-o%20scan.html%20%2Fusr%2Flocal%2Fshare%2Fnmap%2Fnmap.xsl%20scan.xml%5Cn%22%7D)
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000015s latency).
+
+PORT     STATE SERVICE
+502/tcp  open  modbus
+| modbus-discover: 
+|   sid 0x1: 
+|     Slave ID data: Aichi Company-AIC-PLC-01-1.0.0\xFF
+|_    Device identification: Aichi Company AIC-PLC-01 1.0.0
+1880/tcp open  node-red
+| node-red: 
+|   Node-RED: 5.0.4
+|   Node.js: v22.22.2 (linux/x64)
+|_  OS: Linux 6.18.44-fc-v22 (x64)
+1883/tcp open  mqtt
+| mqtt: 
+|   Protocol: MQTT 5.0
+|   Connection: Success (0x00)
+|   Anonymous access: allowed
+|   Session present: no
+|   Topic alias maximum: 10
+|_  Receive maximum: 20
+4840/tcp open  opcua
+| opcua: 
+|   Server time: 2026-08-30 07:51:23Z
+|   Clock skew: +0s
+|   Application URI: urn:freeopcua:python:server
+|   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
+|   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
+|_  Authentication: Anonymous, Certificate, UserName
+8000/tcp open  http-alt
+|_http-date: Sun, 30 Aug 2026 07:56:14 GMT; +4m51s from local time.
+
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+```
+
+</details>
 
 ## ファイル
 

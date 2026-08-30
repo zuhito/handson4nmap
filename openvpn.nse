@@ -34,7 +34,7 @@ author = "kazuhitoyokoi"
 license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
 categories = {"discovery", "safe", "version"}
 
-portrule = shortport.port_or_service(1194, "openvpn", {"tcp", "udp"})
+portrule = shortport.port_or_service({1194, 1195}, "openvpn", {"tcp", "udp"})
 
 local OPCODES = {
   [1] = "P_CONTROL_HARD_RESET_CLIENT_V1",
