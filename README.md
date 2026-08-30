@@ -30,6 +30,11 @@ Webサーバーが返してくる「Server: Apache/2.4.41 (Ubuntu)」のよう�
 nmap -p 80 --script http-server-header scanme.nmap.org
 ```
 
+HTTP経由のルート追跡
+```bash
+nmap -p 80 --script http-traceroute scanme.nmap.org
+```
+
 Date ヘッダから時刻ずれを確認します。
 
 ```bash
