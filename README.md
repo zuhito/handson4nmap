@@ -51,11 +51,7 @@ HTTP の Date ヘッダから時刻ずれを検出します。テスト用サー
 nmap -p 8000 --script http-date 127.0.0.1
 ```
 
-まとめて実行します。
-
-```bash
-bash tests/test.sh
-```
+https://raw.githubusercontent.com/nmap/nmap/master/scripts/
 
 ## ファイル
 
