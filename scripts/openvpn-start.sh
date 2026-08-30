@@ -2,6 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-pgrep -a -x openvpn | grep -q "openvpn-udp.conf" || setsid nohup openvpn --config scripts/openvpn-udp.conf < /dev/null > /tmp/openvpn-udp.log 2>&1 &
-pgrep -a -x openvpn | grep -q "openvpn-tcp.conf" || setsid nohup openvpn --config scripts/openvpn-tcp.conf < /dev/null > /tmp/openvpn-tcp.log 2>&1 &
-timeout 60 bash -c 'until : > /dev/tcp/127.0.0.1/1194; do sleep 1; done' 2>/dev/null
+pgrep -a -x openvpn | grep -q "openvpn.conf" || setsid nohup openvpn --config scripts/openvpn.conf < /dev/null > /tmp/openvpn.log 2>&1 &
+# UDP cannot be probed with a connect, so wait for the server to report that
+# it finished its initialisation.
+timeout 60 bash -c 'until grep -q "Initialization Sequence Completed" /tmp/openvpn.log; do sleep 1; done'

@@ -607,7 +607,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `scripts/dhcp-start.sh` | veth と名前空間を用意して dnsmasq を起動する |
 | `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
-| `scripts/openvpn-udp.conf` / `scripts/openvpn-tcp.conf` | テスト用 OpenVPN サーバの設定 |
+| `scripts/openvpn.conf` | テスト用 OpenVPN サーバの設定 |
 | `scripts/profinet-check.sh` | PROFINET の両実装を順に検証する |
 | `scripts/nmap-build.sh` | 最新の nmap をソースから導入する |
 | `scripts/pnet-build.sh` | p-net (v0.2.0) を取得してビルドする |
