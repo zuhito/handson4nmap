@@ -71,6 +71,32 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 
 </details>
 
+OpenCart のストアフロントと管理画面の露出を確認します。
+
+```bash
+nmap -p 8081 --script opencart.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 15:06 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000037s latency).
+
+PORT     STATE SERVICE
+8081/tcp open  opencart
+| opencart: 
+|   Storefront: /index.php
+|   Admin panel: /admin/ (reachable)
+|_  Install directory: present (should be removed after setup)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.15 seconds
+```
+
+</details>
+
 Grafana のバージョンとデータベースの状態を取得します。
 
 ```bash
@@ -651,6 +677,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `scripts/nmap-build.sh` | 最新の nmap をソースから導入する |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
+| `opencart.nse` | OpenCart の情報を取得するNSEスクリプト |
 | `grafana.nse` | Grafana の情報を取得するNSEスクリプト |
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
 | `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |

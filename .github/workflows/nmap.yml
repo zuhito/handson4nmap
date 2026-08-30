@@ -9,6 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/install.sh
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Core scans
         run: bash tests/core.sh
       - name: PROFINET (scapy)
@@ -25,6 +27,8 @@ jobs:
         run: bash tests/grafana.sh
       - name: InfluxDB
         run: bash tests/influxdb.sh
+      - name: OpenCart
+        run: bash tests/opencart.sh
       - name: HTML report
         run: bash tests/report.sh
 

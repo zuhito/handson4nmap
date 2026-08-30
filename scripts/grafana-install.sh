@@ -5,7 +5,8 @@ cd "$(dirname "$0")/.."
 # The container image has no Grafana package and packages.grafana.com is not
 # reachable from CI, so the release is taken from GitHub.
 mkdir -p external
-url=$(curl -sfL "https://api.github.com/repos/grafana/grafana/releases/latest" \
+url=$(curl -sfL ${GITHUB_TOKEN:+-H "Authorization: Bearer $GITHUB_TOKEN"} \
+  "https://api.github.com/repos/grafana/grafana/releases/latest" \
   | python3 -c "
 import json, sys
 for asset in json.load(sys.stdin)['assets']:
