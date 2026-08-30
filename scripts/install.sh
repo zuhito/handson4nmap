@@ -9,10 +9,6 @@ npm install -g --unsafe-perm node-red
 bash scripts/profinet-nse.sh
 bash scripts/pnet-build.sh
 
-mkdir -p secrets
-mosquitto_passwd -b -c secrets/mqtt.pw handson handson
-chmod 644 secrets/mqtt.pw
-
 mkdir -p vpn
 openssl req -x509 -newkey rsa:2048 -keyout vpn/ca.key -out vpn/ca.crt -days 3650 -nodes -subj "/CN=TestCA"
 openssl req -newkey rsa:2048 -keyout vpn/server.key -out vpn/server.csr -nodes -subj "/CN=server"
