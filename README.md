@@ -75,10 +75,10 @@ https://raw.githubusercontent.com/nmap/nmap/master/scripts/
 nmap -p 502,1880,1883,4840,8000 \
   --script modbus-discover,./node-red.nse,./mqtt.nse,./opcua.nse,http-date \
   -oX scan.xml 127.0.0.1
-xsltproc scan.xml -o scan.html
+xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 ```
 
-`xsltproc` は `apt-get install -y xsltproc` で導入します。
+`xsltproc` は `scripts/install.sh` が導入します。
 `scan.html` をブラウザで開くと、ポートごとにスクリプトの出力がまとまった形で確認できます。
 
 ## ファイル
@@ -104,5 +104,6 @@ xsltproc scan.xml -o scan.html
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
 | `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |
 | `scripts/start.sh` | 各サーバの起動 |
+| `tests/report.sh` | HTML レポートを生成して内容を検証する |
 | `tests/test.sh` | 起動とスキャン結果の検証 |
 
