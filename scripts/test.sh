@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
+cd "$(dirname "$0")/.."
 command -v nmap
-bash start.sh
+bash scripts/start.sh
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/502; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1880; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/4840; do sleep 1; done' 2>/dev/null

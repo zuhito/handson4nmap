@@ -1,5 +1,6 @@
 {
   "remoteUser": "root",
-  "postCreateCommand": "bash install.sh",
-  "postAttachCommand": "bash start.sh"
+  "postCreateCommand": "bash scripts/install.sh",
+  "postStartCommand": "bash scripts/start.sh",
+  "postAttachCommand": "bash scripts/start.sh"
 }

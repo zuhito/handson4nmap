@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 
 mkdir -p external
 curl -sfL -o external/multicast-profinet-discovery.nse \

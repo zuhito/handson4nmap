@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
+cd "$(dirname "$0")/.."
 rm -f /etc/apt/sources.list.d/yarn.list
 apt-get update
 apt-get install -y nmap openvpn
-pip install -r requirements.txt
+pip install -r scripts/requirements.txt
 npm install -g --unsafe-perm node-red
-bash profinet-nse.sh
+bash scripts/profinet-nse.sh
 
 mkdir -p vpn
 openssl req -x509 -newkey rsa:2048 -keyout vpn/ca.key -out vpn/ca.crt -days 3650 -nodes -subj "/CN=TestCA"

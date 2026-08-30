@@ -48,30 +48,30 @@ PROFINET 機器を DCP のマルチキャストで探索します。root 権限�
 nmap --script ./external/multicast-profinet-discovery.nse
 ```
 
-このスクリプトは nmap 本体に同梱されていないため、`install.sh` が `profinet-nse.sh` 経由で
+このスクリプトは nmap 本体に同梱されていないため、`scripts/install.sh` が `scripts/profinet-nse.sh` 経由で
 上流から取得し、古い nmap 向けの互換パッチを当てて `external/` に配置します。
 
 まとめて実行します。
 
 ```bash
-bash test.sh
+bash scripts/test.sh
 ```
 
 ## ファイル
 
 | ファイル | 内容 |
 | --- | --- |
-| `modbus_server.py` | pymodbus によるModbus/TCPサーバ |
-| `opcua_server.py` | opcua によるOPC UAサーバ |
-| `profinet-server.py` | PROFINET DCP に応答するサーバ |
+| `mock_servers/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
+| `mock_servers/opcua_server.py` | opcua によるOPC UAサーバ |
+| `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ |
 | `openvpn-udp.conf` / `openvpn-tcp.conf` | テスト用 OpenVPN サーバの設定 |
-| `profinet-nse.sh` | 上流の multicast-profinet-discovery を取得する |
+| `scripts/profinet-nse.sh` | 上流の multicast-profinet-discovery を取得する |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
-| `install.sh` | nmap / pymodbus / Node-RED の導入 |
-| `start.sh` | 各サーバの起動 |
-| `test.sh` | 起動とスキャン結果の検証 |
+| `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |
+| `scripts/start.sh` | 各サーバの起動 |
+| `scripts/test.sh` | 起動とスキャン結果の検証 |
 
 ## テスト
 
