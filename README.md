@@ -63,8 +63,7 @@ dnsmasq が待ち受けるので、コンテナ側からは 67/udp が見えま�
 
 snmpd は 199/tcp も開きますが、これは SMUX 用でハンズオンでは使いません。
 
-## nmap コマンド
-
+# TCP Scan
 Modbus のスレーブIDとデバイス情報を列挙します。
 
 ```bash
@@ -183,7 +182,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
-# UDP scan (-sU)
+# UDP Scan (-sU)
 
 NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
 
