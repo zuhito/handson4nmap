@@ -25,8 +25,6 @@ jobs:
         run: bash tests/ntp.sh
       - name: HTML report
         run: bash tests/report.sh
-      - name: OpenVPN
-        run: bash tests/openvpn.sh
 
   dhcp:
     # Network namespaces cannot be created inside the container used above,
@@ -37,3 +35,15 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y nmap dnsmasq-base
       - name: DHCP
         run: sudo bash scripts/dhcp-check.sh
+
+  openvpn:
+    # The container has no /dev/net/tun, so OpenVPN is exercised on the runner.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y nmap openvpn
+      - name: OpenVPN
+        run: |
+          sudo bash scripts/openvpn-keys.sh
+          sudo bash scripts/openvpn-start.sh
+          sudo bash tests/openvpn.sh
