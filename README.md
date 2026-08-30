@@ -25,9 +25,9 @@ nmap -p 80 scanme.nmap.org
 nmap -p 80 --script http-title scanme.nmap.org
 ```
 
-Webサーバーが返してくる「Server: Apache/2.4.41 (Ubuntu)」のようなヘッダー情報をシンプルに取得します。
+Webサーバーが返してくるヘッダー情報をシンプルに取得します。
 ```bash
-nmap -p 80 --script http-server-header scanme.nmap.org
+nmap -p 80 --script http-headers scanme.nmap.org
 ```
 
 HTTP経由のルート追跡
