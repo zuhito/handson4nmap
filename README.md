@@ -362,8 +362,6 @@ Nmap done: 1 IP address (1 host up) scanned in 7.54 seconds
 nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/line1/#' 127.0.0.1
 ```
 
-[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%201883%20--script%20mqtt-subscribe%20--script-args%20%27mqtt-subscribe.topic%3Daichi%2Fline1%2F%23%27%20127.0.0.1%5Cn%22%7D)
-
 <details>
 <summary>実行例</summary>
 
