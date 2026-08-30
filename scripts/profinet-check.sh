@@ -6,7 +6,7 @@ for pid in $(pgrep -x python3); do
   tr '\0' ' ' < /proc/$pid/cmdline | grep -q profinet-server && kill -9 "$pid" || true
 done
 sleep 2
-setsid nohup python3 "$1" < /dev/null > /tmp/profinet.log 2>&1 &
+setsid nohup python3 mock_servers/profinet-server.py < /dev/null > /tmp/profinet.log 2>&1 &
 sleep 8
 
 nmap --script multicast-profinet-discovery | tee /tmp/profinet.txt

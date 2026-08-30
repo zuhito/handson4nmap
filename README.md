@@ -140,8 +140,7 @@ xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 | `mock_servers/codesys_server.py` | CoDeSys V2 の識別要求に応答するサーバ |
 | `mock_servers/s7_server.py` | s7-info に応答する S7comm サーバ |
 | `mock_servers/http_clockskew_server.py` | 時刻をずらした Date を返す HTTP サーバ |
-| `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(raw socket 実装) |
-| `mock_servers/profinet-server2.py` | 同上を scapy で実装したもの |
+| `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(scapy 実装) |
 | `scripts/mosquitto-auth.conf` | 認証必須の MQTT ブローカの設定 |
 | `scripts/dnsmasq.conf` | テスト用 DHCP サーバの設定 |
 | `scripts/dhcp-start.sh` | veth と名前空間を用意して dnsmasq を起動する |
