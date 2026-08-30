@@ -269,6 +269,11 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
+MACアドレスを指定してDHCPリクエスト
+```bash
+nmap --script broadcast-dhcp-discover --script-args "broadcast-dhcp-discover.mac=00:11:22:33:44:55"
+```
+
 PROFINET 機器を DCP のマルチキャストで探索します。
 
 ```bash
