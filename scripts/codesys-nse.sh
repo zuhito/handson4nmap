@@ -25,3 +25,8 @@ s = s.replace('local pos, product_type = bin.unpack("z", response, 129)',
 
 open(path, "w").write(s)
 PY
+
+# Install into the nmap script directory so it can be called by name alone.
+install -m 644 external/codesys-v2-discover.nse \
+  "$(dirname "$(command -v nmap)")/../share/nmap/scripts/codesys-v2-discover.nse"
+nmap --script-updatedb > /dev/null

@@ -549,10 +549,10 @@ Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
 CoDeSys V2 ランタイムの OS と製品種別を取得します。
 
 ```bash
-nmap -p 2455 --script ./external/codesys-v2-discover.nse 127.0.0.1
+nmap -p 2455 --script codesys-v2-discover.nse 127.0.0.1
 ```
 
-[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%202455%20--script%20.%2Fexternal%2Fcodesys-v2-discover.nse%20127.0.0.1%5Cn%22%7D)
+[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%202455%20--script%20codesys-v2-discover.nse%20127.0.0.1%5Cn%22%7D)
 
 <details>
 <summary>実行例</summary>
