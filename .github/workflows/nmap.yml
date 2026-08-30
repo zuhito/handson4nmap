@@ -9,14 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/install.sh
-      - name: Core scans
-        run: bash tests/core.sh
-      - name: PROFINET (p-net)
-        run: bash scripts/pnet-check.sh
-      - name: PROFINET (raw socket)
-        run: bash scripts/profinet-check.sh mock_servers/profinet-server.py
-      - name: PROFINET (scapy)
-        run: bash scripts/profinet-check.sh mock_servers/profinet-server2.py
+      - run: bash tests/test.sh
 
   dhcp:
     # Network namespaces cannot be created inside the container used above,

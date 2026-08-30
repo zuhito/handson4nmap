@@ -12,3 +12,4 @@ cat /tmp/ntp.txt
 
 grep -q "123/udp open  ntp" /tmp/ntp.txt
 grep -q "receive time stamp" /tmp/ntp.txt
+grep -q "receive time stamp: 2028-11-15T00:00:00" /tmp/ntp.txt

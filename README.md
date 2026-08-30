@@ -186,7 +186,7 @@ OpenVPNサーバへUDPで接続
 nmap -sU -p 1194 127.0.0.1
 ```
 
-NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
+NTP サーバの時刻を取得します。テスト用サーバは 2028-11-15 の固定時刻を返します。
 
 ```bash
 nmap -sU -p 123 --script ntp-info 127.0.0.1
@@ -203,7 +203,7 @@ Host is up (0.000068s latency).
 PORT    STATE SERVICE
 123/udp open  ntp
 | ntp-info: 
-|_  receive time stamp: 2026-08-30T07:51:05
+|_  receive time stamp: 2028-11-15T00:00:00
 
 Nmap done: 1 IP address (1 host up) scanned in 10.13 seconds
 ```
