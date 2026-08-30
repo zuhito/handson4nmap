@@ -5,6 +5,7 @@ bash start.sh
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/502; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1880; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/4840; do sleep 1; done' 2>/dev/null
+timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1194; do sleep 1; done' 2>/dev/null
 nmap -p 502 --script modbus-discover 127.0.0.1 | tee /tmp/modbus.txt
 grep -q "502/tcp open  modbus" /tmp/modbus.txt
 grep -q "Device identification: Aichi Company AIC-PLC-01" /tmp/modbus.txt
@@ -17,3 +18,7 @@ grep -q "Endpoint URL: opc.tcp://" /tmp/opcua.txt
 grep -q "Authentication:" /tmp/opcua.txt
 grep -q "Server time:" /tmp/opcua.txt
 grep -q "Clock skew:" /tmp/opcua.txt
+nmap -p 1194 --script ./openvpn.nse 127.0.0.1 | tee /tmp/openvpn.txt
+grep -q "1194/tcp open  openvpn" /tmp/openvpn.txt
+grep -q "P_CONTROL_HARD_RESET_SERVER_V2" /tmp/openvpn.txt
+grep -q "Client session acknowledged: yes" /tmp/openvpn.txt
