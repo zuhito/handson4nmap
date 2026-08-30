@@ -35,6 +35,11 @@ HTTP経由のルート追跡
 nmap -p 80 --script http-traceroute scanme.nmap.org
 ```
 
+CORS設定の確認
+```bash
+nmap -p 80 --script http-cors scanme.nmap.org
+```
+
 Date ヘッダから時刻ずれを確認します。
 
 ```bash
