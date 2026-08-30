@@ -8,12 +8,9 @@ jobs:
     container: mcr.microsoft.com/devcontainers/universal:2-linux
     steps:
       - uses: actions/checkout@v4
-      - run: bash scripts/install.sh 2>&1 | tee /tmp/install.log
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: install-log
-          path: /tmp/install.log
+      - name: Install tigervnc
+        run: apt-get update && apt-get install -y tigervnc-standalone-server
+      - run: bash scripts/install.sh
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Core scans
