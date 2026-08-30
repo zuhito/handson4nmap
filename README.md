@@ -21,7 +21,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | 2455 | tcp | CoDeSys V2 | |
 | 3000 | tcp | Grafana | 匿名アクセスは無効 |
 | 3306 | tcp | MariaDB | |
-| 4840 | tcp | OPC UA | |
+| 4840 | tcp | OPC UA | 常に 2028-11-15 の時刻を返す |
 | 5900 | tcp | VNC (認証なし) | デスクトップ名とサイズを公開 |
 | 5901 | tcp | VNC (VncAuth) | 認証を要求する |
 | 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
@@ -428,8 +428,8 @@ Host is up (0.000026s latency).
 PORT     STATE SERVICE
 4840/tcp open  opcua
 | opcua: 
-|   Server time: 2026-08-30 07:51:23Z
-|   Clock skew: +0s
+|   Server time: 2028-11-15 00:00:00Z
+|   Clock skew: +807d1h
 |   Application URI: urn:freeopcua:python:server
 |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
@@ -781,8 +781,8 @@ Scanned at 2026-08-30 07:51:10 UTC for 0s
 PORT     STATE SERVICE REASON
 4840/tcp open  opcua   syn-ack ttl 64
 | opcua: 
-|   Server time: 2026-08-30 07:51:10Z
-|   Clock skew: +0s
+|   Server time: 2028-11-15 00:00:00Z
+|   Clock skew: +807d1h
 |   Application URI: urn:freeopcua:python:server
 |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
@@ -847,8 +847,8 @@ PORT     STATE SERVICE
 |_  Receive maximum: 20
 4840/tcp open  opcua
 | opcua: 
-|   Server time: 2026-08-30 13:43:14Z
-|   Clock skew: +0s
+|   Server time: 2028-11-15 00:00:00Z
+|   Clock skew: +807d1h
 |   Application URI: urn:freeopcua:python:server
 |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
@@ -864,7 +864,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | ファイル | 内容 |
 | --- | --- |
 | `mock_servers/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
-| `mock_servers/opcua_server.py` | opcua によるOPC UAサーバ |
+| `mock_servers/opcua_server_clockskew.py` | 2028-11-15 を返す OPC UA サーバ |
 | `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
 | `mock_servers/codesys_server.py` | CoDeSys V2 の識別要求に応答するサーバ |
 | `mock_servers/s7_server.py` | s7-info に応答する S7comm サーバ |

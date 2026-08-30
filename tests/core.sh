@@ -19,6 +19,7 @@ grep -q "Node-RED:" /tmp/nodered.txt
 nmap -p 4840 --script ./opcua.nse 127.0.0.1 | tee /tmp/opcua.txt
 grep -q "4840/tcp open  opcua" /tmp/opcua.txt
 grep -q "Endpoint URL: opc.tcp://" /tmp/opcua.txt
+grep -q "Server time: 2028-11-15 00:00:00Z" /tmp/opcua.txt
 grep -q "Authentication:" /tmp/opcua.txt
 grep -q "Server time:" /tmp/opcua.txt
 grep -q "Clock skew:" /tmp/opcua.txt
