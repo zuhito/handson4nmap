@@ -17,4 +17,8 @@ grep -q "Endpoint URL: opc.tcp://" /tmp/opcua.txt
 grep -q "Authentication:" /tmp/opcua.txt
 grep -q "Server time:" /tmp/opcua.txt
 grep -q "Clock skew:" /tmp/opcua.txt
+nmap --script ./external/multicast-profinet-discovery.nse | tee /tmp/profinet.txt
+grep -q "vendorValue: Aichi Company AIC-PLC-01" /tmp/profinet.txt
+grep -q "nameOfStation: aic-plc-01" /tmp/profinet.txt
+grep -q "deviceRole: 0x02 (IO-Controller)" /tmp/profinet.txt
 
