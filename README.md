@@ -36,8 +36,8 @@ PROFINET 機器を DCP のマルチキャストで探索します。root 権限�
 nmap --script multicast-profinet-discovery
 ```
 
-このスクリプトは nmap 本体に同梱されていないため、`scripts/install.sh` が `scripts/profinet-nse.sh` 経由で
-上流から取得し、古い nmap 向けの互換パッチを当てて `external/` に配置します。
+このスクリプトはコンテナイメージの nmap には同梱されていないため、`scripts/install.sh` が
+`scripts/nmap-build.sh` 経由で最新の nmap をソースから導入します。
 
 MQTT ブローカの情報を取得します。
 
@@ -96,9 +96,9 @@ xsltproc -o scan.html /usr/share/nmap/nmap.xsl scan.xml
 | `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
 | `scripts/openvpn-udp.conf` / `scripts/openvpn-tcp.conf` | テスト用 OpenVPN サーバの設定 |
 | `scripts/profinet-check.sh` | PROFINET の両実装を順に検証する |
+| `scripts/nmap-build.sh` | 最新の nmap をソースから導入する |
 | `scripts/pnet-build.sh` | p-net (v0.2.0) を取得してビルドする |
 | `scripts/pnet-start.sh` | p-net のサンプルアプリを起動する |
-| `scripts/profinet-nse.sh` | 上流の multicast-profinet-discovery を取得する |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
 | `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
