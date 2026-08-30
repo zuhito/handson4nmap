@@ -73,12 +73,6 @@ CoDeSys V2 ランタイムの OS と製品種別を取得します。
 nmap -p 2455 --script ./external/codesys-v2-discover.nse 127.0.0.1
 ```
 
-SNMP のエンジン情報を取得し、コミュニティ名を総当たりします。
-
-```bash
-nmap -sU -p 161 --script snmp-info,snmp-brute 127.0.0.1
-```
-
 NTP サーバの時刻を取得します。BusyBox の ntpd が応答します。
 
 ```bash
