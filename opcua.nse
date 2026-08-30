@@ -1,3 +1,4 @@
+local datetime = require "datetime"
 local nmap = require "nmap"
 local shortport = require "shortport"
 local stdnse = require "stdnse"
@@ -165,6 +166,8 @@ action = function(host, port)
 
   local server_epoch = to_epoch(ticks)
   local skew = server_epoch - os.time()
+
+  datetime.record_skew(host, server_epoch, os.time())
 
   local out = stdnse.output_table()
   out["Server time"] = os.date("!%Y-%m-%d %H:%M:%SZ", server_epoch)

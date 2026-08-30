@@ -34,6 +34,8 @@ grep -q "Anonymous access: denied" /tmp/mqtt-auth.txt
 nmap -p 8000 --script http-date,clock-skew 127.0.0.1 | tee /tmp/httpdate.txt
 grep -q "+4m51s from local time" /tmp/httpdate.txt
 grep -q "clock-skew: 4m5" /tmp/httpdate.txt
+nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1 | tee /tmp/opcua-skew.txt
+grep -q "clock-skew:" /tmp/opcua-skew.txt
 nmap -p 102 --script s7-info 127.0.0.1 | tee /tmp/s7.txt
 grep -q "Module: 6ES7 315-2AG10-0AB0" /tmp/s7.txt
 grep -q "Basic Hardware: 6ES7 315-2AG10-0AB0" /tmp/s7.txt

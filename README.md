@@ -85,6 +85,15 @@ nmap -p 8000 --script http-date,clock-skew 127.0.0.1
 
 [ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-p%208000%20--script%20http-date%2Cclock-skew%20127.0.0.1%5Cn%22%7D)
 
+OPC UA サーバが返す時刻も `clock-skew` に集計されます。
+ずれが 0 秒の場合は `-vv` を付けないと表示されません。
+
+```bash
+nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1
+```
+
+[ターミナルで実行](command:workbench.action.terminal.sendSequence?%7B%22text%22%3A%20%22nmap%20-vv%20-p%204840%20--script%20.%2Fopcua.nse%2Cclock-skew%20127.0.0.1%5Cn%22%7D)
+
 PROFINET 機器を DCP のマルチキャストで探索します。
 
 ```bash
