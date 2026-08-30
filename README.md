@@ -9,6 +9,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | --- | --- | --- | --- |
 | 102 | tcp | S7comm (ISO-TSAP) | |
 | 123 | udp | NTP | |
+| 110 | tcp | POP3 | APOP と STLS に対応 |
 | 143 | tcp | IMAP | STARTTLS 対応、平文ログインは禁止 |
 | 161 | udp | SNMP | |
 | 199 | tcp | SMUX | snmpd が開くがハンズオンでは使わない |
@@ -437,6 +438,35 @@ Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
 
 </details>
 
+POP3 サーバが認証前に開示する情報を取得します。
+
+```bash
+nmap -p 110 --script pop3.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:26 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000058s latency).
+
+PORT    STATE SERVICE
+110/tcp open  pop3
+| pop3: 
+|   Greeting: Aichi Mail POP3 server ready
+|   Capabilities: TOP, USER, UIDL, PIPELINING, RESP-CODES
+|   Authentication: PLAIN, LOGIN
+|   APOP: supported
+|   STLS: supported
+|_  Implementation: Aichi-Mail-POP3 2.1.4
+
+Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
+```
+
+</details>
+
 IMAP サーバがログイン前に開示する情報を取得します。
 
 ```bash
@@ -776,8 +806,10 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
 | `tests/ntp.sh` | ntp-info の出力を検証する |
 | `tests/influxdb.sh` | influxdb.nse の出力を検証する |
+| `mock_servers/pop3_server.py` | 認証前の情報を返す POP3 サーバ |
 | `mock_servers/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
 | `mock_servers/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
+| `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |
 | `tests/report.sh` | HTML レポートを生成して内容を検証する |

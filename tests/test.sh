@@ -13,4 +13,5 @@ bash tests/opencart.sh
 bash tests/influxdb.sh
 bash tests/vnc.sh
 bash tests/imap.sh
+bash tests/pop3.sh
 bash tests/report.sh
