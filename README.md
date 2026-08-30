@@ -1,45 +1,9 @@
 # handson4nmap
 
-nmap の NSE スクリプトを試すためのハンズオン環境です。
-Codespaces を開くと Modbus/TCP サーバ (502) と Node-RED (1880) が自動起動します。
-
-## Test server
-
-`scanme.nmap.org` は nmap プロジェクトがスキャンを許可している検証用ホストです。
-
-```bash
-nmap scanme.nmap.org
-```
-
-```bash
-nmap -p 22 scanme.nmap.org
-```
-
-```bash
-nmap -p 80 scanme.nmap.org
-```
-
-ページのタイトルを取得します。
-
-```bash
-nmap -p 80 --script http-title scanme.nmap.org
-```
-
-Webサーバーが返してくるヘッダー情報をシンプルに取得します。
-```bash
-nmap -p 80 --script http-headers scanme.nmap.org
-```
-
-Date ヘッダから時刻ずれを確認します。
-
-```bash
-nmap -p 80 --script http-date scanme.nmap.org
-```
+nmapコマンドを試すためのハンズオン環境です。
+Codespacesを開くとモックサーバが自動起動します。
 
 ## ポートとサービス
-
-`scripts/start.sh` がコンテナ内で起動するサービスです。すべて 127.0.0.1 に対して
-スキャンするため、Codespaces のポート転送は使いません。
 
 | ポート | プロトコル | サービス | 備考 |
 | --- | --- | --- | --- |
@@ -60,6 +24,25 @@ nmap -p 80 --script http-date scanme.nmap.org
 | 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
 
 # TCP Scan
+
+```bash
+nmap -p 22 127.0.0.1
+```
+
+```bash
+nmap -p 80 127.0.0.1
+```
+
+ページのタイトルを取得します。
+```bash
+nmap -p 80 --script http-title 127.0.0.1
+```
+
+Webサーバーが返してくるヘッダー情報をシンプルに取得します。
+```bash
+nmap -p 80 --script http-headers 127.0.0.1
+```
+
 Modbus のスレーブIDとデバイス情報を列挙します。
 
 ```bash
