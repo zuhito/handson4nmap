@@ -51,6 +51,12 @@ nmap --script ./external/multicast-profinet-discovery.nse
 このスクリプトは nmap 本体に同梱されていないため、`scripts/install.sh` が `scripts/profinet-nse.sh` 経由で
 上流から取得し、古い nmap 向けの互換パッチを当てて `external/` に配置します。
 
+MQTT ブローカの情報を取得します。
+
+```bash
+nmap -p 1883 --script ./mqtt.nse 127.0.0.1
+```
+
 まとめて実行します。
 
 ```bash
@@ -64,6 +70,7 @@ bash scripts/test.sh
 | `mock_servers/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
 | `mock_servers/opcua_server.py` | opcua によるOPC UAサーバ |
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ |
+| `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
 | `scripts/openvpn-udp.conf` / `scripts/openvpn-tcp.conf` | テスト用 OpenVPN サーバの設定 |
 | `scripts/profinet-nse.sh` | 上流の multicast-profinet-discovery を取得する |
 | `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
