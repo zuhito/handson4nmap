@@ -17,9 +17,10 @@ pgrep -x snmpd > /dev/null || setsid nohup snmpd -f -C -c scripts/snmpd.conf -Lo
 pgrep -f ntp_server.py > /dev/null || setsid nohup python3 mock_servers/ntp_server.py < /dev/null > /tmp/ntp.log 2>&1 &
 pgrep -x mariadbd > /dev/null || setsid nohup mariadbd-safe --user=mysql < /dev/null > /tmp/mariadb.log 2>&1 &
 pgrep -x influxd > /dev/null || setsid nohup influxd -config scripts/influxdb.conf < /dev/null > /tmp/influxdb.log 2>&1 &
+pgrep -f vnc_server.py > /dev/null || setsid nohup python3 mock_servers/vnc_server.py < /dev/null > /tmp/vnc.log 2>&1 &
+pgrep -f imap_server.py > /dev/null || setsid nohup python3 mock_servers/imap_server.py < /dev/null > /tmp/imap.log 2>&1 &
 pgrep -x node-red > /dev/null || setsid nohup node-red < /dev/null > /tmp/nodered.log 2>&1 &
 bash scripts/dhcp-start.sh
 
 exit 0
 setsid nohup bash scripts/influxdb-seed.sh < /dev/null > /tmp/influxdb-seed.log 2>&1 &
-bash scripts/vnc-start.sh

@@ -12,4 +12,5 @@ bash tests/grafana.sh
 bash tests/opencart.sh
 bash tests/influxdb.sh
 bash tests/vnc.sh
+bash tests/imap.sh
 bash tests/report.sh
