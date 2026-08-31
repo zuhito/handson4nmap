@@ -3,6 +3,9 @@ cd "$(dirname "$0")/.."
 pgrep -f modbus_server.py > /dev/null || setsid nohup python3 mock_servers/modbus_server.py < /dev/null > /tmp/modbus.log 2>&1 &
 pgrep -f opcua_server_clockskew.py > /dev/null || setsid nohup python3 mock_servers/opcua_server_clockskew.py < /dev/null > /tmp/opcua.log 2>&1 &
 pgrep -f profinet-server.py > /dev/null || setsid nohup python3 mock_servers/profinet-server.py < /dev/null > /tmp/profinet.log 2>&1 &
+# The certificates live outside the repository, so regenerate them if the
+# container was created without running the installer.
+[ -f vpn/server.key ] || bash scripts/openvpn-keys.sh > /tmp/openvpn-keys.log 2>&1
 pgrep -a -x openvpn | grep -q "openvpn.conf" || setsid nohup openvpn --config scripts/openvpn.conf < /dev/null > /tmp/openvpn.log 2>&1 &
 bash scripts/mqtt-password.sh
 pgrep -a -x mosquitto | grep -q "scripts/mosquitto.conf" || setsid nohup mosquitto -c scripts/mosquitto.conf < /dev/null > /tmp/mosquitto.log 2>&1 &
