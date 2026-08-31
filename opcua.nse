@@ -173,7 +173,7 @@ action = function(host, port)
   out["Server time"] = os.date("!%Y-%m-%d %H:%M:%SZ", server_epoch)
   out["Clock skew"] = format_skew(skew)
 
-  local endpoints = {}
+  local urls, seen, security = {}, {}, {}
   local count
   count, pos = string.unpack("<i4", body, pos)
   for _ = 1, math.max(count, 0) do
@@ -207,18 +207,25 @@ action = function(host, port)
     _, pos = dec_str(body, pos)
     pos = pos + 1
 
-    -- A server usually offers the same endpoint with several security
-    -- settings, so every entry is listed instead of only the last one.
     out["Application URI"] = out["Application URI"] or app_uri
-    endpoints[#endpoints + 1] = string.format("%s, %s (%s), authentication: %s",
-      endpoint_url,
+
+    -- The URLs are listed on their own so that they can be copied straight
+    -- into a client such as UA Expert. A server usually repeats the same URL
+    -- for every security setting, so duplicates are dropped.
+    if endpoint_url and not seen[endpoint_url] then
+      seen[endpoint_url] = true
+      urls[#urls + 1] = endpoint_url
+    end
+
+    security[#security + 1] = string.format("%s (%s), authentication: %s",
       SECURITY_MODE[mode] or mode,
       string.gsub(policy or "unknown", "^.*#", ""),
       #tokens > 0 and table.concat(tokens, ", ") or "none")
   end
 
   if #out > 0 then
-    out["Endpoints"] = endpoints
+    out["Endpoint URLs"] = urls
+    out["Security"] = security
 
   port.version.name = "opcua"
     nmap.set_port_version(host, port)
