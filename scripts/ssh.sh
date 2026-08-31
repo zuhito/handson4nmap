@@ -5,6 +5,7 @@ cd "$(dirname "$0")/.."
 mkdir -p /tmp/ssh /run/sshd work
 [ -f /tmp/ssh/ssh_host_ed25519_key ] || ssh-keygen -q -t ed25519 -N "" -f /tmp/ssh/ssh_host_ed25519_key
 [ -f /tmp/ssh/ssh_host_rsa_key ] || ssh-keygen -q -t rsa -b 3072 -N "" -f /tmp/ssh/ssh_host_rsa_key
+chmod 600 /tmp/ssh/ssh_host_ed25519_key /tmp/ssh/ssh_host_rsa_key
 
 cat > work/sshd_config << 'CONF'
 Port 22
