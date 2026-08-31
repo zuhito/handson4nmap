@@ -14,9 +14,8 @@ grep -q "502/tcp open  modbus" /tmp/modbus.txt
 grep -q "Device identification: Aichi Company AIC-PLC-01" /tmp/modbus.txt
 nmap -p 4840 --script ./opcua.nse 127.0.0.1 | tee /tmp/opcua.txt
 grep -q "4840/tcp open  opcua" /tmp/opcua.txt
-grep -q "Endpoint URL: opc.tcp://" /tmp/opcua.txt
+grep -q "opc.tcp://.*None (None), authentication:" /tmp/opcua.txt
 grep -q "Server time: 2028-11-15 00:00:00Z" /tmp/opcua.txt
-grep -q "Authentication:" /tmp/opcua.txt
 grep -q "Server time:" /tmp/opcua.txt
 grep -q "Clock skew:" /tmp/opcua.txt
 nmap -p 80 --script http-title,http-headers 127.0.0.1 | tee /tmp/http.txt

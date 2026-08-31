@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.98 scan initiated Mon Aug 31 07:50:20 2026 as: nmap -p 80,502,1880,1883,4840 -&#45;script opcua.nse,http-date -oX scan.xml 127.0.0.1 -->
-<nmaprun scanner="nmap" args="nmap -p 80,502,1880,1883,4840 -&#45;script opcua.nse,http-date -oX scan.xml 127.0.0.1" start="1788162620" startstr="Mon Aug 31 07:50:20 2026" version="7.98" xmloutputversion="1.05">
+<!-- Nmap 7.98 scan initiated Mon Aug 31 08:17:46 2026 as: nmap -p 80,502,1880,1883,4840 -&#45;script opcua.nse,http-date -oX scan.xml 127.0.0.1 -->
+<nmaprun scanner="nmap" args="nmap -p 80,502,1880,1883,4840 -&#45;script opcua.nse,http-date -oX scan.xml 127.0.0.1" start="1788164266" startstr="Mon Aug 31 08:17:46 2026" version="7.98" xmloutputversion="1.05">
 <scaninfo type="syn" protocol="tcp" numservices="5" services="80,502,1880,1883,4840"/>
 <verbose level="0"/>
 <debugging level="0"/>
-<host starttime="1788162620" endtime="1788162620"><status state="up" reason="localhost-response" reason_ttl="0"/>
+<host starttime="1788164267" endtime="1788164267"><status state="up" reason="localhost-response" reason_ttl="0"/>
 <address addr="127.0.0.1" addrtype="ipv4"/>
 <hostnames>
 <hostname name="localhost" type="PTR"/>
 </hostnames>
-<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" method="table" conf="3"/><script id="http-date" output="Wed, 15 Nov 2028 00:00:00 GMT; +2y75d16h09m40s from local time."><elem key="date">2028-11-15T00:00:00+00:00</elem>
-<elem key="delta">69696580.0</elem>
+<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" method="table" conf="3"/><script id="http-date" output="Wed, 15 Nov 2028 00:00:00 GMT; +2y75d15h42m13s from local time."><elem key="date">2028-11-15T00:00:00+00:00</elem>
+<elem key="delta">69694933.0</elem>
 </script></port>
 <port protocol="tcp" portid="502"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="mbap" method="table" conf="3"/></port>
 <port protocol="tcp" portid="1880"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="vsat-control" method="table" conf="3"/></port>
 <port protocol="tcp" portid="1883"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="mqtt" method="table" conf="3"/></port>
-<port protocol="tcp" portid="4840"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="opcua" method="probed" conf="10"/><script id="opcua" output="&#xa;  Server time: 2028-11-15 00:00:00Z&#xa;  Clock skew: +806d16h&#xa;  Application URI: urn:freeopcua:python:server&#xa;  Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/&#xa;  Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)&#xa;  Authentication: Anonymous, Certificate, UserName"><elem key="Server time">2028-11-15 00:00:00Z</elem>
-<elem key="Clock skew">+806d16h</elem>
+<port protocol="tcp" portid="4840"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="opcua" method="probed" conf="10"/><script id="opcua" output="&#xa;  Server time: 2028-11-15 00:00:00Z&#xa;  Clock skew: +806d15h&#xa;  Application URI: urn:freeopcua:python:server&#xa;  Endpoints: &#xa;    opc.tcp://127.0.0.1:4840/freeopcua/server/, None (None), authentication: Anonymous, Certificate, UserName"><elem key="Server time">2028-11-15 00:00:00Z</elem>
+<elem key="Clock skew">+806d15h</elem>
 <elem key="Application URI">urn:freeopcua:python:server</elem>
-<elem key="Endpoint URL">opc.tcp://127.0.0.1:4840/freeopcua/server/</elem>
-<elem key="Security">None (http://opcfoundation.org/UA/SecurityPolicy#None)</elem>
-<elem key="Authentication">Anonymous, Certificate, UserName</elem>
+<table key="Endpoints">
+<elem>opc.tcp://127.0.0.1:4840/freeopcua/server/, None (None), authentication: Anonymous, Certificate, UserName</elem>
+</table>
 </script></port>
 </ports>
-<times srtt="50" rttvar="1606" to="100000"/>
+<times srtt="25" rttvar="1601" to="100000"/>
 </host>
-<runstats><finished time="1788162620" timestr="Mon Aug 31 07:50:20 2026" summary="Nmap done at Mon Aug 31 07:50:20 2026; 1 IP address (1 host up) scanned in 0.12 seconds" elapsed="0.12" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1788164267" timestr="Mon Aug 31 08:17:47 2026" summary="Nmap done at Mon Aug 31 08:17:47 2026; 1 IP address (1 host up) scanned in 0.10 seconds" elapsed="0.10" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>

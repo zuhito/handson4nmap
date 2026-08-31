@@ -563,19 +563,18 @@ nmap -p 4840 --script opcua.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:16 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000052s latency).
+Host is up (0.000049s latency).
 
 PORT     STATE SERVICE
 4840/tcp open  opcua
 | opcua: 
 |   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +806d21h
+|   Clock skew: +806d15h
 |   Application URI: urn:freeopcua:python:server
-|   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
-|   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
-|_  Authentication: Anonymous, Certificate, UserName
+|   Endpoints: 
+|_    opc.tcp://127.0.0.1:4840/freeopcua/server/, None (None), authentication: Anonymous, Certificate, UserName
 
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
@@ -894,52 +893,49 @@ nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:16 +0000
 NSE: Loaded 2 scripts for scanning.
 NSE: Script Pre-scanning.
 NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 02:50
-Completed NSE at 02:50, 0.00s elapsed
+Initiating NSE at 08:16
+Completed NSE at 08:16, 0.00s elapsed
 NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 02:50
-Completed NSE at 02:50, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 02:50
-Completed Parallel DNS resolution of 1 host. at 02:50, 0.00s elapsed
-Initiating SYN Stealth Scan at 02:50
+Initiating NSE at 08:16
+Completed NSE at 08:16, 0.00s elapsed
+Initiating SYN Stealth Scan at 08:16
 Scanning localhost (127.0.0.1) [1 port]
 Discovered open port 4840/tcp on 127.0.0.1
-Completed SYN Stealth Scan at 02:50, 0.00s elapsed (1 total ports)
+Completed SYN Stealth Scan at 08:16, 0.01s elapsed (1 total ports)
 NSE: Script scanning 127.0.0.1.
 NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 02:50
-Completed NSE at 02:50, 0.00s elapsed
+Initiating NSE at 08:16
+Completed NSE at 08:16, 0.00s elapsed
 NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 02:50
-Completed NSE at 02:50, 0.00s elapsed
+Initiating NSE at 08:16
+Completed NSE at 08:16, 0.00s elapsed
 Nmap scan report for localhost (127.0.0.1)
-Host is up, received localhost-response (0.000051s latency).
-Scanned at 2026-08-31 02:50:30 UTC for 0s
+Host is up, received localhost-response (0.000041s latency).
+Scanned at 2026-08-31 08:16:34 UTC for 0s
 
 PORT     STATE SERVICE REASON
 4840/tcp open  opcua   syn-ack ttl 64
 | opcua: 
 |   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +806d21h
+|   Clock skew: +806d15h
 |   Application URI: urn:freeopcua:python:server
-|   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
-|   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
-|_  Authentication: Anonymous, Certificate, UserName
+|   Endpoints: 
+|_    opc.tcp://127.0.0.1:4840/freeopcua/server/, None (None), authentication: Anonymous, Certificate, UserName
 
 Host script results:
-|_clock-skew: 806d21h09m29s
+|_clock-skew: 806d15h43m25s
 
 NSE: Script Post-scanning.
 NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 02:50
-Completed NSE at 02:50, 0.00s elapsed
+Initiating NSE at 08:16
+Completed NSE at 08:16, 0.00s elapsed
 NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 02:50
-Completed NSE at 02:50, 0.00s elapsed
+Initiating NSE at 08:16
+Completed NSE at 08:16, 0.00s elapsed
 Read data files from: /usr/local/bin/../share/nmap
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
            Raw packets sent: 1 (44B) | Rcvd: 2 (88B)
@@ -962,26 +958,25 @@ xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 07:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:17 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000050s latency).
+Host is up (0.000025s latency).
 
 PORT     STATE SERVICE
 80/tcp   open  http
-|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d16h09m40s from local time.
+|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d15h42m13s from local time.
 502/tcp  open  mbap
 1880/tcp open  vsat-control
 1883/tcp open  mqtt
 4840/tcp open  opcua
 | opcua: 
 |   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +806d16h
+|   Clock skew: +806d15h
 |   Application URI: urn:freeopcua:python:server
-|   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
-|   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
-|_  Authentication: Anonymous, Certificate, UserName
+|   Endpoints: 
+|_    opc.tcp://127.0.0.1:4840/freeopcua/server/, None (None), authentication: Anonymous, Certificate, UserName
 
-Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 ```
 
 </details>

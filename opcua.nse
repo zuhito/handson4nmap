@@ -34,7 +34,7 @@ author = "kazuhitoyokoi"
 license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
 categories = {"discovery", "safe"}
 
-portrule = shortport.port_or_service(4840, "opcua", "tcp")
+portrule = shortport.port_or_service({4840, 4841, 48010, 53530}, "opcua", "tcp")
 
 local SECURITY_MODE = { [1] = "None", [2] = "Sign", [3] = "SignAndEncrypt" }
 local TOKEN_TYPE = { [0] = "Anonymous", [1] = "UserName", [2] = "Certificate", [3] = "IssuedToken" }
@@ -173,6 +173,7 @@ action = function(host, port)
   out["Server time"] = os.date("!%Y-%m-%d %H:%M:%SZ", server_epoch)
   out["Clock skew"] = format_skew(skew)
 
+  local endpoints = {}
   local count
   count, pos = string.unpack("<i4", body, pos)
   for _ = 1, math.max(count, 0) do
@@ -207,13 +208,20 @@ action = function(host, port)
     pos = pos + 1
 
     out["Application URI"] = app_uri
-    out["Endpoint URL"] = endpoint_url
-    out["Security"] = string.format("%s (%s)", SECURITY_MODE[mode] or mode, policy or "unknown")
-    out["Authentication"] = table.concat(tokens, ", ")
+    -- A server usually offers the same endpoint with several security
+    -- settings, so every entry is listed instead of only the last one.
+    out["Application URI"] = out["Application URI"] or app_uri
+    endpoints[#endpoints + 1] = string.format("%s, %s (%s), authentication: %s",
+      endpoint_url,
+      SECURITY_MODE[mode] or mode,
+      string.gsub(policy or "unknown", "^.*#", ""),
+      #tokens > 0 and table.concat(tokens, ", ") or "none")
   end
 
   if #out > 0 then
-    port.version.name = "opcua"
+    out["Endpoints"] = endpoints
+
+  port.version.name = "opcua"
     nmap.set_port_version(host, port)
     return out
   end

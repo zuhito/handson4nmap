@@ -9,5 +9,5 @@ xsl="$(dirname "$(command -v nmap)")/../share/nmap/nmap.xsl"
 xsltproc -o /tmp/scan.html "$xsl" /tmp/scan.xml
 
 grep -q "Aichi Company AIC-PLC-01" /tmp/scan.html
-grep -q "Endpoint URL" /tmp/scan.html
+grep -q "opc.tcp://" /tmp/scan.html
 grep -q "Wed, 15 Nov 2028 00:00:00 GMT" /tmp/scan.html
