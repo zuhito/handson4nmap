@@ -243,6 +243,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 
 </details>
 
+<!--
 Information of the SMTP server
 
 ```bash
@@ -311,7 +312,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 ```
 
 </details>
-
+-->
 Information of the VNC server
 
 ```bash
