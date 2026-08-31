@@ -3,7 +3,7 @@ set -e
 cd "$(dirname "$0")/.."
 rm -f /etc/apt/sources.list.d/yarn.list
 apt-get update
-apt-get install -y openssh-server influxdb openvpn mosquitto mosquitto-clients xsltproc dnsmasq iproute2 libssl-dev libpcap-dev snmpd php-cli php-mysql php-gd php-curl php-zip php-mbstring php-xml unzip
+apt-get install -y mariadb-server openssh-server influxdb openvpn mosquitto mosquitto-clients xsltproc dnsmasq iproute2 libssl-dev libpcap-dev snmpd php-cli php-mysql php-gd php-curl php-zip php-mbstring php-xml unzip
 pip install -r scripts/requirements.txt
 npm install -g --unsafe-perm node-red
 
