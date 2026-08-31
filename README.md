@@ -278,6 +278,133 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
+MySQL / MariaDB が接続直後に送るグリーティングから構成を取得します。
+
+```bash
+nmap -p 3306 --script mysql-info 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:42 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000057s latency).
+
+PORT     STATE SERVICE
+3306/tcp open  mysql
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.5.5-10.11.14-MariaDB-0ubuntu0.24.04.1
+|   Thread ID: 19
+|   Capabilities flags: 63486
+|   Some Capabilities: Speaks41ProtocolNew, SupportsTransactions, ConnectWithDatabase, Speaks41ProtocolOld, DontAllowDatabaseTableColumn, SupportsCompression, IgnoreSpaceBeforeParenthesis, IgnoreSigpipes, FoundRows, LongColumnFlag, ODBCClient, SupportsLoadDataLocal, Support41Auth, InteractiveClient, SupportsAuthPlugins, SupportsMultipleStatments, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: GBUcr3FFjd6~>Vwvg%!p
+|_  Auth Plugin Name: mysql_native_password
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+SMTP サーバが EHLO に対して返す拡張の一覧を取得します。
+
+```bash
+nmap -p 25 --script smtp-commands 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:55 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000042s latency).
+
+PORT   STATE SERVICE
+25/tcp open  smtp
+|_smtp-commands: mail.aichi.example, PIPELINING, SIZE 10485760, 8BITMIME, ENHANCEDSTATUSCODES, STARTTLS, AUTH PLAIN LOGIN, HELP
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+POP3 サーバが CAPA で返す機能の一覧を取得します。グリーティングに APOP の
+チャレンジが含まれる場合は APOP も報告されます。
+
+```bash
+nmap -p 110 --script pop3-capabilities 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:08 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000041s latency).
+
+PORT    STATE SERVICE
+110/tcp open  pop3
+|_pop3-capabilities: IMPLEMENTATION(Aichi-Mail-POP3 2) SASL(PLAIN LOGIN) USER PIPELINING RESP-CODES UIDL APOP TOP STLS
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+IMAP サーバが CAPABILITY で返す機能の一覧を取得します。
+
+```bash
+nmap -p 143 --script imap-capabilities 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:20 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000049s latency).
+
+PORT    STATE SERVICE
+143/tcp open  imap
+|_imap-capabilities: STARTTLS NAMESPACE AUTH=PLAIN UIDPLUS completed IDA0001 AUTH=LOGIN CAPABILITY LOGINDISABLED OK IMAP4rev1 IDLE
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+VNC サーバのプロトコルバージョンと提示されるセキュリティタイプを取得します。
+
+```bash
+nmap -p 5900 --script vnc-info 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 12:21 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00018s latency).
+
+PORT     STATE SERVICE
+5900/tcp open  vnc
+| vnc-info: 
+|   Protocol version: 3.8
+|   Security types: 
+|_    VNC Authentication (2)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
 # UDP Scan (-sU)
 
 OpenVPNサーバへUDPで接続
@@ -487,133 +614,6 @@ Pre-scan script results:
 |_      nameOfStation: aic-plc-01
 Nmap done: 0 IP addresses (0 hosts up) scanned in 2.14 seconds
 WARNING: No targets were specified, so 0 hosts scanned.
-```
-
-</details>
-
-MySQL / MariaDB が接続直後に送るグリーティングから構成を取得します。
-
-```bash
-nmap -p 3306 --script mysql-info 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:42 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000057s latency).
-
-PORT     STATE SERVICE
-3306/tcp open  mysql
-| mysql-info: 
-|   Protocol: 10
-|   Version: 5.5.5-10.11.14-MariaDB-0ubuntu0.24.04.1
-|   Thread ID: 19
-|   Capabilities flags: 63486
-|   Some Capabilities: Speaks41ProtocolNew, SupportsTransactions, ConnectWithDatabase, Speaks41ProtocolOld, DontAllowDatabaseTableColumn, SupportsCompression, IgnoreSpaceBeforeParenthesis, IgnoreSigpipes, FoundRows, LongColumnFlag, ODBCClient, SupportsLoadDataLocal, Support41Auth, InteractiveClient, SupportsAuthPlugins, SupportsMultipleStatments, SupportsMultipleResults
-|   Status: Autocommit
-|   Salt: GBUcr3FFjd6~>Vwvg%!p
-|_  Auth Plugin Name: mysql_native_password
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
-SMTP サーバが EHLO に対して返す拡張の一覧を取得します。
-
-```bash
-nmap -p 25 --script smtp-commands 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:55 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000042s latency).
-
-PORT   STATE SERVICE
-25/tcp open  smtp
-|_smtp-commands: mail.aichi.example, PIPELINING, SIZE 10485760, 8BITMIME, ENHANCEDSTATUSCODES, STARTTLS, AUTH PLAIN LOGIN, HELP
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
-POP3 サーバが CAPA で返す機能の一覧を取得します。グリーティングに APOP の
-チャレンジが含まれる場合は APOP も報告されます。
-
-```bash
-nmap -p 110 --script pop3-capabilities 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:08 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000041s latency).
-
-PORT    STATE SERVICE
-110/tcp open  pop3
-|_pop3-capabilities: IMPLEMENTATION(Aichi-Mail-POP3 2) SASL(PLAIN LOGIN) USER PIPELINING RESP-CODES UIDL APOP TOP STLS
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
-IMAP サーバが CAPABILITY で返す機能の一覧を取得します。
-
-```bash
-nmap -p 143 --script imap-capabilities 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:20 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000049s latency).
-
-PORT    STATE SERVICE
-143/tcp open  imap
-|_imap-capabilities: STARTTLS NAMESPACE AUTH=PLAIN UIDPLUS completed IDA0001 AUTH=LOGIN CAPABILITY LOGINDISABLED OK IMAP4rev1 IDLE
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
-VNC サーバのプロトコルバージョンと提示されるセキュリティタイプを取得します。
-
-```bash
-nmap -p 5900 --script vnc-info 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 12:21 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.00018s latency).
-
-PORT     STATE SERVICE
-5900/tcp open  vnc
-| vnc-info: 
-|   Protocol version: 3.8
-|   Security types: 
-|_    VNC Authentication (2)
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
