@@ -612,31 +612,25 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-SMTP サーバが認証前に開示する情報を取得します。
+SMTP サーバが EHLO に対して返す拡張の一覧を取得します。
 
 ```bash
-nmap -p 25 --script smtp.nse 127.0.0.1
+nmap -p 25 --script smtp-commands 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:55 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000046s latency).
+Host is up (0.000042s latency).
 
 PORT   STATE SERVICE
 25/tcp open  smtp
-| smtp: 
-|   Banner: mail.aichi.example ESMTP Aichi-Mail 2.1.4 ready
-|   Extensions: PIPELINING, 8BITMIME, ENHANCEDSTATUSCODES, HELP
-|   Authentication: PLAIN, LOGIN
-|   STARTTLS: supported
-|   Maximum message size: 10485760 bytes
-|_  VRFY: refused (252)
+|_smtp-commands: mail.aichi.example, PIPELINING, SIZE 10485760, 8BITMIME, ENHANCEDSTATUSCODES, STARTTLS, AUTH PLAIN LOGIN, HELP
 
-Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -995,7 +989,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `scripts/ssh-start.sh` | ホスト鍵を生成して sshd を起動する |
 | `tests/ssh.sh` | 22 番の応答を検証する |
 | `tests/mysql.sh` | mysql-info の出力を検証する |
-| `tests/smtp.sh` | smtp.nse の出力を検証する |
+| `tests/smtp.sh` | smtp-commands の出力を検証する |
 | `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |
