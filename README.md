@@ -584,26 +584,28 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 MySQL / MariaDB が接続直後に送るグリーティングから構成を取得します。
 
 ```bash
-nmap -p 3306 --script mysql.nse 127.0.0.1
+nmap -p 3306 --script mysql-info 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:42 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000042s latency).
+Host is up (0.000057s latency).
 
 PORT     STATE SERVICE
 3306/tcp open  mysql
-| mysql: 
-|   Version: 5.5.5-10.11.14-MariaDB-0ubuntu0.24.04.1
+| mysql-info: 
 |   Protocol: 10
-|   Connection id: 38
-|   Authentication plugin: mysql_native_password
-|   TLS: not offered
-|_  Capabilities: FOUND_ROWS, CONNECT_WITH_DB, COMPRESS, PROTOCOL_41, TRANSACTIONS, SECURE_CONNECTION, MULTI_STATEMENTS, MULTI_RESULTS, PLUGIN_AUTH, CONNECT_ATTRS, SESSION_TRACK
+|   Version: 5.5.5-10.11.14-MariaDB-0ubuntu0.24.04.1
+|   Thread ID: 19
+|   Capabilities flags: 63486
+|   Some Capabilities: Speaks41ProtocolNew, SupportsTransactions, ConnectWithDatabase, Speaks41ProtocolOld, DontAllowDatabaseTableColumn, SupportsCompression, IgnoreSpaceBeforeParenthesis, IgnoreSigpipes, FoundRows, LongColumnFlag, ODBCClient, SupportsLoadDataLocal, Support41Auth, InteractiveClient, SupportsAuthPlugins, SupportsMultipleStatments, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: GBUcr3FFjd6~>Vwvg%!p
+|_  Auth Plugin Name: mysql_native_password
 
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
@@ -992,7 +994,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `mock_servers/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
 | `scripts/ssh-start.sh` | ホスト鍵を生成して sshd を起動する |
 | `tests/ssh.sh` | 22 番の応答を検証する |
-| `tests/mysql.sh` | mysql.nse の出力を検証する |
+| `tests/mysql.sh` | mysql-info の出力を検証する |
 | `tests/smtp.sh` | smtp.nse の出力を検証する |
 | `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
