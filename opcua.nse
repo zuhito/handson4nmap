@@ -207,7 +207,6 @@ action = function(host, port)
     _, pos = dec_str(body, pos)
     pos = pos + 1
 
-    out["Application URI"] = app_uri
     -- A server usually offers the same endpoint with several security
     -- settings, so every entry is listed instead of only the last one.
     out["Application URI"] = out["Application URI"] or app_uri
