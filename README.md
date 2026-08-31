@@ -682,58 +682,56 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-VNC サーバの RFB ハンドシェイクを読み取ります。認証不要の場合はデスクトップ名と
-画面サイズまで取得できます。
+VNC サーバのプロトコルバージョンと提示されるセキュリティタイプを取得します。
+認証を要求しないサーバでは警告が表示されます。
 
 ```bash
-nmap -p 5900 --script vnc.nse 127.0.0.1
+nmap -p 5900 --script vnc-info 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:32 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000044s latency).
+Host is up (0.000063s latency).
 
 PORT     STATE SERVICE
 5900/tcp open  vnc
-| vnc: 
+| vnc-info: 
 |   Protocol version: 3.8
-|   Security types: None (1)
-|   Authentication: not required
-|   Desktop name: Aichi Line1 HMI
-|   Framebuffer: 1024x768
-|_  Pixel format: 32 bits per pixel, depth 24
+|   Security types: 
+|     None (1)
+|_  WARNING: Server does not require authentication
 
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 ```
 
 </details>
 
-認証が必要なサーバでは、提示されるセキュリティタイプまでしか分かりません。
+認証を要求するサーバでは、提示されるセキュリティタイプが変わります。
 
 ```bash
-nmap -p 5901 --script vnc.nse 127.0.0.1
+nmap -p 5901 --script vnc-info 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:32 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000047s latency).
+Host is up (0.000057s latency).
 
 PORT     STATE SERVICE
-5901/tcp open  vnc
-| vnc: 
+5901/tcp open  vnc-1
+| vnc-info: 
 |   Protocol version: 3.8
-|   Security types: VNC Authentication (2)
-|_  Authentication: required
+|   Security types: 
+|_    VNC Authentication (2)
 
-Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -981,7 +979,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `tests/smtp.sh` | smtp-commands の出力を検証する |
 | `tests/pop3.sh` | pop3-capabilities の出力を検証する |
 | `tests/imap.sh` | imap-capabilities の出力を検証する |
-| `tests/vnc.sh` | vnc.nse の出力を検証する |
+| `tests/vnc.sh` | vnc-info の出力を検証する |
 | `scripts/grafana-datasource.sh` | Grafana に InfluxDB のデータソースを登録する |
 | `tests/broadcast.sh` | broadcast 系スクリプトの出力を検証する |
 | `tests/readme.sh` | README に載るコマンドをすべて実行して確認する |
