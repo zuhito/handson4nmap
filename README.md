@@ -591,28 +591,6 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
-同一セグメントで ICMP に応答するホストを列挙します。`scripts/dhcp-start.sh` が
-用意する `veth-host` を指定すると、名前空間側のホストが応答します。
-
-```bash
-nmap -e veth-host --script broadcast-ping
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 06:24 +0000
-Pre-scan script results:
-| broadcast-ping: 
-|   IP: 192.168.50.1  MAC: b2:ee:e2:0e:b2:d0
-|_  Use --script-args=newtargets to add the results as targets
-WARNING: No targets were specified, so 0 hosts scanned.
-Nmap done: 0 IP addresses (0 hosts up) scanned in 3.09 seconds
-```
-
-</details>
-
 PROFINET 機器を DCP のマルチキャストで探索します。
 
 ```bash
