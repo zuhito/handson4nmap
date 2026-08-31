@@ -23,5 +23,6 @@ pgrep -f smtp_server.py > /dev/null || setsid nohup python3 scripts/smtp_server.
 pgrep -x node-red > /dev/null || setsid nohup node-red < /dev/null > /tmp/nodered.log 2>&1 &
 bash scripts/dhcp-start.sh
 
-exit 0
 bash scripts/ssh-start.sh
+
+exit 0
