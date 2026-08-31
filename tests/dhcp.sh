@@ -2,8 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-bash scripts/dhcp-start.sh
-sleep 3
+bash scripts/dhcp.sh
 
 nmap -sU -p 67 --script dhcp-discover 192.168.50.1 | tee /tmp/dhcp.txt
 grep -q "67/udp open  dhcps" /tmp/dhcp.txt

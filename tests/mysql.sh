@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-bash scripts/mariadb-start.sh
+bash scripts/mariadb.sh
 
 nmap -p 3306 --script mysql-info 127.0.0.1 | tee /tmp/mysql.txt
 grep -q "3306/tcp open" /tmp/mysql.txt

@@ -11,17 +11,17 @@ jobs:
       - name: Install packages
         run: bash scripts/install.sh
       - name: Build nmap
-        run: bash scripts/nmap-build.sh
+        run: bash scripts/nmap.sh
       - name: Build busybox
-        run: bash scripts/busybox-build.sh
+        run: bash scripts/busybox.sh
       - name: MariaDB
-        run: bash scripts/mariadb-start.sh
+        run: bash scripts/mariadb.sh
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Core scans
         run: bash tests/core.sh
       - name: PROFINET (scapy)
-        run: bash scripts/profinet-check.sh
+        run: bash tests/profinet.sh
       - name: MQTT subscribe
         run: bash tests/mqtt-subscribe.sh
       - name: SNMP
@@ -53,7 +53,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y nmap dnsmasq-base
       - name: DHCP
-        run: sudo bash scripts/dhcp-check.sh
+        run: sudo bash tests/dhcp.sh
       - name: Broadcast scripts
         run: sudo bash tests/broadcast.sh
 
@@ -65,6 +65,6 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y nmap openvpn
       - name: OpenVPN
         run: |
-          sudo bash scripts/openvpn-keys.sh
-          sudo bash scripts/openvpn-start.sh
+          sudo bash scripts/openvpn.sh
+          sudo bash scripts/openvpn.sh
           sudo bash tests/openvpn.sh

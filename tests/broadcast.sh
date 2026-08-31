@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-bash scripts/dhcp-start.sh
+bash scripts/dhcp.sh
 
 nmap --script broadcast-wake-on-lan \
   --script-args broadcast-wake-on-lan.MAC=02:fc:00:00:00:01 | tee /tmp/wol.txt

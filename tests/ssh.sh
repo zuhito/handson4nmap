@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-bash scripts/ssh-start.sh
+bash scripts/ssh.sh
 
 nmap -p 22 127.0.0.1 | tee /tmp/ssh.txt
 grep -q "22/tcp open  ssh" /tmp/ssh.txt

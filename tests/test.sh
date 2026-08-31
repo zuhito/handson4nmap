@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 bash tests/core.sh
-bash scripts/profinet-check.sh
+bash tests/profinet.sh
 bash tests/mqtt-subscribe.sh
 bash tests/openvpn.sh
 bash tests/snmp.sh
