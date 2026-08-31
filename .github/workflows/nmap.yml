@@ -52,6 +52,8 @@ jobs:
         run: bash tests/smtp.sh
       - name: MySQL
         run: bash tests/mysql.sh
+      - name: SSH
+        run: bash tests/ssh.sh
       - name: HTML report
         run: bash tests/report.sh
 

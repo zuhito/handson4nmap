@@ -27,15 +27,34 @@ Codespacesを開くとモックサーバが自動起動します。
 | 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
 | 80 | tcp | HTTP | Date を 4分51秒 進める |
 | なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
+| 22 | tcp | SSH | 公開鍵認証のみ、root ログインは禁止 |
 | 25 | tcp | SMTP | STARTTLS 対応、VRFY は無効 |
 | 53 | udp | DNS (dnsmasq) | `aichi.example` の名前を解決する |
 | 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
 
 # TCP Scan
 
+SSH サーバが 22 番で待ち受けています。
+
 ```bash
 nmap -p 22 127.0.0.1
 ```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:21 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000064s latency).
+
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
+```
+
+</details>
 
 ```bash
 nmap -p 80 127.0.0.1
@@ -898,6 +917,8 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `mock_servers/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
 | `mock_servers/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
 | `tests/dns.sh` | dns.nse の出力を検証する |
+| `scripts/ssh-start.sh` | ホスト鍵を生成して sshd を起動する |
+| `tests/ssh.sh` | 22 番の応答を検証する |
 | `tests/mysql.sh` | mysql.nse の出力を検証する |
 | `tests/smtp.sh` | smtp.nse の出力を検証する |
 | `tests/pop3.sh` | pop3.nse の出力を検証する |

@@ -14,7 +14,7 @@ pgrep -x grafana > /dev/null || setsid nohup grafana server --homepath /usr/shar
 pgrep -f s7_server.py > /dev/null || setsid nohup python3 mock_servers/s7_server.py < /dev/null > /tmp/s7.log 2>&1 &
 pgrep -f codesys_server.py > /dev/null || setsid nohup python3 mock_servers/codesys_server.py < /dev/null > /tmp/codesys.log 2>&1 &
 pgrep -x snmpd > /dev/null || setsid nohup snmpd -f -C -c scripts/snmpd.conf -Lo < /dev/null > /tmp/snmpd.log 2>&1 &
-pgrep -f ntp_server.py > /dev/null || setsid nohup python3 mock_servers/ntp_server.py < /dev/null > /tmp/ntp.log 2>&1 &
+pgrep -f ntp_server_clockskew.py > /dev/null || setsid nohup python3 mock_servers/ntp_server_clockskew.py < /dev/null > /tmp/ntp.log 2>&1 &
 pgrep -x mariadbd > /dev/null || setsid nohup mariadbd-safe --user=mysql < /dev/null > /tmp/mariadb.log 2>&1 &
 pgrep -x influxd > /dev/null || setsid nohup influxd -config scripts/influxdb.conf < /dev/null > /tmp/influxdb.log 2>&1 &
 pgrep -f vnc_server.py > /dev/null || setsid nohup python3 mock_servers/vnc_server.py < /dev/null > /tmp/vnc.log 2>&1 &
@@ -27,3 +27,4 @@ bash scripts/dhcp-start.sh
 
 exit 0
 setsid nohup bash scripts/influxdb-seed.sh < /dev/null > /tmp/influxdb-seed.log 2>&1 &
+bash scripts/ssh-start.sh
