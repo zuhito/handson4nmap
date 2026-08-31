@@ -22,18 +22,19 @@ PY
 )
 
 failed=0
+: > /tmp/readme-results.txt
 while IFS= read -r command; do
   [ -z "$command" ] && continue
   echo "== $command"
   if ! output=$(eval "timeout 120 $command" 2>&1); then
     echo "$output"
-    echo "FAILED: $command"
+    echo "FAILED: $command" | tee -a /tmp/readme-results.txt
     failed=1
     continue
   fi
   if ! grep -q "Nmap done" <<< "$output"; then
     echo "$output"
-    echo "NO RESULT: $command"
+    echo "NO RESULT: $command" | tee -a /tmp/readme-results.txt
     failed=1
     continue
   fi
@@ -41,9 +42,13 @@ while IFS= read -r command; do
   # script must also produce script output.
   if grep -q -- "--script" <<< "$command" && ! grep -qE "^\|" <<< "$output"; then
     echo "$output"
-    echo "NO SCRIPT OUTPUT: $command"
+    echo "NO SCRIPT OUTPUT: $command" | tee -a /tmp/readme-results.txt
     failed=1
   fi
 done <<< "$commands"
 
+if [ "$failed" -ne 0 ]; then
+  echo "--- commands that did not produce a result ---"
+  grep -E "^(FAILED|NO RESULT|NO SCRIPT OUTPUT):" /tmp/readme-results.txt || true
+fi
 exit "$failed"
