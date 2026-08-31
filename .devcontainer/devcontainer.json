@@ -7,7 +7,10 @@
     "vscode": {
       "settings": {
         "chat.disableAIFeatures": true
-      }
+      },
+      "extensions": [
+        "ms-vscode.live-server"
+      ]
     }
   },
   "otherPortsAttributes": {
