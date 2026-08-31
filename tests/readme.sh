@@ -49,6 +49,14 @@ done <<< "$commands"
 
 if [ "$failed" -ne 0 ]; then
   echo "--- commands that did not produce a result ---"
-  grep -E "^(FAILED|NO RESULT|NO SCRIPT OUTPUT):" /tmp/readme-results.txt || true
+  cat /tmp/readme-results.txt || true
+  if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+    {
+      echo "### README commands without a result"
+      echo '```'
+      cat /tmp/readme-results.txt
+      echo '```'
+    } >> "$GITHUB_STEP_SUMMARY"
+  fi
 fi
 exit "$failed"
