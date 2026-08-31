@@ -5,25 +5,25 @@ Codespacesを開くとモックサーバが自動起動します。
 
 ## ポートとサービス
 
-| ポート | プロトコル | サービス | 備考 |
-| --- | --- | --- | --- |
-| 102 | tcp | S7comm (ISO-TSAP) | |
-| 123 | udp | NTP | |
-| 110 | tcp | POP3 | |
-| 143 | tcp | IMAP | |
-| 161 | udp | SNMP | |
-| 502 | tcp | Modbus/TCP | |
-| 1194 | udp | OpenVPN | |
-| 1883 | tcp | MQTT | 匿名接続を許可、ACL で `aichi/#` のみ公開 |
-| 3306 | tcp | MariaDB | |
-| 4840 | tcp | OPC UA | 常に 2028-11-15 の時刻を返す |
-| 5900 | tcp | VNC | |
-| 80 | tcp | HTTP | HMI 風のページを返し、Date は常に 2028-11-15 |
-| なし | ethernet | PROFINET DCP | |
-| 22 | tcp | SSH | |
-| 25 | tcp | SMTP | |
-| 53 | udp | DNS (dnsmasq) | `aichi.example` の名前を解決する |
-| 67 | udp | DHCP (dnsmasq) | |
+| ポート | プロトコル | サービス |
+| --- | --- | --- |
+| 22 | tcp | SSH |
+| 25 | tcp | SMTP |
+| 53 | udp | DNS |
+| 67 | udp | DHCP |
+| 80 | tcp | HTTP |
+| 102 | tcp | S7 |
+| 110 | tcp | POP3 |
+| 123 | udp | NTP |
+| 143 | tcp | IMAP |
+| 161 | udp | SNMP |
+| 502 | tcp | Modbus TCP |
+| 1194 | udp | OpenVPN |
+| 1883 | tcp | MQTT |
+| 3306 | tcp | MySQL |
+| 4840 | tcp | OPC UA |
+| 5900 | tcp | VNC |
+| なし | ethernet | PROFINET DCP |
 
 # TCP Scan
 
