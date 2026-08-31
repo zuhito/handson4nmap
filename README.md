@@ -9,25 +9,24 @@ Codespacesを開くとモックサーバが自動起動します。
 | --- | --- | --- | --- |
 | 102 | tcp | S7comm (ISO-TSAP) | |
 | 123 | udp | NTP | |
-| 110 | tcp | POP3 | APOP と STLS に対応 |
-| 143 | tcp | IMAP | STARTTLS 対応、平文ログインは禁止 |
+| 110 | tcp | POP3 | |
+| 143 | tcp | IMAP | |
 | 161 | udp | SNMP | |
 | 502 | tcp | Modbus/TCP | |
 | 1194 | udp | OpenVPN | |
-| 1880 | tcp | Node-RED | |
 | 1883 | tcp | MQTT | 匿名接続を許可、ACL で `aichi/#` のみ公開 |
 | 2455 | tcp | CoDeSys V2 | |
-| 3000 | tcp | Grafana | 匿名アクセスは無効 |
+| 3000 | tcp | Grafana | |
 | 3306 | tcp | MariaDB | |
 | 4840 | tcp | OPC UA | 常に 2028-11-15 の時刻を返す |
-| 5900 | tcp | VNC | VncAuth による認証を要求する |
-| 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
+| 5900 | tcp | VNC | |
+| 8086 | tcp | InfluxDB | |
 | 80 | tcp | HTTP | HMI 風のページを返し、Date は常に 2028-11-15 |
-| なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
-| 22 | tcp | SSH | 公開鍵認証のみ、root ログインは禁止 |
-| 25 | tcp | SMTP | STARTTLS 対応、VRFY は無効 |
+| なし | ethernet | PROFINET DCP | |
+| 22 | tcp | SSH | |
+| 25 | tcp | SMTP | |
 | 53 | udp | DNS (dnsmasq) | `aichi.example` の名前を解決する |
-| 67 | udp | DHCP (dnsmasq) | `veth-ns` の名前空間内で待ち受けるためコンテナ側からは見えない |
+| 67 | udp | DHCP (dnsmasq) | |
 
 # TCP Scan
 
