@@ -16,7 +16,10 @@ for line in open("README.md"):
     if line.startswith("```"):
         inside = False
         continue
-    if inside and line.startswith("nmap ") and "scanme.nmap.org" not in line:
+    # The DHCP server needs a network namespace, which the container used by
+    # the scan job cannot create, so scripts/dhcp-check.sh covers it instead.
+    skip = ("scanme.nmap.org" in line or "broadcast-dhcp-discover" in line)
+    if inside and line.startswith("nmap ") and not skip:
         print(line.rstrip().rstrip("\\"), end=" " if line.rstrip().endswith("\\") else "\n")
 PY
 )
