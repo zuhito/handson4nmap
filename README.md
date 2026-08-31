@@ -1,11 +1,11 @@
 # handson4nmap
 
-nmapコマンドを試すためのハンズオン環境です。
-Codespacesを開くとモックサーバが自動起動します。
+A hands-on environment for trying out nmap commands.
+The mock servers start automatically when the Codespace opens.
 
-## ポートとサービス
+## Ports and services
 
-| ポート | プロトコル | サービス |
+| Port | Protocol | Service |
 | --- | --- | --- |
 | 22 | tcp | SSH |
 | 25 | tcp | SMTP |
@@ -23,11 +23,11 @@ Codespacesを開くとモックサーバが自動起動します。
 | 3306 | tcp | MySQL |
 | 4840 | tcp | OPC UA |
 | 5900 | tcp | VNC |
-| なし | ethernet | PROFINET DCP |
+| none | ethernet | PROFINET DCP |
 
 # TCP Scan
 
-ポート22番のSSHサーバに接続
+Connection to the SSH server on port 22
 
 ```bash
 nmap -p 22 127.0.0.1
@@ -49,7 +49,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
 
 </details>
 
-ポート80番のHTTPサーバに接続
+Connection to the HTTP server on port 80
 
 ```bash
 nmap -p 80 127.0.0.1
@@ -71,7 +71,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
 
 </details>
 
-ページのタイトルを取得します。
+Page title of the web server
 ```bash
 nmap -p 80 --script http-title 127.0.0.1
 ```
@@ -93,7 +93,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
 
 </details>
 
-Webサーバーが返してくるヘッダー情報をシンプルに取得します。
+Response headers returned by the web server
 ```bash
 nmap -p 80 --script http-headers 127.0.0.1
 ```
@@ -124,7 +124,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 
 </details>
 
-ブローカが保持しているトピックと最新のペイロードを購読して表示します。
+Topics retained by the broker and their latest payloads
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe 127.0.0.1
@@ -153,7 +153,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
-ログインして保守用アカウントとして接続し、トピック`nagoya`のメッセージを取得
+Messages under the `nagoya` topic (retrieved as the maintenance account after logging in)
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe --script-args "mqtt-subscribe.username=username,mqtt-subscribe.password=passwprod" 127.0.0.1
@@ -185,7 +185,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
-`mqtt-subscribe.topic` を指定して購読するトピックを絞り込む
+Subscription narrowed to selected topics (specified through `mqtt-subscribe.topic`)
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/line1/#' 127.0.0.1
@@ -212,7 +212,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
-MySQLの構成情報を取得
+Configuration of the MySQL server
 
 ```bash
 nmap -p 3306 --script mysql-info 127.0.0.1
@@ -243,7 +243,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-SMTP サーバの情報を取得
+Information disclosed by the SMTP server
 
 ```bash
 nmap -p 25 --script smtp-commands 127.0.0.1
@@ -266,7 +266,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-POP3 サーバの情報を取得
+Information disclosed by the POP3 server
 
 ```bash
 nmap -p 110 --script pop3-capabilities 127.0.0.1
@@ -289,7 +289,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-IMAP サーバの情報を取得
+Information disclosed by the IMAP server
 
 ```bash
 nmap -p 143 --script imap-capabilities 127.0.0.1
@@ -312,7 +312,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-VNC サーバの情報を取得
+Information disclosed by the VNC server
 
 ```bash
 nmap -p 5900 --script vnc-info 127.0.0.1
@@ -338,7 +338,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-S7comm に対応した PLC の装置情報を取得します。
+Device information of a PLC that speaks S7comm
 
 ```bash
 nmap -p 102 --script s7-info 127.0.0.1
@@ -370,7 +370,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-Modbus のデバイス情報を列挙します。
+Slave identifiers and device information of a Modbus server
 
 ```bash
 nmap -p 502 --script modbus-discover 127.0.0.1
@@ -397,7 +397,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 </details>
 
 # clock skew
-HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは常に 2028-11-15 の時刻を返します。
+Clock skew derived from the HTTP Date header (the test server always reports 2028-11-15)
 
 ```bash
 nmap -p 80 --script http-date 127.0.0.1
@@ -420,8 +420,8 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 
 </details>
 
-`clock-skew` はホストスクリプトで、`http-date` などが取得した時刻をまとめて
-そのホストの時計のずれとして表示します。
+Clock skew of the host as a whole (`clock-skew` is a host script that aggregates the
+timestamps collected by scripts such as `http-date`)
 
 ```bash
 nmap -p 80 --script http-date,clock-skew 127.0.0.1
@@ -449,7 +449,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 
 # UDP Scan (-sU option)
 
-OpenVPNサーバへUDPで接続
+Connection to the OpenVPN server over UDP
 ```bash
 nmap -sU -p 1194 127.0.0.1
 ```
@@ -470,7 +470,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.17 seconds
 
 </details>
 
-NTP サーバの時刻を取得します。テスト用サーバは 2028-11-15 の固定時刻を返します。
+Time reported by the NTP server (the test server always returns 2028-11-15)
 
 ```bash
 nmap -sU -p 123 --script ntp-info 127.0.0.1
@@ -494,7 +494,7 @@ Nmap done: 1 IP address (1 host up) scanned in 10.16 seconds
 
 </details>
 
-SNMPの情報を取得します。
+System information exposed over SNMP
 
 ```bash
 nmap -sU -p 161 --script snmp-info 127.0.0.1
@@ -523,7 +523,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.34 seconds
 </details>
 
 # Broadcast / Multicast
-DHCP サーバの提供内容を確認します。
+Configuration offered by the DHCP server
 
 ```bash
 nmap --script broadcast-dhcp-discover
@@ -555,7 +555,7 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
-MACアドレスを指定してDHCPリクエスト
+DHCP request sent with a specific MAC address
 ```bash
 nmap --script broadcast-dhcp-discover --script-args "broadcast-dhcp-discover.mac=00:11:22:33:44:55"
 ```
@@ -586,7 +586,7 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
-PROFINET 機器を探索します。
+Discovery of PROFINET devices
 
 ```bash
 nmap --script multicast-profinet-discovery
@@ -619,7 +619,7 @@ WARNING: No targets were specified, so 0 hosts scanned.
 </details>
 
 ## Custom NSE
-OPC UA サーバのエンドポイントと認証方式を取得します。
+Endpoints and authentication methods of the OPC UA server
 
 ```bash
 nmap -p 4840 --script opcua.nse 127.0.0.1
@@ -649,16 +649,16 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-## HTML レポートの出力
+## HTML report
 
-`-oX` で XML を出力し、nmap 同梱のスタイルシートで HTML に変換します。
+XML written with `-oX` and converted to HTML with the stylesheet shipped with nmap
 
 ```bash
 nmap -p 80  --script http-date,clock-skew -oX scan.xml 127.0.0.1
 xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 ```
 
-全ての情報をまとめたHTMLを生成
+HTML report that collects every result
 
 ```bash
 nmap -sS -sU -p T:22,25,80,102,110,143,502,1883,3306,5990,U:123,161,1194 --script http-title,http-headers,http-date,mqtt-subscribe,mysql-info,smtp-commands,pop3-capabilities,imap-capabilities,vnc-info,s7-info,modbus-discover,clock-skew,ntp-info,snmp-info,broadcast-dhcp-discover,multicast-profinet-discovery -oX scan.xml 127.0.0.1
