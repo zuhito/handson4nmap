@@ -56,6 +56,8 @@ jobs:
         run: bash tests/ssh.sh
       - name: HTML report
         run: bash tests/report.sh
+      - name: README commands
+        run: bash tests/readme.sh
 
   dhcp:
     # Network namespaces cannot be created inside the container used above,

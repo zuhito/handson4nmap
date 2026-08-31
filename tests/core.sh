@@ -7,7 +7,6 @@ timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/502; do sleep 1; done' 2>/dev/
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1880; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/4840; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1883; do sleep 1; done' 2>/dev/null
-timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/1884; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/80; do sleep 1; done' 2>/dev/null
 timeout 120 bash -c 'until : > /dev/tcp/127.0.0.1/102; do sleep 1; done' 2>/dev/null
 nmap -p 502 --script modbus-discover 127.0.0.1 | tee /tmp/modbus.txt
@@ -23,16 +22,6 @@ grep -q "Server time: 2028-11-15 00:00:00Z" /tmp/opcua.txt
 grep -q "Authentication:" /tmp/opcua.txt
 grep -q "Server time:" /tmp/opcua.txt
 grep -q "Clock skew:" /tmp/opcua.txt
-nmap -p 1883 --script ./mqtt.nse 127.0.0.1 | tee /tmp/mqtt.txt
-grep -q "1883/tcp open  mqtt" /tmp/mqtt.txt
-grep -q "Protocol: MQTT 5.0" /tmp/mqtt.txt
-grep -q "Anonymous access: allowed" /tmp/mqtt.txt
-grep -q "Session present:" /tmp/mqtt.txt
-nmap -p 1884 --script ./mqtt.nse 127.0.0.1 | tee /tmp/mqtt-auth.txt
-grep -q "1884/tcp open  mqtt" /tmp/mqtt-auth.txt
-grep -q "Protocol: MQTT 3.1.1" /tmp/mqtt-auth.txt
-grep -q "Connection: Not authorized (0x05)" /tmp/mqtt-auth.txt
-grep -q "Anonymous access: denied" /tmp/mqtt-auth.txt
 nmap -p 80 --script http-title,http-headers 127.0.0.1 | tee /tmp/http.txt
 grep -q "http-title: Aichi Line1 HMI" /tmp/http.txt
 grep -q "Server: AichiHTTP/1.0" /tmp/http.txt

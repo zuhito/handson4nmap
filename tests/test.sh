@@ -19,3 +19,4 @@ bash tests/smtp.sh
 bash tests/mysql.sh
 bash tests/ssh.sh
 bash tests/report.sh
+bash tests/readme.sh

@@ -6,13 +6,13 @@ cd "$(dirname "$0")/.."
 # is rate limited for unauthenticated callers.
 OPENCART_VERSION="${OPENCART_VERSION:-4.1.0.4}"
 
-mkdir -p external
-curl -sfL -o external/opencart.zip \
+mkdir -p work
+curl -sfL -o work/opencart.zip \
   "https://github.com/opencart/opencart/releases/download/${OPENCART_VERSION}/opencart-${OPENCART_VERSION}.zip"
-rm -rf external/opencart
-unzip -q external/opencart.zip -d external/opencart
+rm -rf work/opencart
+unzip -q work/opencart.zip -d work/opencart
 
-cd external/opencart/upload
+cd work/opencart/upload
 cp config-dist.php config.php
 cp admin/config-dist.php admin/config.php
 

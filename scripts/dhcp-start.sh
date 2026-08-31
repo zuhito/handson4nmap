@@ -6,7 +6,10 @@ cd "$(dirname "$0")/.."
 # loopback interface and dnsmasq rejects it as out of range. Broadcast probes are
 # sent as raw ethernet frames and never reach a local UDP socket either. Putting
 # the server in its own network namespace gives both probes a real link.
-pkill -x dnsmasq || true
+# Only stop the DHCP instance: the DNS server uses dnsmasq as well.
+for pid in $(pgrep -x dnsmasq); do
+  tr '\0' ' ' < "/proc/$pid/cmdline" | grep -q "scripts/dnsmasq.conf" && kill "$pid" || true
+done
 ip netns del dhcptest 2>/dev/null || true
 ip link del veth-host 2>/dev/null || true
 sleep 1

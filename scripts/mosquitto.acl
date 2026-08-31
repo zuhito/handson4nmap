@@ -1,6 +1,10 @@
-# Anonymous clients only see the production lines.
-topic readwrite aichi/#
+# Anonymous clients only see the production lines. $SYS has to be readable
+# as well because mqtt-subscribe subscribes to it by default and aborts when
+# the broker refuses the subscription.
+topic read aichi/#
+topic read $SYS/#
 
-# The maintenance user additionally sees the recipe topics.
-user aichi
-topic readwrite #
+# The maintenance user additionally sees the Nagoya plant.
+user username
+topic readwrite aichi/#
+topic readwrite nagoya/#

@@ -17,7 +17,6 @@ Codespacesを開くとモックサーバが自動起動します。
 | 1194 | udp | OpenVPN | |
 | 1880 | tcp | Node-RED | |
 | 1883 | tcp | MQTT | 匿名接続を許可、ACL で `aichi/#` のみ公開 |
-| 1884 | tcp | MQTT | 3.1.1 のみ、認証が必要 |
 | 2455 | tcp | CoDeSys V2 | |
 | 3000 | tcp | Grafana | 匿名アクセスは無効 |
 | 3306 | tcp | MariaDB | |
@@ -44,14 +43,14 @@ nmap -p 22 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:21 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000064s latency).
+Host is up (0.000051s latency).
 
 PORT   STATE SERVICE
 22/tcp open  ssh
 
-Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
 ```
 
 </details>
@@ -64,9 +63,9 @@ nmap -p 80 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:26 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000045s latency).
+Host is up (0.000046s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
@@ -85,15 +84,15 @@ nmap -p 80 --script http-title 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:26 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000070s latency).
+Host is up (0.000053s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
 |_http-title: Aichi Line1 HMI
 
-Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
 ```
 
 </details>
@@ -107,15 +106,15 @@ nmap -p 80 --script http-headers 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:26 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000058s latency).
+Host is up (0.000038s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
 | http-headers: 
 |   Server: AichiHTTP/1.0 
-|   Date: Mon, 31 Aug 2026 02:31:43 GMT
+|   Date: Wed, 15 Nov 2028 00:00:00 GMT
 |   Content-Type: text/html; charset=utf-8
 |   Content-Length: 173
 |   X-Powered-By: Aichi-HMI/2.1.4
@@ -139,9 +138,9 @@ nmap -p 502 --script modbus-discover 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000039s latency).
+Host is up (0.000044s latency).
 
 PORT    STATE SERVICE
 502/tcp open  modbus
@@ -150,7 +149,7 @@ PORT    STATE SERVICE
 |     Slave ID data: Aichi Company-AIC-PLC-01-1.0.0\xFF
 |_    Device identification: Aichi Company AIC-PLC-01 1.0.0
 
-Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -165,9 +164,9 @@ nmap -p 8081 --script opencart.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 15:06 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000037s latency).
+Host is up (0.000067s latency).
 
 PORT     STATE SERVICE
 8081/tcp open  opencart
@@ -176,7 +175,7 @@ PORT     STATE SERVICE
 |   Admin panel: /admin/ (reachable)
 |_  Install directory: present (should be removed after setup)
 
-Nmap done: 1 IP address (1 host up) scanned in 0.15 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.16 seconds
 ```
 
 </details>
@@ -191,9 +190,9 @@ nmap -p 3000 --script grafana.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 14:36 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000037s latency).
+Host is up (0.000048s latency).
 
 PORT     STATE SERVICE
 3000/tcp open  grafana
@@ -203,7 +202,7 @@ PORT     STATE SERVICE
 |   Database: ok
 |_  Anonymous access: disabled
 
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 ```
 
 </details>
@@ -218,9 +217,9 @@ nmap -p 102 --script s7-info 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:54 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000043s latency).
+Host is up (0.000044s latency).
 
 PORT    STATE SERVICE
 102/tcp open  iso-tsap
@@ -235,7 +234,7 @@ PORT    STATE SERVICE
 |_  Copyright: Original Aichi Company Equipment
 Service Info: Device: specialized
 
-Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -253,16 +252,16 @@ nmap -p 1883 --script mqtt-subscribe 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:29 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000042s latency).
+Host is up (0.000071s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     aichi/line1/current: 12.7
 |     aichi/line1/status: running
+|     aichi/line1/current: 12.7
 |     aichi/line2/pressure: 0.0
 |     aichi/line2/status: stopped
 |_    aichi/line1/pressure: 101.3
@@ -277,28 +276,29 @@ ACL で匿名クライアントは `aichi/#` しか読めません。`mqtt-subsc
 レシピの `recipe/#` も取得できます。
 
 ```bash
-nmap -p 1883 --script mqtt-subscribe --script-args "mqtt-subscribe.username=aichi,mqtt-subscribe.password=aichi-secret" 127.0.0.1
+nmap -p 1883 --script mqtt-subscribe --script-args "mqtt-subscribe.username=username,mqtt-subscribe.password=passwprod" 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:29 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000036s latency).
+Host is up (0.000049s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     aichi/line1/pressure: 101.3
 |     aichi/line2/pressure: 0.0
-|     aichi/line1/status: running
-|     recipe/line1/name: mix-a
-|     aichi/line1/current: 12.7
+|     nagoya/line2/status: maintenance
+|     aichi/line1/pressure: 101.3
 |     aichi/line2/status: stopped
-|_    recipe/line1/temperature: 180
+|     nagoya/line1/temperature: 180
+|     aichi/line1/current: 12.7
+|     nagoya/line1/status: running
+|_    aichi/line1/status: running
 
 Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 ```
@@ -316,17 +316,17 @@ nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/l
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 09:42 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000048s latency).
+Host is up (0.000047s latency).
 
 PORT     STATE SERVICE
 1883/tcp open  mqtt
 | mqtt-subscribe: 
 |   Topics and their most recent payloads: 
-|     aichi/line1/current: 12.7
+|     aichi/line1/pressure: 101.3
 |     aichi/line1/status: running
-|_    aichi/line1/pressure: 101.3
+|_    aichi/line1/current: 12.7
 
 Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 ```
@@ -340,6 +340,22 @@ OpenVPNサーバへUDPで接続
 nmap -sU -p 1194 127.0.0.1
 ```
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00020s latency).
+
+PORT     STATE SERVICE
+1194/udp open  openvpn
+
+Nmap done: 1 IP address (1 host up) scanned in 0.17 seconds
+```
+
+</details>
+
 NTP サーバの時刻を取得します。テスト用サーバは 2028-11-15 の固定時刻を返します。
 
 ```bash
@@ -350,16 +366,16 @@ nmap -sU -p 123 --script ntp-info 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000068s latency).
+Host is up (0.00074s latency).
 
 PORT    STATE SERVICE
 123/udp open  ntp
 | ntp-info: 
 |_  receive time stamp: 2028-11-15T00:00:00
 
-Nmap done: 1 IP address (1 host up) scanned in 10.13 seconds
+Nmap done: 1 IP address (1 host up) scanned in 10.16 seconds
 ```
 
 </details>
@@ -374,20 +390,20 @@ nmap -sU -p 161 --script snmp-info 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.00020s latency).
+Host is up (0.00025s latency).
 
 PORT    STATE SERVICE
 161/udp open  snmp
 | snmp-info: 
 |   enterprise: net-snmp
 |   engineIDFormat: unknown
-|   engineIDData: 0e78d13fead9936a00000000
+|   engineIDData: 3098d22257e5946a00000000
 |   snmpEngineBoots: 1
-|_  snmpEngineTime: 29m56s
+|_  snmpEngineTime: 27m51s
 
-Nmap done: 1 IP address (1 host up) scanned in 0.21 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.34 seconds
 ```
 
 </details>
@@ -403,7 +419,7 @@ nmap --script broadcast-dhcp-discover
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:50 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Pre-scan script results:
 | broadcast-dhcp-discover: 
 |   Response 1 of 1: 
@@ -419,7 +435,7 @@ Pre-scan script results:
 |     Domain Name: aichi.example
 |     Domain Name Server: 192.168.50.1
 |_    Router: 192.168.50.1
-Nmap done: 0 IP addresses (0 hosts up) scanned in 10.08 seconds
+Nmap done: 0 IP addresses (0 hosts up) scanned in 10.11 seconds
 WARNING: No targets were specified, so 0 hosts scanned.
 ```
 
@@ -429,6 +445,32 @@ MACアドレスを指定してDHCPリクエスト
 ```bash
 nmap --script broadcast-dhcp-discover --script-args "broadcast-dhcp-discover.mac=00:11:22:33:44:55"
 ```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Pre-scan script results:
+| broadcast-dhcp-discover: 
+|   Response 1 of 1: 
+|     Interface: veth-host
+|     IP Offered: 192.168.50.141
+|     DHCP Message Type: DHCPOFFER
+|     Server Identifier: 192.168.50.1
+|     IP Address Lease Time: 12h00m00s
+|     Renewal Time Value: 6h00m00s
+|     Rebinding Time Value: 10h30m00s
+|     Subnet Mask: 255.255.255.0
+|     Broadcast Address: 192.168.50.255
+|     Domain Name: aichi.example
+|     Domain Name Server: 192.168.50.1
+|_    Router: 192.168.50.1
+Nmap done: 0 IP addresses (0 hosts up) scanned in 10.09 seconds
+WARNING: No targets were specified, so 0 hosts scanned.
+```
+
+</details>
 
 PROFINET 機器を DCP のマルチキャストで探索します。
 
@@ -440,7 +482,7 @@ nmap --script multicast-profinet-discovery
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Pre-scan script results:
 | multicast-profinet-discovery: 
 |   02:fc:00:00:00:01: 
@@ -456,7 +498,7 @@ Pre-scan script results:
 |       vendorValue: Aichi Company AIC-PLC-01
 |       deviceRole: 0x02 (IO-Controller)
 |_      nameOfStation: aic-plc-01
-Nmap done: 0 IP addresses (0 hosts up) scanned in 2.13 seconds
+Nmap done: 0 IP addresses (0 hosts up) scanned in 2.14 seconds
 WARNING: No targets were specified, so 0 hosts scanned.
 ```
 
@@ -473,9 +515,9 @@ nmap -p 1880 --script node-red.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000027s latency).
+Host is up (0.000040s latency).
 
 PORT     STATE SERVICE
 1880/tcp open  node-red
@@ -484,7 +526,7 @@ PORT     STATE SERVICE
 |   Node.js: v22.22.2 (linux/x64)
 |_  OS: Linux 6.18.44-fc-v22 (x64)
 
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 ```
 
 </details>
@@ -499,21 +541,21 @@ nmap -p 4840 --script opcua.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000026s latency).
+Host is up (0.000052s latency).
 
 PORT     STATE SERVICE
 4840/tcp open  opcua
 | opcua: 
 |   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +807d1h
+|   Clock skew: +806d21h
 |   Application URI: urn:freeopcua:python:server
 |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
 |_  Authentication: Anonymous, Certificate, UserName
 
-Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -528,9 +570,9 @@ nmap -sU -p 53 --script dns.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:28 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.00012s latency).
+Host is up (0.000084s latency).
 
 PORT   STATE SERVICE
 53/udp open  domain
@@ -539,7 +581,7 @@ PORT   STATE SERVICE
 |   Response code: NOERROR
 |_  Recursion: offered
 
-Nmap done: 1 IP address (1 host up) scanned in 0.16 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.15 seconds
 ```
 
 </details>
@@ -554,21 +596,21 @@ nmap -p 3306 --script mysql.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:54 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000052s latency).
+Host is up (0.000042s latency).
 
 PORT     STATE SERVICE
 3306/tcp open  mysql
 | mysql: 
 |   Version: 5.5.5-10.11.14-MariaDB-0ubuntu0.24.04.1
 |   Protocol: 10
-|   Connection id: 17
+|   Connection id: 38
 |   Authentication plugin: mysql_native_password
 |   TLS: not offered
 |_  Capabilities: FOUND_ROWS, CONNECT_WITH_DB, COMPRESS, PROTOCOL_41, TRANSACTIONS, SECURE_CONNECTION, MULTI_STATEMENTS, MULTI_RESULTS, PLUGIN_AUTH, CONNECT_ATTRS, SESSION_TRACK
 
-Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -583,9 +625,9 @@ nmap -p 25 --script smtp.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:41 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000056s latency).
+Host is up (0.000046s latency).
 
 PORT   STATE SERVICE
 25/tcp open  smtp
@@ -597,7 +639,7 @@ PORT   STATE SERVICE
 |   Maximum message size: 10485760 bytes
 |_  VRFY: refused (252)
 
-Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
 ```
 
 </details>
@@ -612,9 +654,9 @@ nmap -p 110 --script pop3.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:26 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000058s latency).
+Host is up (0.000046s latency).
 
 PORT    STATE SERVICE
 110/tcp open  pop3
@@ -626,7 +668,7 @@ PORT    STATE SERVICE
 |   STLS: supported
 |_  Implementation: Aichi-Mail-POP3 2.1.4
 
-Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
 ```
 
 </details>
@@ -641,9 +683,9 @@ nmap -p 143 --script imap.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 22:00 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.00019s latency).
+Host is up (0.000041s latency).
 
 PORT    STATE SERVICE
 143/tcp open  imap
@@ -671,9 +713,9 @@ nmap -p 5900 --script vnc.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 21:31 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.00020s latency).
+Host is up (0.000044s latency).
 
 PORT     STATE SERVICE
 5900/tcp open  vnc
@@ -685,7 +727,7 @@ PORT     STATE SERVICE
 |   Framebuffer: 1024x768
 |_  Pixel format: 32 bits per pixel, depth 24
 
-Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -700,9 +742,9 @@ nmap -p 5901 --script vnc.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 21:31 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000052s latency).
+Host is up (0.000047s latency).
 
 PORT     STATE SERVICE
 5901/tcp open  vnc
@@ -711,7 +753,7 @@ PORT     STATE SERVICE
 |   Security types: VNC Authentication (2)
 |_  Authentication: required
 
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 ```
 
 </details>
@@ -726,9 +768,9 @@ nmap -p 8086 --script influxdb.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 14:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000043s latency).
+Host is up (0.000036s latency).
 
 PORT     STATE SERVICE
 8086/tcp open  influxdb
@@ -738,7 +780,7 @@ PORT     STATE SERVICE
 |   Authentication: not required
 |_  Databases: _internal, plant
 
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 ```
 
 </details>
@@ -753,9 +795,9 @@ nmap -p 2455 --script codesys-v2-discover.nse 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000031s latency).
+Host is up (0.000050s latency).
 
 PORT     STATE SERVICE
 2455/tcp open  CoDeSyS
@@ -763,7 +805,7 @@ PORT     STATE SERVICE
 |   OS Name: Linux 3.16.0
 |_  Product Type: AIC-PLC-01
 
-Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -779,13 +821,13 @@ nmap -p 80 --script http-date 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:29 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000048s latency).
+Host is up (0.000044s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
-|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h30m53s from local time.
+|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h09m31s from local time.
 
 Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 ```
@@ -803,16 +845,16 @@ nmap -p 80 --script http-date,clock-skew 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:29 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000046s latency).
+Host is up (0.000047s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
-|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h30m52s from local time.
+|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h09m31s from local time.
 
 Host script results:
-|_clock-skew: 806d21h30m51s
+|_clock-skew: 806d21h09m30s
 
 Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 ```
@@ -830,54 +872,54 @@ nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 07:51 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 NSE: Loaded 2 scripts for scanning.
 NSE: Script Pre-scanning.
 NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
+Initiating NSE at 02:50
+Completed NSE at 02:50, 0.00s elapsed
 NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 07:51
-Completed Parallel DNS resolution of 1 host. at 07:51, 0.00s elapsed
-Initiating SYN Stealth Scan at 07:51
+Initiating NSE at 02:50
+Completed NSE at 02:50, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 02:50
+Completed Parallel DNS resolution of 1 host. at 02:50, 0.00s elapsed
+Initiating SYN Stealth Scan at 02:50
 Scanning localhost (127.0.0.1) [1 port]
 Discovered open port 4840/tcp on 127.0.0.1
-Completed SYN Stealth Scan at 07:51, 0.00s elapsed (1 total ports)
+Completed SYN Stealth Scan at 02:50, 0.00s elapsed (1 total ports)
 NSE: Script scanning 127.0.0.1.
 NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
+Initiating NSE at 02:50
+Completed NSE at 02:50, 0.00s elapsed
 NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
+Initiating NSE at 02:50
+Completed NSE at 02:50, 0.00s elapsed
 Nmap scan report for localhost (127.0.0.1)
-Host is up, received localhost-response (0.000036s latency).
-Scanned at 2026-08-30 07:51:10 UTC for 0s
+Host is up, received localhost-response (0.000051s latency).
+Scanned at 2026-08-31 02:50:30 UTC for 0s
 
 PORT     STATE SERVICE REASON
 4840/tcp open  opcua   syn-ack ttl 64
 | opcua: 
 |   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +807d1h
+|   Clock skew: +806d21h
 |   Application URI: urn:freeopcua:python:server
 |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
 |_  Authentication: Anonymous, Certificate, UserName
 
 Host script results:
-|_clock-skew: 806d21h30m51s
+|_clock-skew: 806d21h09m29s
 
 NSE: Script Post-scanning.
 NSE: Starting runlevel 1 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
+Initiating NSE at 02:50
+Completed NSE at 02:50, 0.00s elapsed
 NSE: Starting runlevel 2 (of 2) scan.
-Initiating NSE at 07:51
-Completed NSE at 07:51, 0.00s elapsed
+Initiating NSE at 02:50
+Completed NSE at 02:50, 0.00s elapsed
 Read data files from: /usr/local/bin/../share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
            Raw packets sent: 1 (44B) | Rcvd: 2 (88B)
 ```
 
@@ -898,41 +940,30 @@ xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:43 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000028s latency).
+Host is up (0.000027s latency).
 
 PORT     STATE SERVICE
 80/tcp   open  http
-|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h30m53s from local time.
-502/tcp  open  modbus
-| modbus-discover: 
-|   sid 0x1: 
-|     Slave ID data: Aichi Company-AIC-PLC-01-1.0.0\xFF
-|_    Device identification: Aichi Company AIC-PLC-01 1.0.0
+|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h09m30s from local time.
+502/tcp  open  mbap
 1880/tcp open  node-red
 | node-red: 
 |   Node-RED: 5.0.4
 |   Node.js: v22.22.2 (linux/x64)
 |_  OS: Linux 6.18.44-fc-v22 (x64)
 1883/tcp open  mqtt
-| mqtt: 
-|   Protocol: MQTT 5.0
-|   Connection: Success (0x00)
-|   Anonymous access: allowed
-|   Session present: no
-|   Topic alias maximum: 10
-|_  Receive maximum: 20
 4840/tcp open  opcua
 | opcua: 
 |   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +807d1h
+|   Clock skew: +806d21h
 |   Application URI: urn:freeopcua:python:server
 |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
 |_  Authentication: Anonymous, Certificate, UserName
 
-Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 ```
 
 </details>
@@ -962,7 +993,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
 | `opencart.nse` | OpenCart の情報を取得するNSEスクリプト |
 | `grafana.nse` | Grafana の情報を取得するNSEスクリプト |
-| `openvpn.nse` | OpenVPN の制御チャネルを叩くNSEスクリプト |
 | `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |
 | `scripts/start.sh` | 各サーバの起動 |
 | `tests/mqtt-subscribe.sh` | mqtt-subscribe の出力を検証する |
@@ -983,6 +1013,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |
+| `tests/readme.sh` | README に載るコマンドをすべて実行して確認する |
 | `tests/report.sh` | HTML レポートを生成して内容を検証する |
 | `tests/test.sh` | 起動とスキャン結果の検証 |
 

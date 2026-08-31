@@ -14,6 +14,6 @@ for asset in json.load(sys.stdin)['assets']:
         print(asset['browser_download_url'])
         break
 ")
-curl -sfL -o external/grafana.deb "$url"
-dpkg -i external/grafana.deb
+curl -sfL -o work/grafana.deb "$url"
+dpkg -i work/grafana.deb
 mkdir -p /tmp/grafana/data /tmp/grafana/logs /tmp/grafana/plugins

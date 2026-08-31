@@ -5,14 +5,13 @@ pgrep -f opcua_server_clockskew.py > /dev/null || setsid nohup python3 mock_serv
 pgrep -f profinet-server.py > /dev/null || setsid nohup python3 mock_servers/profinet-server.py < /dev/null > /tmp/profinet.log 2>&1 &
 # The certificates live outside the repository, so regenerate them if the
 # container was created without running the installer.
-[ -f vpn/server.key ] || bash scripts/openvpn-keys.sh > /tmp/openvpn-keys.log 2>&1
+[ -f work/vpn/server.key ] || bash scripts/openvpn-keys.sh > /tmp/openvpn-keys.log 2>&1
 pgrep -a -x openvpn | grep -q "openvpn.conf" || setsid nohup openvpn --config scripts/openvpn.conf < /dev/null > /tmp/openvpn.log 2>&1 &
 bash scripts/mqtt-password.sh
 pgrep -a -x mosquitto | grep -q "scripts/mosquitto.conf" || setsid nohup mosquitto -c scripts/mosquitto.conf < /dev/null > /tmp/mosquitto.log 2>&1 &
-pgrep -f mqtt_v3_server.py > /dev/null || setsid nohup python3 mock_servers/mqtt_v3_server.py < /dev/null > /tmp/mqttv3.log 2>&1 &
 pgrep -f http_server_clockskew.py > /dev/null || setsid nohup python3 mock_servers/http_server_clockskew.py < /dev/null > /tmp/httpskew.log 2>&1 &
 setsid nohup bash scripts/mqtt-publish.sh < /dev/null > /tmp/mqttpub.log 2>&1 &
-pgrep -f "php -S 0.0.0.0:8081" > /dev/null || setsid nohup php -S 0.0.0.0:8081 -t external/opencart/upload < /dev/null > /tmp/opencart.log 2>&1 &
+pgrep -f "php -S 0.0.0.0:8081" > /dev/null || setsid nohup php -S 0.0.0.0:8081 -t work/opencart/upload < /dev/null > /tmp/opencart.log 2>&1 &
 pgrep -x grafana > /dev/null || setsid nohup grafana server --homepath /usr/share/grafana --config scripts/grafana.ini < /dev/null > /tmp/grafana.log 2>&1 &
 pgrep -f s7_server.py > /dev/null || setsid nohup python3 mock_servers/s7_server.py < /dev/null > /tmp/s7.log 2>&1 &
 pgrep -f codesys_server.py > /dev/null || setsid nohup python3 mock_servers/codesys_server.py < /dev/null > /tmp/codesys.log 2>&1 &

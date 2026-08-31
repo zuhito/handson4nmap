@@ -3,9 +3,9 @@ set -e
 cd "$(dirname "$0")/.."
 
 NMAP_TAG="${NMAP_TAG:-v7.991}"
-rm -rf external/nmap
-git clone -q --branch "$NMAP_TAG" --depth 1 https://github.com/nmap/nmap.git external/nmap
-cd external/nmap
+rm -rf work/nmap
+git clone -q --branch "$NMAP_TAG" --depth 1 https://github.com/nmap/nmap.git work/nmap
+cd work/nmap
 
 # clock-skew only runs after the scripts listed in its dependencies, so opcua.nse
 # has to be declared there for its timestamps to be aggregated.

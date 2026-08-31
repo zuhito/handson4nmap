@@ -4,9 +4,9 @@ cd "$(dirname "$0")/.."
 
 # The Ubuntu busybox packages are built without the ntpd applet, so build a
 # minimal busybox that only provides ntpd with server support enabled.
-rm -rf external/busybox
-git clone -q --depth 1 --branch 1_36_1 https://github.com/mirror/busybox.git external/busybox
-cd external/busybox
+rm -rf work/busybox
+git clone -q --depth 1 --branch 1_36_1 https://github.com/mirror/busybox.git work/busybox
+cd work/busybox
 make allnoconfig > /dev/null
 sed -i 's/# CONFIG_NTPD is not set/CONFIG_NTPD=y/' .config
 sed -i 's/# CONFIG_FEATURE_NTPD_SERVER is not set/CONFIG_FEATURE_NTPD_SERVER=y/' .config
