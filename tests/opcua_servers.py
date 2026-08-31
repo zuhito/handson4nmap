@@ -35,6 +35,8 @@ TICKS = 134324917425305170
 def build_endpoints(kind, port):
     url = ("opc.tcp://127.0.0.1:%d/Test" % port).encode()
     tokens = [(b"anonymous", 0), (b"username", 1)]
+    if kind == "tokens":
+        tokens = [(b"cert", 2), (b"issued", 3), (b"unknown", 9)]
     if kind == "empty":
         items = []
     elif kind == "many":
@@ -72,9 +74,18 @@ def serve(connection, kind, port):
         if payload is None:
             return
 
+        if kind == "silent":
+            return
+        if kind == "garbage":
+            connection.sendall(b"NOTOPCUA" + b"\x00" * 16)
+            return
         if kind_bytes == b"HELF":
             ack = struct.pack("<IIIII", 0, 65535, 65535, 0, 0)
             connection.sendall(b"ACKF" + struct.pack("<I", 8 + len(ack)) + ack)
+        elif kind_bytes == b"OPNF" and kind == "refuse":
+            error = struct.pack("<I", 0x80020000) + s_str(b"channel refused")
+            connection.sendall(b"ERRF" + struct.pack("<I", 8 + len(error)) + error)
+            return
         elif kind_bytes == b"OPNF":
             sec = s_str(b"http://opcfoundation.org/UA/SecurityPolicy#None") + s_str(None) + s_str(None)
             body = (b"\x01\x00" + struct.pack("<H", 449) + response_header(TICKS)
@@ -105,7 +116,8 @@ def listen(port, kind):
         threading.Thread(target=lambda c=connection: (serve(c, kind, port), c.close()),
                          daemon=True).start()
 
-LAYOUT = {4851: "plain", 4852: "many", 4853: "empty", 4854: "fault", 4855: "chunked"}
+LAYOUT = {4851: "plain", 4852: "many", 4853: "empty", 4854: "fault", 4855: "chunked",
+          4856: "silent", 4857: "garbage", 4858: "refuse", 4859: "tokens"}
 
 for port, kind in LAYOUT.items():
     threading.Thread(target=listen, args=(port, kind), daemon=True).start()
