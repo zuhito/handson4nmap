@@ -553,32 +553,6 @@ WARNING: No targets were specified, so 0 hosts scanned.
 </details>
 
 ## Custom NSE
-Node-RED の診断エンドポイントからバージョン情報を取得します。
-
-```bash
-nmap -p 1880 --script node-red.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000040s latency).
-
-PORT     STATE SERVICE
-1880/tcp open  node-red
-| node-red: 
-|   Node-RED: 5.0.4
-|   Node.js: v22.22.2 (linux/x64)
-|_  OS: Linux 6.18.44-fc-v22 (x64)
-
-Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
-```
-
-</details>
-
 OPC UA サーバのエンドポイントと認証方式を取得します。
 
 ```bash
@@ -979,7 +953,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 ```bash
 nmap -p 80,502,1880,1883,4840 \
-  --script node-red.nse,opcua.nse,http-date \
+  --script opcua.nse,http-date \
   -oX scan.xml 127.0.0.1
 xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 ```
@@ -988,30 +962,26 @@ xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 07:50 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000027s latency).
+Host is up (0.000050s latency).
 
 PORT     STATE SERVICE
 80/tcp   open  http
-|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h09m30s from local time.
+|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d16h09m40s from local time.
 502/tcp  open  mbap
-1880/tcp open  node-red
-| node-red: 
-|   Node-RED: 5.0.4
-|   Node.js: v22.22.2 (linux/x64)
-|_  OS: Linux 6.18.44-fc-v22 (x64)
+1880/tcp open  vsat-control
 1883/tcp open  mqtt
 4840/tcp open  opcua
 | opcua: 
 |   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +806d21h
+|   Clock skew: +806d16h
 |   Application URI: urn:freeopcua:python:server
 |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
 |_  Authentication: Anonymous, Certificate, UserName
 
-Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
 ```
 
 </details>
@@ -1037,7 +1007,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `scripts/openvpn.conf` | テスト用 OpenVPN サーバの設定 |
 | `scripts/profinet-check.sh` | PROFINET DCP の応答を検証する |
 | `scripts/nmap-build.sh` | 最新の nmap をソースから導入する |
-| `node-red.nse` | Node-RED の /diagnostics を参照するNSEスクリプト |
 | `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
 | `grafana.nse` | Grafana の情報を取得するNSEスクリプト |
 | `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |
