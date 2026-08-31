@@ -9,7 +9,7 @@
         "chat.disableAIFeatures": true
       },
       "extensions": [
-        "ms-vscode.live-server"
+        "george-alisson.html-preview-vscode"
       ]
     }
   },
