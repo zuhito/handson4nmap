@@ -2,13 +2,12 @@
 set -e
 cd "$(dirname "$0")/.."
 
-mkdir -p external
-curl -sfL -o external/codesys-v2-discover.nse \
+curl -sfL -o codesys-v2-discover.nse \
   https://raw.githubusercontent.com/digitalbond/Redpoint/master/codesys-v2-discover.nse
 
 # The script still uses the bin library, which was removed in nmap 7.90.
 python3 - << 'PY'
-path = "external/codesys-v2-discover.nse"
+path = "codesys-v2-discover.nse"
 s = open(path).read()
 
 s = s.replace('local strbuf = require "strbuf"', 'local string = require "string"')
@@ -26,7 +25,3 @@ s = s.replace('local pos, product_type = bin.unpack("z", response, 129)',
 open(path, "w").write(s)
 PY
 
-# Install into the nmap script directory so it can be called by name alone.
-install -m 644 external/codesys-v2-discover.nse \
-  "$(dirname "$(command -v nmap)")/../share/nmap/scripts/codesys-v2-discover.nse"
-nmap --script-updatedb > /dev/null
