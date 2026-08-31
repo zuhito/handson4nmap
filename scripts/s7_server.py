@@ -71,7 +71,6 @@ class S7SetupAck(Packet):
 bind_layers(TPKT, COTPConnect)
 bind_layers(COTPData, S7SetupAck)
 
-# Offsets are 1 based and count from the start of the TPKT frame.
 SZL_0011_FIELDS = {44: MODULE, 72: BASIC_HARDWARE, 123: VERSION}
 SZL_001C_FIELDS = {
     40: SYSTEM_NAME,

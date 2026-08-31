@@ -15,21 +15,6 @@ server time taken from the response header. The server time is compared with
 the scanning host clock and the difference is reported as the clock skew.
 ]]
 
----
--- @usage
--- nmap -p 4840 --script ./opcua.nse <host>
---
--- @output
--- PORT     STATE SERVICE
--- 4840/tcp open  opcua
--- | opcua:
--- |   Server time: 2026-08-29 15:42:43Z
--- |   Clock skew: +0s
--- |   Application URI: urn:freeopcua:python:server
--- |   Endpoint URL: opc.tcp://127.0.0.1:4840/freeopcua/server/
--- |   Security: None (http://opcfoundation.org/UA/SecurityPolicy#None)
--- |_  Authentication: Anonymous, UserName, Certificate
-
 author = "kazuhitoyokoi"
 license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
 categories = {"discovery", "safe"}
@@ -209,9 +194,6 @@ action = function(host, port)
 
     out["Application URI"] = out["Application URI"] or app_uri
 
-    -- The URLs are listed on their own so that they can be copied straight
-    -- into a client such as UA Expert. A server usually repeats the same URL
-    -- for every security setting, so duplicates are dropped.
     if endpoint_url and not seen[endpoint_url] then
       seen[endpoint_url] = true
       urls[#urls + 1] = endpoint_url

@@ -15,7 +15,6 @@ grep -q "Device identification: Aichi Company AIC-PLC-01" /tmp/modbus.txt
 nmap -p 4840 --script ./opcua.nse 127.0.0.1 | tee /tmp/opcua.txt
 grep -q "4840/tcp open  opcua" /tmp/opcua.txt
 grep -q "Endpoint URLs:" /tmp/opcua.txt
-# The URL has to stand alone so that it can be copied into a client.
 grep -qE "^\|? *opc.tcp://127.0.0.1:4840/freeopcua/server/$" /tmp/opcua.txt
 grep -q "None (None), authentication:" /tmp/opcua.txt
 grep -q "Server time: 2028-11-15 00:00:00Z" /tmp/opcua.txt

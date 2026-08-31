@@ -2,7 +2,6 @@ import http.server
 
 PORT = 80
 
-# 2028-11-15 00:00:00 UTC as a Unix timestamp.
 FIXED_TIME = 1857859200
 
 PAGE = b"""<!DOCTYPE html>
@@ -24,8 +23,6 @@ class Handler(http.server.BaseHTTPRequestHandler):
     sys_version = ""
 
     def date_time_string(self, timestamp=None):
-        # A constant Date header so that http-date and clock-skew always
-        # report the same difference.
         return super().date_time_string(FIXED_TIME)
 
     def send_common_headers(self, length):

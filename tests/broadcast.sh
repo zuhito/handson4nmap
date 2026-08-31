@@ -2,8 +2,6 @@
 set -e
 cd "$(dirname "$0")/.."
 
-# Both scripts need a second host on the link, which scripts/dhcp-start.sh
-# provides through a veth pair and a network namespace.
 bash scripts/dhcp-start.sh
 
 nmap --script broadcast-wake-on-lan \

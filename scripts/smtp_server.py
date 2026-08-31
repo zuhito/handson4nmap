@@ -39,7 +39,6 @@ def answer(line):
     if verb == "NOOP":
         return b"250 2.0.0 OK\r\n", False
     if verb == "VRFY":
-        # Address verification is disabled, as recommended by RFC 5321.
         return b"252 2.5.2 Cannot verify user\r\n", False
     if verb == "QUIT":
         return f"221 2.0.0 {HOSTNAME} closing connection\r\n".encode(), True

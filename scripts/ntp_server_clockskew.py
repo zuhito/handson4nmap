@@ -2,7 +2,6 @@ import socket
 from scapy.layers.ntp import NTPHeader
 PORT = 123
 
-# 2028-11-15 00:00:00 UTC
 FIXED_TIME = 1857859200 + 2208988800
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

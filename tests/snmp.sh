@@ -2,7 +2,6 @@
 set -e
 cd "$(dirname "$0")/.."
 
-# UDP has no connect based readiness check, so retry until the agent answers.
 for _ in $(seq 1 30); do
   nmap -sU -p 161 --script snmp-info,snmp-brute 127.0.0.1 > /tmp/snmp.txt
   grep -q "enterprise:" /tmp/snmp.txt && break

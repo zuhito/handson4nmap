@@ -9,5 +9,4 @@ nmap -p 5900 --script vnc-info 127.0.0.1 | tee /tmp/vnc.txt
 grep -q "5900/tcp open  vnc" /tmp/vnc.txt
 grep -q "Protocol version: 3.8" /tmp/vnc.txt
 grep -q "VNC Authentication (2)" /tmp/vnc.txt
-# The server must not offer unauthenticated access.
 ! grep -q "None (1)" /tmp/vnc.txt

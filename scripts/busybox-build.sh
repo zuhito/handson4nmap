@@ -2,8 +2,6 @@
 set -e
 cd "$(dirname "$0")/.."
 
-# The Ubuntu busybox packages are built without the ntpd applet, so build a
-# minimal busybox that only provides ntpd with server support enabled.
 rm -rf work/busybox
 git clone -q --depth 1 --branch 1_36_1 https://github.com/mirror/busybox.git work/busybox
 cd work/busybox

@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-# MariaDB 10.4 and newer ship mariadbd-safe and mariadb-install-db, while the
-# 10.3 packages of older distributions only provide the mysql_ names.
 if command -v mariadbd-safe > /dev/null; then
   server="mariadbd-safe"
 else
@@ -17,8 +15,6 @@ fi
 mkdir -p /run/mysqld
 chown mysql:mysql /run/mysqld
 
-# The container image ships no initialised data directory, so create one the
-# first time the database is needed.
 if [ ! -d /var/lib/mysql/mysql ]; then
   mkdir -p /var/lib/mysql
   chown -R mysql:mysql /var/lib/mysql

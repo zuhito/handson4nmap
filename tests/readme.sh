@@ -2,10 +2,6 @@
 set -e
 cd "$(dirname "$0")/.."
 
-# Runs every nmap command the README documents against the local servers, so
-# that a command which stops working is caught even if no dedicated test
-# covers it. Commands aimed at scanme.nmap.org are skipped because the CI
-# container has no route to the internet during the scan steps.
 commands=$(python3 - <<'PY'
 import re
 inside = False
@@ -16,8 +12,6 @@ for line in open("README.md"):
     if line.startswith("```"):
         inside = False
         continue
-    # The DHCP server needs a network namespace, which the container used by
-    # the scan job cannot create, so scripts/dhcp-check.sh covers it instead.
     skip = ("scanme.nmap.org" in line or "broadcast-" in line)
     if inside and line.startswith("nmap ") and not skip:
         print(line.rstrip().rstrip("\\"), end=" " if line.rstrip().endswith("\\") else "\n")
@@ -41,8 +35,6 @@ while IFS= read -r command; do
     failed=1
     continue
   fi
-  # A scan of a closed port still finishes cleanly, so a command that names a
-  # script must also produce script output.
   if grep -q -- "--script" <<< "$command" && ! grep -qE "^\|" <<< "$output"; then
     echo "$output"
     echo "NO SCRIPT OUTPUT: $command" | tee -a /tmp/readme-results.txt

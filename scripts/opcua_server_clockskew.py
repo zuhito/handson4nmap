@@ -18,7 +18,6 @@ class FixedDateTime(datetime):
         return FIXED_TIME
 
 
-# ResponseHeader stamps every reply with datetime.utcnow() from this module.
 uaprotocol_auto.datetime = FixedDateTime
 
 server = Server()

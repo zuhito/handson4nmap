@@ -8,7 +8,6 @@ from scapy.supersocket import StreamSocket
 
 PORT = 110
 
-# The angle bracketed token in the greeting is the APOP challenge.
 CHALLENGE = "<%d.%d@aichi.example>" % (os.getpid(), int(time.time()))
 GREETING = f"+OK Aichi Mail POP3 server ready {CHALLENGE}\r\n".encode()
 

@@ -14,7 +14,6 @@ CAPABILITIES = (
     b"* CAPABILITY IMAP4rev1 STARTTLS LOGINDISABLED AUTH=PLAIN AUTH=LOGIN "
     b"IDLE NAMESPACE UIDPLUS ID\r\n"
 )
-# RFC 2971 ID response.
 IDENTITY = (
     b'* ID ("name" "Aichi Mail" "version" "2.1.4" "os" "Linux" '
     b'"support-url" "https://aichi.example/support")\r\n'
