@@ -24,7 +24,7 @@ fi
 pgrep -x mariadbd > /dev/null || pgrep -x mysqld > /dev/null || \
   setsid nohup "$server" --user=mysql < /dev/null > /tmp/mariadb.log 2>&1 &
 
-if ! timeout 120 bash -c 'until mysqladmin ping --silent; do sleep 2; done'; then
+if ! timeout 120 bash -c 'until mysqladmin ping --silent > /dev/null 2>&1; do sleep 2; done'; then
   echo "mariadb did not start with $server"
   tail -40 /tmp/mariadb.log || true
   tail -20 /tmp/mariadb-install.log 2>/dev/null || true
