@@ -25,7 +25,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | 5900 | tcp | VNC (認証なし) | デスクトップ名とサイズを公開 |
 | 5901 | tcp | VNC (VncAuth) | 認証を要求する |
 | 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
-| 80 | tcp | HTTP | Date を 4分51秒 進める |
+| 80 | tcp | HTTP | HMI 風のページを返し、Date を 4分51秒 進める |
 | なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
 | 22 | tcp | SSH | 公開鍵認証のみ、root ログインは禁止 |
 | 25 | tcp | SMTP | STARTTLS 対応、VRFY は無効 |
@@ -60,15 +60,74 @@ Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
 nmap -p 80 127.0.0.1
 ```
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:26 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000045s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
+```
+
+</details>
+
 ページのタイトルを取得します。
 ```bash
 nmap -p 80 --script http-title 127.0.0.1
 ```
 
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:26 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000070s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+|_http-title: Aichi Line1 HMI
+
+Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
+```
+
+</details>
+
 Webサーバーが返してくるヘッダー情報をシンプルに取得します。
 ```bash
 nmap -p 80 --script http-headers 127.0.0.1
 ```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:26 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000058s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+| http-headers: 
+|   Server: AichiHTTP/1.0 
+|   Date: Mon, 31 Aug 2026 02:31:43 GMT
+|   Content-Type: text/html; charset=utf-8
+|   Content-Length: 173
+|   X-Powered-By: Aichi-HMI/2.1.4
+|   X-Frame-Options: SAMEORIGIN
+|   Cache-Control: no-store
+|   
+|_  (Request type: HEAD)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
+```
+
+</details>
 
 Modbus のスレーブIDとデバイス情報を列挙します。
 
@@ -887,7 +946,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 | `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
 | `mock_servers/codesys_server.py` | CoDeSys V2 の識別要求に応答するサーバ |
 | `mock_servers/s7_server.py` | s7-info に応答する S7comm サーバ |
-| `mock_servers/http_clockskew_server.py` | 時刻をずらした Date を返す HTTP サーバ |
+| `mock_servers/http_server_clockskew.py` | タイトル付きのページを返し、Date をずらす HTTP サーバ |
 | `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(scapy 実装) |
 | `scripts/mosquitto-auth.conf` | 認証必須の MQTT ブローカの設定 |
 | `scripts/dnsmasq-dns.conf` | テスト用 DNS サーバの設定 |

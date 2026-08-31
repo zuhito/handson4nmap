@@ -33,6 +33,10 @@ grep -q "1884/tcp open  mqtt" /tmp/mqtt-auth.txt
 grep -q "Protocol: MQTT 3.1.1" /tmp/mqtt-auth.txt
 grep -q "Connection: Not authorized (0x05)" /tmp/mqtt-auth.txt
 grep -q "Anonymous access: denied" /tmp/mqtt-auth.txt
+nmap -p 80 --script http-title,http-headers 127.0.0.1 | tee /tmp/http.txt
+grep -q "http-title: Aichi Line1 HMI" /tmp/http.txt
+grep -q "Server: AichiHTTP/1.0" /tmp/http.txt
+grep -q "X-Powered-By: Aichi-HMI/2.1.4" /tmp/http.txt
 nmap -p 80 --script http-date,clock-skew 127.0.0.1 | tee /tmp/httpdate.txt
 grep -q "+4m51s from local time" /tmp/httpdate.txt
 grep -q "clock-skew: 4m5" /tmp/httpdate.txt

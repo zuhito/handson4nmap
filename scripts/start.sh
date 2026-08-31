@@ -7,7 +7,7 @@ pgrep -a -x openvpn | grep -q "openvpn.conf" || setsid nohup openvpn --config sc
 bash scripts/mqtt-password.sh
 pgrep -a -x mosquitto | grep -q "scripts/mosquitto.conf" || setsid nohup mosquitto -c scripts/mosquitto.conf < /dev/null > /tmp/mosquitto.log 2>&1 &
 pgrep -f mqtt_v3_server.py > /dev/null || setsid nohup python3 mock_servers/mqtt_v3_server.py < /dev/null > /tmp/mqttv3.log 2>&1 &
-pgrep -f http_clockskew_server.py > /dev/null || setsid nohup python3 mock_servers/http_clockskew_server.py < /dev/null > /tmp/httpskew.log 2>&1 &
+pgrep -f http_server_clockskew.py > /dev/null || setsid nohup python3 mock_servers/http_server_clockskew.py < /dev/null > /tmp/httpskew.log 2>&1 &
 setsid nohup bash scripts/mqtt-publish.sh < /dev/null > /tmp/mqttpub.log 2>&1 &
 pgrep -f "php -S 0.0.0.0:8081" > /dev/null || setsid nohup php -S 0.0.0.0:8081 -t external/opencart/upload < /dev/null > /tmp/opencart.log 2>&1 &
 pgrep -x grafana > /dev/null || setsid nohup grafana server --homepath /usr/share/grafana --config scripts/grafana.ini < /dev/null > /tmp/grafana.log 2>&1 &
