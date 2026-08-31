@@ -42,10 +42,22 @@ def answer(line):
 
 def serve(connection):
     stream = StreamSocket(connection, Raw)
+    try:
+        talk(stream)
+    except (EOFError, OSError):
+        pass
+    finally:
+        stream.close()
+
+
+def talk(stream):
     stream.send(Raw(GREETING))
     pending = b""
     while True:
-        received = stream.recv()
+        try:
+            received = stream.recv()
+        except (EOFError, OSError):
+            break
         if received is None:
             break
         pending += bytes(received)
@@ -55,9 +67,7 @@ def serve(connection):
             if reply:
                 stream.send(Raw(reply))
             if done:
-                stream.close()
                 return
-    stream.close()
 
 
 listener = socket.socket()

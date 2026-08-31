@@ -111,12 +111,24 @@ def reply(packet):
 
 def serve(connection):
     stream = StreamSocket(connection, Raw)
+    try:
+        exchange(stream)
+    except (EOFError, OSError):
+        pass
+    finally:
+        stream.close()
+
+
+def exchange(stream):
     pending = b""
 
     def read(n):
         nonlocal pending
         while len(pending) < n:
-            received = stream.recv()
+            try:
+                received = stream.recv()
+            except (EOFError, OSError):
+                return None
             if received is None:
                 return None
             pending += bytes(received)
@@ -131,7 +143,6 @@ def serve(connection):
         if body is None:
             break
         stream.send(Raw(reply(header + body)))
-    stream.close()
 
 
 listener = socket.socket()

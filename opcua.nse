@@ -60,10 +60,27 @@ local function make_reader(socket)
 end
 
 local function recv_message(read)
-  local header = read(8)
-  if not header then return nil end
-  local size = string.unpack("<I4", header, 5)
-  return string.sub(header, 1, 4), read(size - 8)
+  local body = ""
+  while true do
+    local header = read(8)
+    if not header then return nil end
+    local kind = string.sub(header, 1, 3)
+    local chunk = string.sub(header, 4, 4)
+    local size = string.unpack("<I4", header, 5)
+    local payload = read(size - 8)
+    if not payload then return nil end
+
+    if chunk == "A" then return nil end
+    if kind ~= "MSG" then return kind .. chunk, payload end
+
+    -- A chunked message repeats the secure channel header on every part.
+    if body == "" then
+      body = payload
+    else
+      body = body .. string.sub(payload, 17)
+    end
+    if chunk == "F" then return "MSGF", body end
+  end
 end
 
 local function to_epoch(ticks)
@@ -145,7 +162,14 @@ action = function(host, port)
   socket:close()
   if kind ~= "MSGF" then return nil end
 
+  pos = 17
+  local type_id = string.unpack("<I2", body, pos + 2)
+  if type_id ~= 431 then
+    -- Anything other than a GetEndpointsResponse means the request failed.
+    return nil
+  end
   pos = 21
+
   local ticks
   ticks, pos = skip_response_header(body, pos)
 
@@ -161,6 +185,7 @@ action = function(host, port)
   local urls, seen, security = {}, {}, {}
   local count
   count, pos = string.unpack("<i4", body, pos)
+  if count < 0 then count = 0 end
   for _ = 1, math.max(count, 0) do
     local endpoint_url, app_uri, mask, policy, mode, n
     endpoint_url, pos = dec_str(body, pos)
@@ -206,8 +231,10 @@ action = function(host, port)
   end
 
   if #out > 0 then
-    out["Endpoint URLs"] = urls
-    out["Security"] = security
+    if #urls > 0 then
+      out["Endpoint URLs"] = urls
+      out["Security"] = security
+    end
 
   port.version.name = "opcua"
     nmap.set_port_version(host, port)

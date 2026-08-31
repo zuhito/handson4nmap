@@ -15,7 +15,10 @@ SECURITY_VNC_AUTH = 2
 def read(stream, length):
     data = b""
     while len(data) < length:
-        received = stream.recv()
+        try:
+            received = stream.recv()
+        except (EOFError, OSError):
+            return None
         if received is None:
             return None
         data += bytes(received)
@@ -36,6 +39,15 @@ def serve(stream):
     stream.send(Raw(struct.pack(">I", 1)))  # SecurityResult: failed
 
 
+def guard(stream):
+    try:
+        serve(stream)
+    except (EOFError, OSError):
+        pass
+    finally:
+        stream.close()
+
+
 listener = socket.socket()
 listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 listener.bind(("0.0.0.0", PORT))
@@ -44,4 +56,4 @@ listener.listen(5)
 while True:
     connection, _ = listener.accept()
     stream = StreamSocket(connection, Raw)
-    threading.Thread(target=lambda s=stream: (serve(s), s.close()), daemon=True).start()
+    threading.Thread(target=guard, args=(stream,), daemon=True).start()
