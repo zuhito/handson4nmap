@@ -126,64 +126,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 
 </details>
 
-Modbus のスレーブIDとデバイス情報を列挙します。
-
-```bash
-nmap -p 502 --script modbus-discover 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000044s latency).
-
-PORT    STATE SERVICE
-502/tcp open  modbus
-| modbus-discover: 
-|   sid 0x1: 
-|     Slave ID data: Aichi Company-AIC-PLC-01-1.0.0\xFF
-|_    Device identification: Aichi Company AIC-PLC-01 1.0.0
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
-S7comm に対応した PLC の装置情報を取得します。
-
-```bash
-nmap -p 102 --script s7-info 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000044s latency).
-
-PORT    STATE SERVICE
-102/tcp open  iso-tsap
-| s7-info: 
-|   Module: AIC-CPU-3150
-|   Basic Hardware: AIC-CPU-3150
-|   Version: 2.6.9
-|   System Name: Aichi Line1 Controller
-|   Module Type: AIC CPU 3150
-|   Serial Number: AIC-0001-0042
-|   Plant Identification: Aichi Company Plant 1
-|_  Copyright: Original Aichi Company Equipment
-Service Info: Device: specialized
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
 ブローカが保持しているトピックと最新のペイロードを購読して表示します。
 既定では `#` と `$SYS/#` を購読するため、ブローカの全トピックが対象になります。
 テスト用のブローカは `sys_interval 0` で統計の配信を止めてあるので、
@@ -399,6 +341,64 @@ PORT     STATE SERVICE
 |   Protocol version: 3.8
 |   Security types: 
 |_    VNC Authentication (2)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+Modbus のスレーブIDとデバイス情報を列挙します。
+
+```bash
+nmap -p 502 --script modbus-discover 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000044s latency).
+
+PORT    STATE SERVICE
+502/tcp open  modbus
+| modbus-discover: 
+|   sid 0x1: 
+|     Slave ID data: Aichi Company-AIC-PLC-01-1.0.0\xFF
+|_    Device identification: Aichi Company AIC-PLC-01 1.0.0
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+S7comm に対応した PLC の装置情報を取得します。
+
+```bash
+nmap -p 102 --script s7-info 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000044s latency).
+
+PORT    STATE SERVICE
+102/tcp open  iso-tsap
+| s7-info: 
+|   Module: AIC-CPU-3150
+|   Basic Hardware: AIC-CPU-3150
+|   Version: 2.6.9
+|   System Name: Aichi Line1 Controller
+|   Module Type: AIC CPU 3150
+|   Serial Number: AIC-0001-0042
+|   Plant Identification: Aichi Company Plant 1
+|_  Copyright: Original Aichi Company Equipment
+Service Info: Device: specialized
 
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
