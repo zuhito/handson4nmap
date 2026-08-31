@@ -153,7 +153,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
-Including messages with the `nagoya` topic (maintenance account logging in)
+Maintenance messages with the `nagoya` topic (logging in required)
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe --script-args "mqtt-subscribe.username=username,mqtt-subscribe.password=passwprod" 127.0.0.1
