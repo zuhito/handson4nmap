@@ -27,7 +27,7 @@ Codespacesを開くとモックサーバが自動起動します。
 
 # TCP Scan
 
-SSH サーバが 22 番で待ち受けています。
+ポート22番のSSHサーバに接続
 
 ```bash
 nmap -p 22 127.0.0.1
@@ -48,6 +48,8 @@ Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
 ```
 
 </details>
+
+ポート80番のHTTPサーバに接続
 
 ```bash
 nmap -p 80 127.0.0.1
@@ -123,9 +125,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 </details>
 
 ブローカが保持しているトピックと最新のペイロードを購読して表示します。
-既定では `#` と `$SYS/#` を購読するため、ブローカの全トピックが対象になります。
-テスト用のブローカは `sys_interval 0` で統計の配信を止めてあるので、
-`mosquitto_pub -r` で retain 付き配信した2ライン分の5件だけが表示されます。
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe 127.0.0.1
