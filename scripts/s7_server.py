@@ -102,6 +102,8 @@ SETUP_ACK = raw(TPKT() / COTPData() / S7SetupAck())
 
 
 def reply(packet):
+    if len(packet) < 8:
+        return None
     if packet[5] == 0xE0:
         return CONNECT_CONFIRM
     if packet[7] == 0x32 and packet[8] == 0x01:
@@ -142,7 +144,10 @@ def exchange(stream):
         body = read(TPKT(header).length - 4)
         if body is None:
             break
-        stream.send(Raw(reply(header + body)))
+        answer = reply(header + body)
+        if answer is None:
+            return
+        stream.send(Raw(answer))
 
 
 listener = socket.socket()

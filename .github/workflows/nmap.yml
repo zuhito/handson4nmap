@@ -42,6 +42,8 @@ jobs:
         run: bash tests/ssh.sh
       - name: OPC UA variants
         run: bash tests/opcua.sh
+      - name: Robustness
+        run: bash tests/robustness.sh
       - name: HTML report
         run: bash tests/report.sh
       - name: README commands
