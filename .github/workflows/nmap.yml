@@ -18,6 +18,8 @@ jobs:
         run: bash scripts/busybox-build.sh
       - name: Install Grafana
         run: bash scripts/grafana-install.sh
+      - name: MariaDB
+        run: bash scripts/mariadb-start.sh
       - name: Install OpenCart
         run: bash scripts/opencart-install.sh
         env:
