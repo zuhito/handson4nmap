@@ -635,31 +635,26 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-POP3 サーバが認証前に開示する情報を取得します。
+POP3 サーバが CAPA で返す機能の一覧を取得します。グリーティングに APOP の
+チャレンジが含まれる場合は APOP も報告されます。
 
 ```bash
-nmap -p 110 --script pop3.nse 127.0.0.1
+nmap -p 110 --script pop3-capabilities 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:08 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000046s latency).
+Host is up (0.000041s latency).
 
 PORT    STATE SERVICE
 110/tcp open  pop3
-| pop3: 
-|   Greeting: Aichi Mail POP3 server ready
-|   Capabilities: TOP, USER, UIDL, PIPELINING, RESP-CODES
-|   Authentication: PLAIN, LOGIN
-|   APOP: supported
-|   STLS: supported
-|_  Implementation: Aichi-Mail-POP3 2.1.4
+|_pop3-capabilities: IMPLEMENTATION(Aichi-Mail-POP3 2) SASL(PLAIN LOGIN) USER PIPELINING RESP-CODES UIDL APOP TOP STLS
 
-Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -990,7 +985,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `tests/ssh.sh` | 22 番の応答を検証する |
 | `tests/mysql.sh` | mysql-info の出力を検証する |
 | `tests/smtp.sh` | smtp-commands の出力を検証する |
-| `tests/pop3.sh` | pop3.nse の出力を検証する |
+| `tests/pop3.sh` | pop3-capabilities の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |
 | `scripts/grafana-datasource.sh` | Grafana に InfluxDB のデータソースを登録する |
