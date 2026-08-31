@@ -1,4 +1,8 @@
-import socketserver
+import socket
+import threading
+
+from scapy.packet import Raw
+from scapy.supersocket import StreamSocket
 
 PORT = 25
 HOSTNAME = "mail.aichi.example"
@@ -15,45 +19,60 @@ EXTENSIONS = [
 ]
 
 
-class Handler(socketserver.StreamRequestHandler):
-    def handle(self):
-        self.wfile.write(GREETING)
+def ehlo_reply():
+    lines = [f"250-{HOSTNAME}\r\n"]
+    lines += [f"250-{extension}\r\n" for extension in EXTENSIONS[:-1]]
+    lines.append(f"250 {EXTENSIONS[-1]}\r\n")
+    return "".join(lines).encode()
 
-        while True:
-            line = self.rfile.readline()
-            if not line:
+
+def answer(line):
+    words = line.decode("ascii", "replace").split()
+    if not words:
+        return b"", False
+    verb = words[0].upper()
+
+    if verb == "EHLO":
+        return ehlo_reply(), False
+    if verb == "HELO":
+        return f"250 {HOSTNAME}\r\n".encode(), False
+    if verb == "NOOP":
+        return b"250 2.0.0 OK\r\n", False
+    if verb == "VRFY":
+        # Address verification is disabled, as recommended by RFC 5321.
+        return b"252 2.5.2 Cannot verify user\r\n", False
+    if verb == "QUIT":
+        return f"221 2.0.0 {HOSTNAME} closing connection\r\n".encode(), True
+    if verb in ("MAIL", "RCPT", "DATA"):
+        return b"530 5.7.0 Authentication required\r\n", False
+    return b"500 5.5.2 Command not recognized\r\n", False
+
+
+def serve(connection):
+    stream = StreamSocket(connection, Raw)
+    stream.send(Raw(GREETING))
+    pending = b""
+    while True:
+        received = stream.recv()
+        if received is None:
+            break
+        pending += bytes(received)
+        while b"\n" in pending:
+            line, pending = pending.split(b"\n", 1)
+            reply, done = answer(line)
+            if reply:
+                stream.send(Raw(reply))
+            if done:
+                stream.close()
                 return
-
-            words = line.decode("ascii", "replace").split()
-            if not words:
-                continue
-            verb = words[0].upper()
-
-            if verb in ("EHLO", "HELO"):
-                if verb == "HELO":
-                    self.wfile.write(f"250 {HOSTNAME}\r\n".encode())
-                    continue
-                self.wfile.write(f"250-{HOSTNAME}\r\n".encode())
-                for extension in EXTENSIONS[:-1]:
-                    self.wfile.write(f"250-{extension}\r\n".encode())
-                self.wfile.write(f"250 {EXTENSIONS[-1]}\r\n".encode())
-            elif verb == "NOOP":
-                self.wfile.write(b"250 2.0.0 OK\r\n")
-            elif verb == "VRFY":
-                # Address verification is disabled, as recommended by RFC 5321.
-                self.wfile.write(b"252 2.5.2 Cannot verify user\r\n")
-            elif verb == "QUIT":
-                self.wfile.write(f"221 2.0.0 {HOSTNAME} closing connection\r\n".encode())
-                return
-            elif verb in ("MAIL", "RCPT", "DATA"):
-                self.wfile.write(b"530 5.7.0 Authentication required\r\n")
-            else:
-                self.wfile.write(b"500 5.5.2 Command not recognized\r\n")
+    stream.close()
 
 
-class Server(socketserver.ThreadingTCPServer):
-    allow_reuse_address = True
-    daemon_threads = True
+listener = socket.socket()
+listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+listener.bind(("0.0.0.0", PORT))
+listener.listen(5)
 
-
-Server(("0.0.0.0", PORT), Handler).serve_forever()
+while True:
+    connection, _ = listener.accept()
+    threading.Thread(target=serve, args=(connection,), daemon=True).start()

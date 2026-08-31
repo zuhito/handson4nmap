@@ -1,8 +1,10 @@
-import socketserver
+import socket
+import threading
 
 from scapy.fields import ByteField, ShortField, StrFixedLenField, XByteField, XShortField
-from scapy.packet import Packet, bind_layers
+from scapy.packet import Packet, Raw, bind_layers
 from scapy.compat import raw
+from scapy.supersocket import StreamSocket
 
 PORT = 102
 
@@ -100,38 +102,44 @@ CONNECT_CONFIRM = raw(TPKT() / COTPConnect())
 SETUP_ACK = raw(TPKT() / COTPData() / S7SetupAck())
 
 
-class Handler(socketserver.BaseRequestHandler):
-    def handle(self):
-        while True:
-            header = self.recv_exact(4)
-            if not header:
-                return
-            length = TPKT(header).length
-            body = self.recv_exact(length - 4)
-            if body is None:
-                return
-            self.request.sendall(self.reply(header + body))
+def reply(packet):
+    if packet[5] == 0xE0:
+        return CONNECT_CONFIRM
+    if packet[7] == 0x32 and packet[8] == 0x01:
+        return SETUP_ACK
+    return szl_block(packet[-3])
 
-    def recv_exact(self, n):
-        buf = b""
-        while len(buf) < n:
-            chunk = self.request.recv(n - len(buf))
-            if not chunk:
+
+def serve(connection):
+    stream = StreamSocket(connection, Raw)
+    pending = b""
+
+    def read(n):
+        nonlocal pending
+        while len(pending) < n:
+            received = stream.recv()
+            if received is None:
                 return None
-            buf += chunk
-        return buf
+            pending += bytes(received)
+        out, pending = pending[:n], pending[n:]
+        return out
 
-    def reply(self, packet):
-        if packet[5] == 0xE0:
-            return CONNECT_CONFIRM
-        if packet[7] == 0x32 and packet[8] == 0x01:
-            return SETUP_ACK
-        return szl_block(packet[-3])
+    while True:
+        header = read(4)
+        if header is None:
+            break
+        body = read(TPKT(header).length - 4)
+        if body is None:
+            break
+        stream.send(Raw(reply(header + body)))
+    stream.close()
 
 
-class Server(socketserver.ThreadingTCPServer):
-    allow_reuse_address = True
-    daemon_threads = True
+listener = socket.socket()
+listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+listener.bind(("0.0.0.0", PORT))
+listener.listen(5)
 
-
-Server(("0.0.0.0", PORT), Handler).serve_forever()
+while True:
+    connection, _ = listener.accept()
+    threading.Thread(target=serve, args=(connection,), daemon=True).start()
