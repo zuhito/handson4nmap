@@ -153,9 +153,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
-ACL で匿名クライアントは `aichi/#` しか読めません。`mqtt-subscribe.username` と
-`mqtt-subscribe.password` を渡すと保守用アカウントとして接続し、
-レシピの `recipe/#` も取得できます。
+ログインして保守用アカウントとして接続し、トピック`nagoya`のメッセージを取得
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe --script-args "mqtt-subscribe.username=username,mqtt-subscribe.password=passwprod" 127.0.0.1
@@ -187,8 +185,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
-`mqtt-subscribe.topic` を指定すると購読するトピックを絞れます。
-`aichi/line1/#` を指定した場合、停止中の line2 は出力されません。
+`mqtt-subscribe.topic` を指定して購読するトピックを絞り込む
 
 ```bash
 nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/line1/#' 127.0.0.1
@@ -215,7 +212,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.12 seconds
 
 </details>
 
-MySQL / MariaDB が接続直後に送るグリーティングから構成を取得します。
+MySQLの構成情報を取得
 
 ```bash
 nmap -p 3306 --script mysql-info 127.0.0.1
@@ -246,7 +243,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-SMTP サーバが EHLO に対して返す拡張の一覧を取得します。
+SMTP サーバの情報を取得
 
 ```bash
 nmap -p 25 --script smtp-commands 127.0.0.1
@@ -269,8 +266,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-POP3 サーバが CAPA で返す機能の一覧を取得します。グリーティングに APOP の
-チャレンジが含まれる場合は APOP も報告されます。
+POP3 サーバの情報を取得
 
 ```bash
 nmap -p 110 --script pop3-capabilities 127.0.0.1
@@ -293,7 +289,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-IMAP サーバが CAPABILITY で返す機能の一覧を取得します。
+IMAP サーバの情報を取得
 
 ```bash
 nmap -p 143 --script imap-capabilities 127.0.0.1
@@ -316,7 +312,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-VNC サーバのプロトコルバージョンと提示されるセキュリティタイプを取得します。
+VNC サーバの情報を取得
 
 ```bash
 nmap -p 5900 --script vnc-info 127.0.0.1
@@ -374,7 +370,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-Modbus のスレーブIDとデバイス情報を列挙します。
+Modbus のデバイス情報を列挙します。
 
 ```bash
 nmap -p 502 --script modbus-discover 127.0.0.1
@@ -498,7 +494,7 @@ Nmap done: 1 IP address (1 host up) scanned in 10.16 seconds
 
 </details>
 
-SNMP エージェントのシステム情報を取得し、コミュニティ名を総当たりします。
+SNMPの情報を取得します。
 
 ```bash
 nmap -sU -p 161 --script snmp-info 127.0.0.1
@@ -590,7 +586,7 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
-PROFINET 機器を DCP のマルチキャストで探索します。
+PROFINET 機器を探索します。
 
 ```bash
 nmap --script multicast-profinet-discovery
@@ -661,6 +657,8 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 nmap -p 80  --script http-date,clock-skew -oX scan.xml 127.0.0.1
 xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 ```
+
+全ての情報をまとめたHTMLを生成
 
 ```bash
 nmap -sS -sU -p T:22,25,80,102,110,143,502,1883,3306,5990,U:123,161,1194 --script http-title,http-headers,http-date,mqtt-subscribe,mysql-info,smtp-commands,pop3-capabilities,imap-capabilities,vnc-info,s7-info,modbus-discover,clock-skew,ntp-info,snmp-info,broadcast-dhcp-discover,multicast-profinet-discovery -oX scan.xml 127.0.0.1
