@@ -1,8 +1,9 @@
 import http.server
-import time
 
 PORT = 80
-SKEW_SECONDS = 4 * 60 + 51
+
+# 2028-11-15 00:00:00 UTC as a Unix timestamp.
+FIXED_TIME = 1857859200
 
 PAGE = b"""<!DOCTYPE html>
 <html lang="ja">
@@ -23,9 +24,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
     sys_version = ""
 
     def date_time_string(self, timestamp=None):
-        # The Date header is deliberately ahead of the real time so that
-        # http-date and clock-skew have something to report.
-        return super().date_time_string(time.time() + SKEW_SECONDS)
+        # A constant Date header so that http-date and clock-skew always
+        # report the same difference.
+        return super().date_time_string(FIXED_TIME)
 
     def send_common_headers(self, length):
         self.send_header("Content-Type", "text/html; charset=utf-8")

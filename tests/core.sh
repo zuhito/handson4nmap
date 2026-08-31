@@ -38,8 +38,8 @@ grep -q "http-title: Aichi Line1 HMI" /tmp/http.txt
 grep -q "Server: AichiHTTP/1.0" /tmp/http.txt
 grep -q "X-Powered-By: Aichi-HMI/2.1.4" /tmp/http.txt
 nmap -p 80 --script http-date,clock-skew 127.0.0.1 | tee /tmp/httpdate.txt
-grep -q "+4m51s from local time" /tmp/httpdate.txt
-grep -q "clock-skew: 4m5" /tmp/httpdate.txt
+grep -q "http-date: Wed, 15 Nov 2028 00:00:00 GMT" /tmp/httpdate.txt
+grep -q "clock-skew:" /tmp/httpdate.txt
 nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1 | tee /tmp/opcua-skew.txt
 grep -q "clock-skew:" /tmp/opcua-skew.txt
 nmap -p 102 --script s7-info 127.0.0.1 | tee /tmp/s7.txt

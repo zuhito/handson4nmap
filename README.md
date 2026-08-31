@@ -25,7 +25,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | 5900 | tcp | VNC (認証なし) | デスクトップ名とサイズを公開 |
 | 5901 | tcp | VNC (VncAuth) | 認証を要求する |
 | 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
-| 80 | tcp | HTTP | HMI 風のページを返し、Date を 4分51秒 進める |
+| 80 | tcp | HTTP | HMI 風のページを返し、Date は常に 2028-11-15 |
 | なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
 | 22 | tcp | SSH | 公開鍵認証のみ、root ログインは禁止 |
 | 25 | tcp | SMTP | STARTTLS 対応、VRFY は無効 |
@@ -769,7 +769,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 </details>
 
 # clock skew
-HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは 4分51秒 進めた時刻を返します。
+HTTP の Date ヘッダから時刻ずれを検出します。テスト用サーバは常に 2028-11-15 の時刻を返します。
 
 ```bash
 nmap -p 80 --script http-date 127.0.0.1
@@ -779,15 +779,15 @@ nmap -p 80 --script http-date 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:43 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:29 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000046s latency).
+Host is up (0.000048s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
-|_http-date: Sun, 30 Aug 2026 13:48:00 GMT; +4m51s from local time.
+|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h30m53s from local time.
 
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 ```
 
 </details>
@@ -803,18 +803,18 @@ nmap -p 80 --script http-date,clock-skew 127.0.0.1
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-30 13:43 +0000
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:29 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000024s latency).
+Host is up (0.000046s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
-|_http-date: Sun, 30 Aug 2026 13:48:00 GMT; +4m51s from local time.
+|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h30m52s from local time.
 
 Host script results:
-|_clock-skew: 4m50s
+|_clock-skew: 806d21h30m51s
 
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 ```
 
 </details>
@@ -867,7 +867,7 @@ PORT     STATE SERVICE REASON
 |_  Authentication: Anonymous, Certificate, UserName
 
 Host script results:
-|_clock-skew: 0s
+|_clock-skew: 806d21h30m51s
 
 NSE: Script Post-scanning.
 NSE: Starting runlevel 1 (of 2) scan.
@@ -904,7 +904,7 @@ Host is up (0.000028s latency).
 
 PORT     STATE SERVICE
 80/tcp   open  http
-|_http-date: Sun, 30 Aug 2026 13:48:05 GMT; +4m51s from local time.
+|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d21h30m53s from local time.
 502/tcp  open  modbus
 | modbus-discover: 
 |   sid 0x1: 

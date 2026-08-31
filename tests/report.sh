@@ -12,4 +12,4 @@ grep -q "Aichi Company AIC-PLC-01" /tmp/scan.html
 grep -q "Node-RED:" /tmp/scan.html
 grep -q "MQTT 5.0" /tmp/scan.html
 grep -q "Endpoint URL" /tmp/scan.html
-grep -q "4m51s" /tmp/scan.html
+grep -q "Wed, 15 Nov 2028 00:00:00 GMT" /tmp/scan.html
