@@ -15,12 +15,9 @@ Codespacesを開くとモックサーバが自動起動します。
 | 502 | tcp | Modbus/TCP | |
 | 1194 | udp | OpenVPN | |
 | 1883 | tcp | MQTT | 匿名接続を許可、ACL で `aichi/#` のみ公開 |
-| 2455 | tcp | CoDeSys V2 | |
-| 3000 | tcp | Grafana | |
 | 3306 | tcp | MariaDB | |
 | 4840 | tcp | OPC UA | 常に 2028-11-15 の時刻を返す |
 | 5900 | tcp | VNC | |
-| 8086 | tcp | InfluxDB | |
 | 80 | tcp | HTTP | HMI 風のページを返し、Date は常に 2028-11-15 |
 | なし | ethernet | PROFINET DCP | |
 | 22 | tcp | SSH | |
@@ -673,117 +670,6 @@ PORT     STATE SERVICE
 |     opc.tcp://127.0.0.1:4840/freeopcua/server/
 |   Security: 
 |_    None (None), authentication: Anonymous, Certificate, UserName
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
-Grafana のバージョンとデータベースの状態を取得します。
-
-```bash
-nmap -p 3000 --script grafana.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000048s latency).
-
-PORT     STATE SERVICE
-3000/tcp open  grafana
-| grafana: 
-|   Version: 13.2.0
-|   Build commit: f681b1359f6a
-|   Database: ok
-|_  Anonymous access: disabled
-
-Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
-```
-
-</details>
-
-認証情報を渡すと、API から組織、アカウント、データソース、統計を取得します。
-
-```bash
-nmap -p 3000 --script grafana.nse --script-args "grafana.username=admin,grafana.password=admin" 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 06:51 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000044s latency).
-
-PORT     STATE SERVICE
-3000/tcp open  grafana
-| grafana: 
-|   Version: 13.2.0
-|   Build commit: f681b1359f6a
-|   Database: ok
-|   Anonymous access: disabled
-|   Credentials: accepted
-|   Organisation: Main Org.
-|   Users: admin (Admin, admin@localhost)
-|   Data sources: plant-influx (influxdb, http://127.0.0.1:8086)
-|_  Statistics: 1 users, 0 dashboards, 1 datasources
-
-Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
-```
-
-</details>
-
-InfluxDB のバージョンと、認証なしで参照できるデータベースを取得します。
-
-```bash
-nmap -p 8086 --script influxdb.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000036s latency).
-
-PORT     STATE SERVICE
-8086/tcp open  influxdb
-| influxdb: 
-|   Version: 1.6.7~rc0
-|   Build: OSS
-|   Authentication: not required
-|_  Databases: _internal, plant
-
-Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
-```
-
-</details>
-
-CoDeSys V2 ランタイムの OS と製品種別を取得します。
-
-```bash
-nmap -p 2455 --script codesys-v2-discover.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000050s latency).
-
-PORT     STATE SERVICE
-2455/tcp open  CoDeSyS
-| codesys-v2-discover: 
-|   OS Name: Linux 3.16.0
-|_  Product Type: AIC-PLC-01
 
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```

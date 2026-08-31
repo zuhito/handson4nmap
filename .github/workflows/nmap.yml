@@ -12,12 +12,8 @@ jobs:
         run: bash scripts/install.sh
       - name: Build nmap
         run: bash scripts/nmap-build.sh
-      - name: Fetch codesys NSE
-        run: bash scripts/codesys-nse.sh
       - name: Build busybox
         run: bash scripts/busybox-build.sh
-      - name: Install Grafana
-        run: bash scripts/grafana-install.sh
       - name: MariaDB
         run: bash scripts/mariadb-start.sh
         env:
@@ -28,16 +24,10 @@ jobs:
         run: bash scripts/profinet-check.sh
       - name: MQTT subscribe
         run: bash tests/mqtt-subscribe.sh
-      - name: CoDeSys
-        run: bash tests/codesys.sh
       - name: SNMP
         run: bash tests/snmp.sh
       - name: NTP
         run: bash tests/ntp.sh
-      - name: Grafana
-        run: bash tests/grafana.sh
-      - name: InfluxDB
-        run: bash tests/influxdb.sh
       - name: VNC
         run: bash tests/vnc.sh
       - name: IMAP
