@@ -20,8 +20,6 @@ jobs:
         run: bash scripts/grafana-install.sh
       - name: MariaDB
         run: bash scripts/mariadb-start.sh
-      - name: Install OpenCart
-        run: bash scripts/opencart-install.sh
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Core scans

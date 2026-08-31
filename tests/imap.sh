@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-timeout 1 bash -c ': > /dev/tcp/127.0.0.1/143' 2>/dev/null || setsid nohup python3 mock_servers/imap_server.py < /dev/null > /tmp/imap.log 2>&1 &
+timeout 1 bash -c ': > /dev/tcp/127.0.0.1/143' 2>/dev/null || setsid nohup python3 scripts/imap_server.py < /dev/null > /tmp/imap.log 2>&1 &
 timeout 60 bash -c 'until : > /dev/tcp/127.0.0.1/143; do sleep 1; done' 2>/dev/null
 
 nmap -p 143 --script imap-capabilities 127.0.0.1 | tee /tmp/imap.txt

@@ -912,13 +912,13 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 
 | ファイル | 内容 |
 | --- | --- |
-| `mock_servers/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
-| `mock_servers/opcua_server_clockskew.py` | 2028-11-15 を返す OPC UA サーバ |
+| `scripts/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
+| `scripts/opcua_server_clockskew.py` | 2028-11-15 を返す OPC UA サーバ |
 | `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
-| `mock_servers/codesys_server.py` | CoDeSys V2 の識別要求に応答するサーバ |
-| `mock_servers/s7_server.py` | s7-info に応答する S7comm サーバ |
-| `mock_servers/http_server_clockskew.py` | タイトル付きのページを返し、Date をずらす HTTP サーバ |
-| `mock_servers/profinet-server.py` | PROFINET DCP に応答するサーバ(scapy 実装) |
+| `scripts/codesys_server.py` | CoDeSys V2 の識別要求に応答するサーバ |
+| `scripts/s7_server.py` | s7-info に応答する S7comm サーバ |
+| `scripts/http_server_clockskew.py` | タイトル付きのページを返し、Date をずらす HTTP サーバ |
+| `scripts/profinet-server.py` | PROFINET DCP に応答するサーバ(scapy 実装) |
 | `scripts/mosquitto-auth.conf` | 認証必須の MQTT ブローカの設定 |
 | `scripts/dnsmasq-dns.conf` | テスト用 DNS サーバの設定 |
 | `scripts/dnsmasq.conf` | テスト用 DHCP サーバの設定 |
@@ -939,10 +939,10 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
 | `tests/ntp.sh` | ntp-info の出力を検証する |
 | `tests/influxdb.sh` | influxdb.nse の出力を検証する |
-| `mock_servers/smtp_server.py` | 認証前の情報を返す SMTP サーバ |
-| `mock_servers/pop3_server.py` | 認証前の情報を返す POP3 サーバ |
-| `mock_servers/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
-| `mock_servers/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
+| `scripts/smtp_server.py` | 認証前の情報を返す SMTP サーバ |
+| `scripts/pop3_server.py` | 認証前の情報を返す POP3 サーバ |
+| `scripts/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
+| `scripts/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
 | `scripts/ssh-start.sh` | ホスト鍵を生成して sshd を起動する |
 | `tests/ssh.sh` | 22 番の応答を検証する |
 | `tests/mysql.sh` | mysql-info の出力を検証する |
