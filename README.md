@@ -34,7 +34,7 @@ nmap -p 22 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -54,7 +54,7 @@ nmap -p 80 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -75,7 +75,7 @@ nmap -p 80 --script http-title 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -97,7 +97,7 @@ nmap -p 80 --script http-headers 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -132,7 +132,7 @@ nmap -p 1883 --script mqtt-subscribe 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -163,7 +163,7 @@ nmap -p 1883 --script mqtt-subscribe --script-args "mqtt-subscribe.username=user
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -196,7 +196,7 @@ nmap -p 1883 --script mqtt-subscribe --script-args 'mqtt-subscribe.topic=aichi/l
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -223,7 +223,7 @@ nmap -p 3306 --script mysql-info 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:42 +0000
@@ -254,7 +254,7 @@ nmap -p 25 --script smtp-commands 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 08:55 +0000
@@ -278,7 +278,7 @@ nmap -p 110 --script pop3-capabilities 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:08 +0000
@@ -301,7 +301,7 @@ nmap -p 143 --script imap-capabilities 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:20 +0000
@@ -324,7 +324,7 @@ nmap -p 5900 --script vnc-info 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 12:21 +0000
@@ -350,7 +350,7 @@ nmap -p 102 --script s7-info 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -382,7 +382,7 @@ nmap -p 502 --script modbus-discover 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -409,7 +409,7 @@ nmap -p 80 --script http-date 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
@@ -433,7 +433,7 @@ nmap -p 80 --script http-date,clock-skew 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
@@ -460,7 +460,7 @@ nmap -sU -p 1194 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -482,7 +482,7 @@ nmap -sU -p 123 --script ntp-info 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
@@ -506,7 +506,7 @@ nmap -sU -p 161 --script snmp-info 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
@@ -535,7 +535,7 @@ nmap --script broadcast-dhcp-discover
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
@@ -566,7 +566,7 @@ nmap --script broadcast-dhcp-discover --script-args "broadcast-dhcp-discover.mac
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
@@ -598,7 +598,7 @@ nmap --script multicast-profinet-discovery
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
@@ -631,7 +631,7 @@ nmap -p 4840 --script opcua.nse 127.0.0.1
 ```
 
 <details>
-<summary>実行例</summary>
+<summary>Result</summary>
 
 ```
 Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 12:50 +0000
@@ -659,37 +659,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 `-oX` で XML を出力し、nmap 同梱のスタイルシートで HTML に変換します。
 
 ```bash
-nmap -p 80,502,1880,1883,4840 \
-  --script opcua.nse,http-date \
-  -oX scan.xml 127.0.0.1
+nmap -p 80  --script http-date,clock-skew -oX scan.xml 127.0.0.1
 xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 ```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 12:50 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000025s latency).
-
-PORT     STATE SERVICE
-80/tcp   open  http
-|_http-date: Wed, 15 Nov 2028 00:00:00 GMT; +2y75d11h09m45s from local time.
-502/tcp  open  mbap
-1880/tcp open  vsat-control
-1883/tcp open  mqtt
-4840/tcp open  opcua
-| opcua: 
-|   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +806d11h
-|   Application URI: urn:freeopcua:python:server
-|   Endpoint URLs: 
-|     opc.tcp://127.0.0.1:4840/freeopcua/server/
-|   Security: 
-|_    None (None), authentication: Anonymous, Certificate, UserName
-
-Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
-```
-
-</details>
