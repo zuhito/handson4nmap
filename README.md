@@ -491,96 +491,6 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
-## Custom NSE
-OPC UA サーバのエンドポイントと認証方式を取得します。
-
-```bash
-nmap -p 4840 --script opcua.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 12:50 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000073s latency).
-
-PORT     STATE SERVICE
-4840/tcp open  opcua
-| opcua: 
-|   Server time: 2028-11-15 00:00:00Z
-|   Clock skew: +806d11h
-|   Application URI: urn:freeopcua:python:server
-|   Endpoint URLs: 
-|     opc.tcp://127.0.0.1:4840/freeopcua/server/
-|   Security: 
-|_    None (None), authentication: Anonymous, Certificate, UserName
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
-Grafana のバージョンとデータベースの状態を取得します。
-
-```bash
-nmap -p 3000 --script grafana.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000048s latency).
-
-PORT     STATE SERVICE
-3000/tcp open  grafana
-| grafana: 
-|   Version: 13.2.0
-|   Build commit: f681b1359f6a
-|   Database: ok
-|_  Anonymous access: disabled
-
-Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
-```
-
-</details>
-
-認証情報を渡すと、API から組織、アカウント、データソース、統計を取得します。
-
-```bash
-nmap -p 3000 --script grafana.nse --script-args "grafana.username=admin,grafana.password=admin" 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 06:51 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000044s latency).
-
-PORT     STATE SERVICE
-3000/tcp open  grafana
-| grafana: 
-|   Version: 13.2.0
-|   Build commit: f681b1359f6a
-|   Database: ok
-|   Anonymous access: disabled
-|   Credentials: accepted
-|   Organisation: Main Org.
-|   Users: admin (Admin, admin@localhost)
-|   Data sources: plant-influx (influxdb, http://127.0.0.1:8086)
-|_  Statistics: 1 users, 0 dashboards, 1 datasources
-
-Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
-```
-
-</details>
-
 MySQL / MariaDB が接続直後に送るグリーティングから構成を取得します。
 
 ```bash
@@ -704,6 +614,96 @@ PORT     STATE SERVICE
 |_    VNC Authentication (2)
 
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+## Custom NSE
+OPC UA サーバのエンドポイントと認証方式を取得します。
+
+```bash
+nmap -p 4840 --script opcua.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 12:50 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000073s latency).
+
+PORT     STATE SERVICE
+4840/tcp open  opcua
+| opcua: 
+|   Server time: 2028-11-15 00:00:00Z
+|   Clock skew: +806d11h
+|   Application URI: urn:freeopcua:python:server
+|   Endpoint URLs: 
+|     opc.tcp://127.0.0.1:4840/freeopcua/server/
+|   Security: 
+|_    None (None), authentication: Anonymous, Certificate, UserName
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+Grafana のバージョンとデータベースの状態を取得します。
+
+```bash
+nmap -p 3000 --script grafana.nse 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000048s latency).
+
+PORT     STATE SERVICE
+3000/tcp open  grafana
+| grafana: 
+|   Version: 13.2.0
+|   Build commit: f681b1359f6a
+|   Database: ok
+|_  Anonymous access: disabled
+
+Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
+```
+
+</details>
+
+認証情報を渡すと、API から組織、アカウント、データソース、統計を取得します。
+
+```bash
+nmap -p 3000 --script grafana.nse --script-args "grafana.username=admin,grafana.password=admin" 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 06:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000044s latency).
+
+PORT     STATE SERVICE
+3000/tcp open  grafana
+| grafana: 
+|   Version: 13.2.0
+|   Build commit: f681b1359f6a
+|   Database: ok
+|   Anonymous access: disabled
+|   Credentials: accepted
+|   Organisation: Main Org.
+|   Users: admin (Admin, admin@localhost)
+|   Data sources: plant-influx (influxdb, http://127.0.0.1:8086)
+|_  Statistics: 1 users, 0 dashboards, 1 datasources
+
+Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
 ```
 
 </details>
