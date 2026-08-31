@@ -659,31 +659,25 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-IMAP サーバがログイン前に開示する情報を取得します。
+IMAP サーバが CAPABILITY で返す機能の一覧を取得します。
 
 ```bash
-nmap -p 143 --script imap.nse 127.0.0.1
+nmap -p 143 --script imap-capabilities 127.0.0.1
 ```
 
 <details>
 <summary>実行例</summary>
 
 ```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 09:20 +0000
 Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000041s latency).
+Host is up (0.000049s latency).
 
 PORT    STATE SERVICE
 143/tcp open  imap
-| imap: 
-|   Greeting: Aichi Mail IMAP4rev1 ready
-|   Capabilities: IMAP4rev1, STARTTLS, LOGINDISABLED, IDLE, NAMESPACE, UIDPLUS, ID
-|   Authentication: PLAIN, LOGIN
-|   STARTTLS: supported
-|   Plaintext login: disabled
-|_  Server ID: name Aichi Mail, version 2.1.4, os Linux, support-url https://aichi.example/support
+|_imap-capabilities: STARTTLS NAMESPACE AUTH=PLAIN UIDPLUS completed IDA0001 AUTH=LOGIN CAPABILITY LOGINDISABLED OK IMAP4rev1 IDLE
 
-Nmap done: 1 IP address (1 host up) scanned in 0.17 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
 </details>
@@ -986,7 +980,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `tests/mysql.sh` | mysql-info の出力を検証する |
 | `tests/smtp.sh` | smtp-commands の出力を検証する |
 | `tests/pop3.sh` | pop3-capabilities の出力を検証する |
-| `tests/imap.sh` | imap.nse の出力を検証する |
+| `tests/imap.sh` | imap-capabilities の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |
 | `scripts/grafana-datasource.sh` | Grafana に InfluxDB のデータソースを登録する |
 | `tests/broadcast.sh` | broadcast 系スクリプトの出力を検証する |
