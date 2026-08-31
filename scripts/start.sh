@@ -30,3 +30,4 @@ bash scripts/dhcp-start.sh
 exit 0
 setsid nohup bash scripts/influxdb-seed.sh < /dev/null > /tmp/influxdb-seed.log 2>&1 &
 bash scripts/ssh-start.sh
+setsid nohup bash scripts/grafana-datasource.sh < /dev/null > /tmp/grafana-datasource.log 2>&1 &

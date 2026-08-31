@@ -207,6 +207,38 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 
 </details>
 
+認証情報を渡すと、API から組織、アカウント、データソース、統計を取得します。
+
+```bash
+nmap -p 3000 --script grafana.nse --script-args "grafana.username=admin,grafana.password=admin" 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 06:51 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000044s latency).
+
+PORT     STATE SERVICE
+3000/tcp open  grafana
+| grafana: 
+|   Version: 13.2.0
+|   Build commit: f681b1359f6a
+|   Database: ok
+|   Anonymous access: disabled
+|   Credentials: accepted
+|   Organisation: Main Org.
+|   Users: admin (Admin, admin@localhost)
+|   Data sources: plant-influx (influxdb, http://127.0.0.1:8086)
+|_  Statistics: 1 users, 0 dashboards, 1 datasources
+
+Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
+```
+
+</details>
+
 S7comm に対応した PLC の装置情報を取得します。
 
 ```bash
@@ -1055,6 +1087,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |
+| `scripts/grafana-datasource.sh` | Grafana に InfluxDB のデータソースを登録する |
 | `tests/broadcast.sh` | broadcast 系スクリプトの出力を検証する |
 | `tests/readme.sh` | README に載るコマンドをすべて実行して確認する |
 | `tests/report.sh` | HTML レポートを生成して内容を検証する |
