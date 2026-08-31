@@ -544,26 +544,6 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
-指定した MAC アドレスへ Wake-on-LAN のマジックパケットを送ります。
-
-```bash
-nmap --script broadcast-wake-on-lan --script-args broadcast-wake-on-lan.MAC=02:fc:00:00:00:01
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 06:24 +0000
-Pre-scan script results:
-| broadcast-wake-on-lan: 
-|_  Sent WOL packet to: 02:fc:00:00:00:01
-WARNING: No targets were specified, so 0 hosts scanned.
-Nmap done: 0 IP addresses (0 hosts up) scanned in 0.08 seconds
-```
-
-</details>
-
 同一セグメントで ICMP に応答するホストを列挙します。`scripts/dhcp-start.sh` が
 用意する `veth-host` を指定すると、名前空間側のホストが応答します。
 
