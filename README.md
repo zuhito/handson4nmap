@@ -662,3 +662,8 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 nmap -p 80  --script http-date,clock-skew -oX scan.xml 127.0.0.1
 xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
 ```
+
+```bash
+nmap -sS -sU -p T:22,25,80,102,110,143,502,1883,3306,5990,U:123,161,1194 --script http-title,http-headers,http-date,mqtt-subscribe,mysql-info,smtp-commands,pop3-capabilities,imap-capabilities,vnc-info,s7-info,modbus-discover,clock-skew,ntp-info,snmp-info,broadcast-dhcp-discover,multicast-profinet-discovery -oX scan.xml 127.0.0.1
+xsltproc -o scan.html /usr/local/share/nmap/nmap.xsl scan.xml
+```
