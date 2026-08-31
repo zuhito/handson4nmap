@@ -347,32 +347,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-Modbus のスレーブIDとデバイス情報を列挙します。
-
-```bash
-nmap -p 502 --script modbus-discover 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000044s latency).
-
-PORT    STATE SERVICE
-502/tcp open  modbus
-| modbus-discover: 
-|   sid 0x1: 
-|     Slave ID data: Aichi Company-AIC-PLC-01-1.0.0\xFF
-|_    Device identification: Aichi Company AIC-PLC-01 1.0.0
-
-Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
-```
-
-</details>
-
 S7comm に対応した PLC の装置情報を取得します。
 
 ```bash
@@ -399,6 +373,32 @@ PORT    STATE SERVICE
 |   Plant Identification: Aichi Company Plant 1
 |_  Copyright: Original Aichi Company Equipment
 Service Info: Device: specialized
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+```
+
+</details>
+
+Modbus のスレーブIDとデバイス情報を列挙します。
+
+```bash
+nmap -p 502 --script modbus-discover 127.0.0.1
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:49 +0000
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000044s latency).
+
+PORT    STATE SERVICE
+502/tcp open  modbus
+| modbus-discover: 
+|   sid 0x1: 
+|     Slave ID data: Aichi Company-AIC-PLC-01-1.0.0\xFF
+|_    Device identification: Aichi Company AIC-PLC-01 1.0.0
 
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
@@ -830,52 +830,3 @@ Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
 ```
 
 </details>
-
-## ファイル
-
-| ファイル | 内容 |
-| --- | --- |
-| `scripts/modbus_server.py` | pymodbus によるModbus/TCPサーバ |
-| `scripts/opcua_server_clockskew.py` | 2028-11-15 を返す OPC UA サーバ |
-| `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
-| `scripts/codesys_server.py` | CoDeSys V2 の識別要求に応答するサーバ |
-| `scripts/s7_server.py` | s7-info に応答する S7comm サーバ |
-| `scripts/http_server_clockskew.py` | タイトル付きのページを返し、Date をずらす HTTP サーバ |
-| `scripts/profinet-server.py` | PROFINET DCP に応答するサーバ(scapy 実装) |
-| `scripts/mosquitto-auth.conf` | 認証必須の MQTT ブローカの設定 |
-| `scripts/dnsmasq-dns.conf` | テスト用 DNS サーバの設定 |
-| `scripts/dnsmasq.conf` | テスト用 DHCP サーバの設定 |
-| `scripts/dhcp-start.sh` | veth と名前空間を用意して dnsmasq を起動する |
-| `scripts/snmpd.conf` | テスト用 SNMP エージェントの設定 |
-| `scripts/mosquitto.conf` | テスト用 MQTT ブローカの設定 |
-| `scripts/grafana.ini` | テスト用 Grafana の設定 |
-| `scripts/openvpn.conf` | テスト用 OpenVPN サーバの設定 |
-| `scripts/profinet-check.sh` | PROFINET DCP の応答を検証する |
-| `scripts/nmap-build.sh` | 最新の nmap をソースから導入する |
-| `opcua.nse` | OPC UA の GetEndpoints を実行するNSEスクリプト |
-| `grafana.nse` | Grafana の情報を取得するNSEスクリプト |
-| `scripts/install.sh` | nmap / pymodbus / Node-RED の導入 |
-| `scripts/start.sh` | 各サーバの起動 |
-| `tests/mqtt-subscribe.sh` | mqtt-subscribe の出力を検証する |
-| `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
-| `tests/codesys.sh` | codesys-v2-discover の出力を検証する |
-| `tests/snmp.sh` | snmp-info と snmp-brute の出力を検証する |
-| `tests/ntp.sh` | ntp-info の出力を検証する |
-| `tests/influxdb.sh` | influxdb.nse の出力を検証する |
-| `scripts/smtp_server.py` | 認証前の情報を返す SMTP サーバ |
-| `scripts/pop3_server.py` | 認証前の情報を返す POP3 サーバ |
-| `scripts/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
-| `scripts/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
-| `scripts/ssh-start.sh` | ホスト鍵を生成して sshd を起動する |
-| `tests/ssh.sh` | 22 番の応答を検証する |
-| `tests/mysql.sh` | mysql-info の出力を検証する |
-| `tests/smtp.sh` | smtp-commands の出力を検証する |
-| `tests/pop3.sh` | pop3-capabilities の出力を検証する |
-| `tests/imap.sh` | imap-capabilities の出力を検証する |
-| `tests/vnc.sh` | vnc-info の出力を検証する |
-| `scripts/grafana-datasource.sh` | Grafana に InfluxDB のデータソースを登録する |
-| `tests/broadcast.sh` | broadcast 系スクリプトの出力を検証する |
-| `tests/readme.sh` | README に載るコマンドをすべて実行して確認する |
-| `tests/report.sh` | HTML レポートを生成して内容を検証する |
-| `tests/test.sh` | 起動とスキャン結果の検証 |
-
