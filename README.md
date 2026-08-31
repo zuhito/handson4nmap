@@ -12,7 +12,6 @@ Codespacesを開くとモックサーバが自動起動します。
 | 110 | tcp | POP3 | APOP と STLS に対応 |
 | 143 | tcp | IMAP | STARTTLS 対応、平文ログインは禁止 |
 | 161 | udp | SNMP | |
-| 199 | tcp | SMUX | snmpd が開くがハンズオンでは使わない |
 | 502 | tcp | Modbus/TCP | |
 | 1194 | udp | OpenVPN | |
 | 1880 | tcp | Node-RED | |
@@ -21,8 +20,7 @@ Codespacesを開くとモックサーバが自動起動します。
 | 3000 | tcp | Grafana | 匿名アクセスは無効 |
 | 3306 | tcp | MariaDB | |
 | 4840 | tcp | OPC UA | 常に 2028-11-15 の時刻を返す |
-| 5900 | tcp | VNC (認証なし) | デスクトップ名とサイズを公開 |
-| 5901 | tcp | VNC (VncAuth) | 認証を要求する |
+| 5900 | tcp | VNC | |
 | 8086 | tcp | InfluxDB | 認証なし、`plant` データベースを作成済み |
 | 80 | tcp | HTTP | HMI 風のページを返し、Date は常に 2028-11-15 |
 | なし | ethernet | PROFINET DCP | EtherType 0x8892 の生フレームで通信する |
