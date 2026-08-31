@@ -581,32 +581,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-DNS サーバのバージョンと再帰問い合わせの可否を取得します。
-
-```bash
-nmap -sU -p 53 --script dns.nse 127.0.0.1
-```
-
-<details>
-<summary>実行例</summary>
-
-```
-Starting Nmap 7.99SVN ( https://nmap.org ) at 2026-08-31 02:50 +0000
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000084s latency).
-
-PORT   STATE SERVICE
-53/udp open  domain
-| dns: 
-|   Version: dnsmasq-2.90
-|   Response code: NOERROR
-|_  Recursion: offered
-
-Nmap done: 1 IP address (1 host up) scanned in 0.15 seconds
-```
-
-</details>
-
 MySQL / MariaDB が接続直後に送るグリーティングから構成を取得します。
 
 ```bash
@@ -1016,7 +990,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `mock_servers/pop3_server.py` | 認証前の情報を返す POP3 サーバ |
 | `mock_servers/imap_server.py` | ログイン前の情報を返す IMAP サーバ |
 | `mock_servers/vnc_server.py` | RFB ハンドシェイクに応答する VNC サーバ |
-| `tests/dns.sh` | dns.nse の出力を検証する |
 | `scripts/ssh-start.sh` | ホスト鍵を生成して sshd を起動する |
 | `tests/ssh.sh` | 22 番の応答を検証する |
 | `tests/mysql.sh` | mysql.nse の出力を検証する |
