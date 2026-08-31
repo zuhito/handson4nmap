@@ -860,7 +860,7 @@ OPC UA サーバが返す時刻も `clock-skew` に集計されます。
 ずれが 0 秒の場合は `-vv` を付けないと表示されません。
 
 ```bash
-nmap -vv -p 4840 --script ./opcua.nse,clock-skew 127.0.0.1
+nmap -vv -p 4840 --script opcua.nse,clock-skew 127.0.0.1
 ```
 
 <details>
