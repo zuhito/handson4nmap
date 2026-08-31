@@ -472,6 +472,48 @@ WARNING: No targets were specified, so 0 hosts scanned.
 
 </details>
 
+指定した MAC アドレスへ Wake-on-LAN のマジックパケットを送ります。
+
+```bash
+nmap --script broadcast-wake-on-lan --script-args broadcast-wake-on-lan.MAC=02:fc:00:00:00:01
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 06:24 +0000
+Pre-scan script results:
+| broadcast-wake-on-lan: 
+|_  Sent WOL packet to: 02:fc:00:00:00:01
+WARNING: No targets were specified, so 0 hosts scanned.
+Nmap done: 0 IP addresses (0 hosts up) scanned in 0.08 seconds
+```
+
+</details>
+
+同一セグメントで ICMP に応答するホストを列挙します。`scripts/dhcp-start.sh` が
+用意する `veth-host` を指定すると、名前空間側のホストが応答します。
+
+```bash
+nmap -e veth-host --script broadcast-ping
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-31 06:24 +0000
+Pre-scan script results:
+| broadcast-ping: 
+|   IP: 192.168.50.1  MAC: b2:ee:e2:0e:b2:d0
+|_  Use --script-args=newtargets to add the results as targets
+WARNING: No targets were specified, so 0 hosts scanned.
+Nmap done: 0 IP addresses (0 hosts up) scanned in 3.09 seconds
+```
+
+</details>
+
 PROFINET 機器を DCP のマルチキャストで探索します。
 
 ```bash
@@ -1013,6 +1055,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 | `tests/pop3.sh` | pop3.nse の出力を検証する |
 | `tests/imap.sh` | imap.nse の出力を検証する |
 | `tests/vnc.sh` | vnc.nse の出力を検証する |
+| `tests/broadcast.sh` | broadcast 系スクリプトの出力を検証する |
 | `tests/readme.sh` | README に載るコマンドをすべて実行して確認する |
 | `tests/report.sh` | HTML レポートを生成して内容を検証する |
 | `tests/test.sh` | 起動とスキャン結果の検証 |

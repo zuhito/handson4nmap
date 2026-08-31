@@ -70,6 +70,8 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y nmap dnsmasq-base
       - name: DHCP
         run: sudo bash scripts/dhcp-check.sh
+      - name: Broadcast scripts
+        run: sudo bash tests/broadcast.sh
 
   openvpn:
     # The container has no /dev/net/tun, so OpenVPN is exercised on the runner.

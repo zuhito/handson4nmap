@@ -18,7 +18,7 @@ for line in open("README.md"):
         continue
     # The DHCP server needs a network namespace, which the container used by
     # the scan job cannot create, so scripts/dhcp-check.sh covers it instead.
-    skip = ("scanme.nmap.org" in line or "broadcast-dhcp-discover" in line)
+    skip = ("scanme.nmap.org" in line or "broadcast-" in line)
     if inside and line.startswith("nmap ") and not skip:
         print(line.rstrip().rstrip("\\"), end=" " if line.rstrip().endswith("\\") else "\n")
 PY

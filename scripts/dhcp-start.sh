@@ -23,5 +23,10 @@ ip netns exec dhcptest ip addr add 192.168.50.1/24 dev veth-ns
 ip netns exec dhcptest ip link set veth-ns up
 ip netns exec dhcptest ip link set lo up
 
+# broadcast-ping needs the peer to answer ICMP sent to the broadcast address,
+# which Linux ignores by default.
+ip netns exec dhcptest sysctl -q -w net.ipv4.icmp_echo_ignore_broadcasts=0
+
+
 setsid nohup ip netns exec dhcptest \
   dnsmasq -C "$PWD/scripts/dnsmasq.conf" --no-daemon < /dev/null > /tmp/dnsmasq.log 2>&1 &
