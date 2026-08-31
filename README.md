@@ -25,7 +25,7 @@ The mock servers start automatically when the Codespace opens.
 | 5900 | tcp | VNC |
 | none | ethernet | PROFINET DCP |
 
-# TCP Scan
+## TCP Scan
 
 Connection to the SSH server on port 22
 
@@ -396,7 +396,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 
 </details>
 
-# Clock Skew
+## Clock Skew
 Server time from the HTTP Date header (the test server always reports 2028-11-15)
 
 ```bash
@@ -447,7 +447,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
 
 </details>
 
-# UDP Scan (-sU option)
+## UDP Scan (-sU option)
 
 Connection to the OpenVPN server over UDP
 ```bash
@@ -522,7 +522,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.34 seconds
 
 </details>
 
-# Broadcast / Multicast
+## Broadcast / Multicast
 Configuration offered by the DHCP server
 
 ```bash
