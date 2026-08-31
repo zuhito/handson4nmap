@@ -9,7 +9,7 @@
         "chat.disableAIFeatures": true
       },
       "extensions": [
-        "george-alisson.html-preview-vscode"
+        "ritwickdey.LiveServer"
       ]
     }
   },
