@@ -18,6 +18,10 @@ jobs:
         run: bash scripts/busybox-build.sh
       - name: Install Grafana
         run: bash scripts/grafana-install.sh
+      - name: PHP is 8.1 or newer
+        run: php -r 'exit(PHP_VERSION_ID >= 80100 ? 0 : 1);'
+      - name: unzip is available
+        run: command -v unzip
       - name: Install OpenCart
         run: bash scripts/opencart-install.sh
         env:
