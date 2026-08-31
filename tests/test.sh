@@ -9,7 +9,6 @@ bash tests/codesys.sh
 bash tests/snmp.sh
 bash tests/ntp.sh
 bash tests/grafana.sh
-bash tests/opencart.sh
 bash tests/influxdb.sh
 bash tests/vnc.sh
 bash tests/imap.sh

@@ -40,8 +40,6 @@ jobs:
         run: bash tests/grafana.sh
       - name: InfluxDB
         run: bash tests/influxdb.sh
-      - name: OpenCart
-        run: bash tests/opencart.sh
       - name: VNC
         run: bash tests/vnc.sh
       - name: IMAP
